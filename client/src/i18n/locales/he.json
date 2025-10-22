@@ -1,0 +1,333 @@
+{
+    "nav": {
+        "home": "בית",
+        "about": "אודות",
+        "articles": "מאמרים",
+        "gallery": "גלריה",
+        "appointments": "קביעת תור",
+        "health": "הצהרת בריאות",
+        "contact": "צור קשר",
+        "login": "התחברות",
+        "admin": "ניהול",
+        "bookNow": "קבעי תור"
+    },
+    "home": {
+        "hero": {
+            "title": "הבחירה להרגיש טוב",
+            "subtitle": "רפואה משלימה, טיפול הוליסטי ורפלקסולוגיה",
+            "cta": "קבעי תור",
+            "learnMore": "קראי עוד"
+        },
+        "about": {
+            "title": "אודות ליאה",
+            "preview": "ליאה גניש היא מטפלת מוסמכת ברפואה משלימה המתמחה ברפלקסולוגיה, טיפול הוליסטי ותזונה טבעית. עם ניסיון של שנים רבות, ליאה מסייעת למטופלים להגיע לאיזון גופני ונפשי.",
+            "readMore": "קראי עוד"
+        },
+        "services": {
+            "title": "השירותים שלנו",
+            "subtitle": "מגוון רחב של טיפולים הוליסטיים מותאמים אישית",
+            "viewAll": "כל השירותים"
+        },
+        "quote": {
+            "text": "הבריאות היא העושר האמיתי, לא זהב או כסף"
+        },
+        "gallery": {
+            "title": "הקליניקה שלנו",
+            "subtitle": "מקום שלווה ונוחות לטיפול מיטבי",
+            "viewFull": "צפי בגלריה המלאה"
+        },
+        "testimonials": {
+            "title": "מה הלקוחות שלנו אומרים",
+            "subtitle": "סיפורי הצלחה והמלצות ממטופלים מרוצים"
+        },
+        "latestArticle": {
+            "title": "המאמר האחרון",
+            "subtitle": "טיפים ומידע עדכני על רפואה משלימה",
+            "readMore": "קראי עוד",
+            "viewAll": "כל המאמרים",
+            "noArticles": "אין מאמרים זמינים כרגע",
+            "checkBackSoon": "בדקי שוב בקרוב למאמרים חדשים"
+        }
+    },
+    "about": {
+        "title": "אודות ליאה גניש",
+        "subtitle": "מטפלת ברפואה משלימה",
+        "credentials": {
+            "title": "הכשרות והסמכות",
+            "items": [
+                "תעודת מטפלת ברפלקסולוגיה",
+                "תעודת מטפלת ברפואה משלימה",
+                "התמחות בטיפול הוליסטי",
+                "התמחות בתזונה טבעית"
+            ]
+        },
+        "story": {
+            "title": "הסיפור שלי",
+            "content": "ליאה גניש היא מטפלת מוסמכת ברפואה משלימה המתמחה ברפלקסולוגיה, טיפול הוליסטי ותזונה טבעית. עם ניסיון של שנים רבות בתחום, ליאה מסייעת למטופלים להגיע לאיזון גופני ונפשי מלא."
+        },
+        "approach": {
+            "title": "הגישה שלי",
+            "content": "אני מאמינה בגישה הוליסטית המתייחסת לאדם כשלם - גוף, נפש ורוח. הטיפולים שלי מותאמים אישית לכל מטופל ומטופלת, תוך התחשבות בצרכים הייחודיים ובמצב הבריאותי הנוכחי."
+        },
+        "qualifications": {
+            "title": "הכשרות והסמכות",
+            "items": [
+                "תעודת מטפלת ברפלקסולוגיה",
+                "תעודת מטפלת ברפואה משלימה",
+                "התמחות בטיפול הוליסטי",
+                "התמחות בתזונה טבעית"
+            ]
+        }
+    },
+    "articles": {
+        "title": "מאמרים",
+        "subtitle": "מידע וטיפים על רפואה משלימה",
+        "categories": {
+            "all": "הכל",
+            "nutrition": "תזונה",
+            "holistic": "הוליסטי",
+            "lifestyle": "אורח חיים",
+            "reflexology": "רפלקסולוגיה",
+            "other": "אחר"
+        },
+        "search": "חיפוש...",
+        "readMore": "קראי עוד",
+        "share": "שתפי",
+        "views": "צפיות",
+        "publishedOn": "פורסם ב",
+        "by": "על ידי",
+        "tags": "תגיות",
+        "noArticles": "לא נמצאו מאמרים",
+        "loading": "טוען מאמרים...",
+        "minRead": "דקות קריאה"
+    },
+    "appointments": {
+        "title": "קביעת תור",
+        "subtitle": "קבעי תור לטיפול מותאם אישית",
+        "selectService": "בחרי סוג טיפול",
+        "selectDate": "בחרי תאריך",
+        "selectTime": "בחרי שעה",
+        "personalDetails": "פרטים אישיים",
+        "name": "שם מלא",
+        "email": "דואר אלקטרוני",
+        "phone": "טלפון",
+        "notes": "הערות",
+        "submit": "שלחי בקשה",
+        "confirmation": "התור נקבע בהצלחה!",
+        "confirmationMessage": "קיבלת מייל אישור. נתראה ב",
+        "availableSlots": "שעות זמינות",
+        "noSlots": "אין שעות זמינות לתאריך זה",
+        "loading": "טוען שעות זמינות...",
+        "required": "שדה חובה",
+        "invalidEmail": "כתובת אימייל לא תקינה",
+        "invalidPhone": "מספר טלפון לא תקין"
+    },
+    "health": {
+        "title": "הצהרת בריאות",
+        "subtitle": "אנא מלאי את הטופס הבא לפני הטיפול",
+        "intro": "המידע שתמלאי כאן יעזור לי להתאים את הטיפול בצורה הטובה ביותר עבורך. כל המידע נשמר בצורה בטוחה ופרטית.",
+        "personalInfo": "פרטים אישיים",
+        "name": "שם מלא",
+        "email": "דואר אלקטרוני",
+        "phone": "טלפון",
+        "dateOfBirth": "תאריך לידה",
+        "medicalHistory": "היסטוריה רפואית",
+        "medicalConditions": "מצבים רפואיים",
+        "allergies": "אלרגיות",
+        "medications": "תרופות",
+        "surgeries": "ניתוחים",
+        "pregnant": "הריון",
+        "additionalInfo": "מידע נוסף",
+        "signature": "חתימה דיגיטלית",
+        "consent": "אני מאשרת שקראתי והבנתי את הטופס",
+        "submit": "שלחי הצהרה",
+        "required": "שדה חובה",
+        "success": "הצהרת הבריאות נשלחה בהצלחה!"
+    },
+    "contact": {
+        "title": "צור קשר",
+        "subtitle": "נשמח לשמוע ממך",
+        "info": "פרטי התקשרות",
+        "form": {
+            "name": "שם",
+            "email": "אימייל",
+            "subject": "נושא",
+            "message": "הודעה",
+            "send": "שלחי"
+        },
+        "hours": "שעות פעילות",
+        "location": "מיקום",
+        "phone": "טלפון",
+        "address": "כתובת",
+        "workingHours": {
+            "sunday": "ראשון",
+            "monday": "שני",
+            "tuesday": "שלישי",
+            "wednesday": "רביעי",
+            "thursday": "חמישי",
+            "friday": "שישי",
+            "saturday": "שבת",
+            "closed": "סגור"
+        },
+        "success": "ההודעה נשלחה בהצלחה!",
+        "error": "שגיאה בשליחת ההודעה"
+    },
+    "admin": {
+        "dashboard": "לוח בקרה",
+        "articles": "ניהול מאמרים",
+        "gallery": "ניהול גלריה",
+        "appointments": "ניהול תורים",
+        "health": "הצהרות בריאות",
+        "services": "ניהול שירותים",
+        "logout": "התנתקות",
+        "welcome": "ברוכה הבאה",
+        "stats": {
+            "totalAppointments": "סה\"כ תורים",
+            "pendingAppointments": "תורים ממתינים",
+            "totalArticles": "סה\"כ מאמרים",
+            "publishedArticles": "מאמרים שפורסמו"
+        }
+    },
+    "common": {
+        "loading": "טוען...",
+        "error": "שגיאה",
+        "success": "הצלחה",
+        "cancel": "ביטול",
+        "save": "שמירה",
+        "delete": "מחיקה",
+        "edit": "עריכה",
+        "add": "הוספה",
+        "back": "חזרה",
+        "next": "הבא",
+        "previous": "הקודם",
+        "close": "סגור",
+        "open": "פתח",
+        "search": "חיפוש",
+        "filter": "סינון",
+        "sort": "מיון",
+        "view": "צפייה",
+        "download": "הורדה",
+        "upload": "העלאה",
+        "select": "בחירה",
+        "all": "הכל",
+        "none": "ללא",
+        "yes": "כן",
+        "no": "לא",
+        "confirm": "אישור",
+        "warning": "אזהרה",
+        "info": "מידע",
+        "required": "שדה חובה",
+        "optional": "אופציונלי",
+        "invalid": "לא תקין",
+        "valid": "תקין",
+        "hour": "ש'",
+        "min": "דק'",
+        "views": "צפיות",
+        "readMore": "קראי עוד"
+    },
+    "footer": {
+        "about": "אודות",
+        "quickLinks": "קישורים מהירים",
+        "contact": "צור קשר",
+        "followUs": "עקבו אחרינו",
+        "privacy": "מדיניות פרטיות",
+        "terms": "תנאי שימוש",
+        "copyright": "כל הזכויות שמורות"
+    },
+    "login": {
+        "title": "התחברות",
+        "email": "אימייל",
+        "password": "סיסמה",
+        "login": "התחבר",
+        "remember": "זכור אותי",
+        "forgot": "שכחת סיסמה?",
+        "error": "שגיאה בהתחברות"
+    },
+    "errors": {
+        "pageNotFound": "העמוד לא נמצא",
+        "serverError": "שגיאת שרת",
+        "networkError": "שגיאת רשת",
+        "unauthorized": "לא מורשה",
+        "forbidden": "אסור",
+        "tryAgain": "נסי שוב",
+        "goHome": "חזרה לעמוד הבית",
+        "loginFailed": "שגיאה בהתחברות. נסי שוב."
+    },
+    "admin": {
+        "title": "ניהול",
+        "dashboard": "לוח בקרה",
+        "articles": "מאמרים",
+        "gallery": "גלריה",
+        "appointments": "תורים",
+        "health": "הצהרות בריאות",
+        "services": "שירותים",
+        "settings": "הגדרות",
+        "logout": "התנתק",
+        "login": {
+            "title": "כניסה לאזור הניהול",
+            "subtitle": "הזיני את פרטי ההתחברות שלך",
+            "email": "אימייל",
+            "password": "סיסמה",
+            "rememberMe": "זכור אותי",
+            "forgotPassword": "שכחתי סיסמה",
+            "loginButton": "התחבר",
+            "backToSite": "חזרה לאתר",
+            "errors": {
+                "emailRequired": "אימייל הוא שדה חובה",
+                "emailInvalid": "כתובת אימייל לא תקינה",
+                "passwordRequired": "סיסמה היא שדה חובה",
+                "passwordMinLength": "סיסמה חייבת להכיל לפחות 6 תווים"
+            },
+            "quotes": {
+                "quote1": {
+                    "text": "הבריאות היא העושר האמיתי",
+                    "author": "מהטמה גנדי"
+                },
+                "quote2": {
+                    "text": "טיפול הוא אומנות של דאגה",
+                    "author": "היפוקרטס"
+                },
+                "quote3": {
+                    "text": "הגוף מחזיק את הציון, אך הרוח היא המוזיקה",
+                    "author": "ג'ורג' סנטיאנה"
+                }
+            }
+        },
+        "sidebar": {
+            "dashboard": "לוח בקרה",
+            "articles": "מאמרים",
+            "allArticles": "כל המאמרים",
+            "newArticle": "מאמר חדש",
+            "gallery": "גלריה",
+            "appointments": "תורים",
+            "healthDeclarations": "הצהרות בריאות",
+            "services": "שירותים",
+            "settings": "הגדרות",
+            "logout": "התנתק"
+        },
+        "header": {
+            "dashboard": "לוח בקרה",
+            "notifications": "התראות",
+            "profile": "פרופיל",
+            "settings": "הגדרות",
+            "logout": "התנתק"
+        },
+        "dashboard": {
+            "title": "לוח בקרה",
+            "subtitle": "ברוכים הבאים לאזור הניהול",
+            "totalAppointments": "סה\"כ תורים",
+            "pendingAppointments": "תורים ממתינים",
+            "totalArticles": "סה\"כ מאמרים",
+            "healthDeclarations": "הצהרות בריאות",
+            "appointmentsChart": "גרף תורים",
+            "servicesDistribution": "התפלגות שירותים",
+            "recentActivity": "פעילות אחרונה",
+            "viewAll": "צפה בהכל",
+            "quickActions": "פעולות מהירות",
+            "newArticle": "מאמר חדש",
+            "uploadImage": "העלה תמונה",
+            "newAppointment": "תור חדש",
+            "viewHealth": "הצהרות בריאות"
+        }
+    }
+}

@@ -1,0 +1,334 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "articles": "Articles",
+        "gallery": "Gallery",
+        "appointments": "Book Appointment",
+        "health": "Health Declaration",
+        "contact": "Contact",
+        "login": "Login",
+        "admin": "Admin",
+        "bookNow": "Book Now"
+    },
+    "home": {
+        "hero": {
+            "title": "The Choice to Feel Good",
+            "subtitle": "Complementary Medicine, Holistic Treatment & Reflexology",
+            "cta": "Book Appointment",
+            "learnMore": "Learn More"
+        },
+        "about": {
+            "title": "About Leah",
+            "preview": "Leah Genish is a certified complementary medicine practitioner specializing in reflexology, holistic treatment, and natural nutrition. With years of experience, Leah helps patients achieve physical and mental balance.",
+            "readMore": "Read More"
+        },
+        "services": {
+            "title": "Our Services",
+            "subtitle": "A wide range of personalized holistic treatments",
+            "viewAll": "All Services"
+        },
+        "quote": {
+            "text": "Health is the real wealth, not gold or silver"
+        },
+        "gallery": {
+            "title": "Our Clinic",
+            "subtitle": "A place of tranquility and comfort for optimal treatment",
+            "viewFull": "View Full Gallery"
+        },
+        "testimonials": {
+            "title": "What Our Clients Say",
+            "subtitle": "Success stories and recommendations from satisfied patients"
+        },
+        "latestArticle": {
+            "title": "Latest Article",
+            "subtitle": "Tips and updated information about complementary medicine",
+            "readMore": "Read More",
+            "viewAll": "All Articles",
+            "noArticles": "No articles available at the moment",
+            "checkBackSoon": "Check back soon for new articles"
+        }
+    },
+    "about": {
+        "title": "About Leah Genish",
+        "subtitle": "Complementary Medicine Practitioner",
+        "credentials": {
+            "title": "Qualifications & Certifications",
+            "items": [
+                "Certified Reflexology Practitioner",
+                "Certified Complementary Medicine Practitioner",
+                "Specialization in Holistic Treatment",
+                "Specialization in Natural Nutrition"
+            ]
+        },
+        "story": {
+            "title": "My Story",
+            "content": "Leah Genish is a certified complementary medicine practitioner specializing in reflexology, holistic treatment, and natural nutrition. With years of experience in the field, Leah helps patients achieve complete physical and mental balance."
+        },
+        "approach": {
+            "title": "My Approach",
+            "content": "I believe in a holistic approach that treats the person as a whole - body, mind, and spirit. My treatments are personalized for each patient, taking into account unique needs and current health status."
+        },
+        "qualifications": {
+            "title": "Qualifications & Certifications",
+            "items": [
+                "Certified Reflexology Practitioner",
+                "Certified Complementary Medicine Practitioner",
+                "Specialization in Holistic Treatment",
+                "Specialization in Natural Nutrition"
+            ]
+        }
+    },
+    "articles": {
+        "title": "Articles",
+        "subtitle": "Information and tips about complementary medicine",
+        "categories": {
+            "all": "All",
+            "nutrition": "Nutrition",
+            "holistic": "Holistic",
+            "lifestyle": "Lifestyle",
+            "reflexology": "Reflexology",
+            "other": "Other"
+        },
+        "search": "Search...",
+        "readMore": "Read More",
+        "share": "Share",
+        "views": "Views",
+        "publishedOn": "Published on",
+        "by": "by",
+        "tags": "Tags",
+        "noArticles": "No articles found",
+        "loading": "Loading files...",
+        "minRead": "min read",
+        "views": "views"
+    },
+    "appointments": {
+        "title": "Book Appointment",
+        "subtitle": "Book an appointment for personalized treatment",
+        "selectService": "Select Treatment Type",
+        "selectDate": "Select Date",
+        "selectTime": "Select Time",
+        "personalDetails": "Personal Details",
+        "name": "Full Name",
+        "email": "Email",
+        "phone": "Phone",
+        "notes": "Notes",
+        "submit": "Submit Request",
+        "confirmation": "Appointment booked successfully!",
+        "confirmationMessage": "You received a confirmation email. See you on",
+        "availableSlots": "Available Times",
+        "noSlots": "No available times for this date",
+        "loading": "Loading available times...",
+        "required": "Required field",
+        "invalidEmail": "Invalid email address",
+        "invalidPhone": "Invalid phone number"
+    },
+    "health": {
+        "title": "Health Declaration",
+        "subtitle": "Please fill out the form below before treatment",
+        "intro": "The information you provide here will help me tailor the best treatment for you. All information is stored safely and privately.",
+        "personalInfo": "Personal Information",
+        "name": "Full Name",
+        "email": "Email",
+        "phone": "Phone",
+        "dateOfBirth": "Date of Birth",
+        "medicalHistory": "Medical History",
+        "medicalConditions": "Medical Conditions",
+        "allergies": "Allergies",
+        "medications": "Medications",
+        "surgeries": "Surgeries",
+        "pregnant": "Pregnant",
+        "additionalInfo": "Additional Information",
+        "signature": "Digital Signature",
+        "consent": "I confirm that I have read and understood the form",
+        "submit": "Submit Declaration",
+        "required": "Required field",
+        "success": "Health declaration submitted successfully!"
+    },
+    "contact": {
+        "title": "Contact",
+        "subtitle": "We'd love to hear from you",
+        "info": "Contact Information",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "subject": "Subject",
+            "message": "Message",
+            "send": "Send"
+        },
+        "hours": "Working Hours",
+        "location": "Location",
+        "phone": "Phone",
+        "address": "Address",
+        "workingHours": {
+            "sunday": "Sunday",
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "closed": "Closed"
+        },
+        "success": "Message sent successfully!",
+        "error": "Error sending message"
+    },
+    "admin": {
+        "dashboard": "Dashboard",
+        "articles": "Manage Articles",
+        "gallery": "Manage Gallery",
+        "appointments": "Manage Appointments",
+        "health": "Health Declarations",
+        "services": "Manage Services",
+        "logout": "Logout",
+        "welcome": "Welcome",
+        "stats": {
+            "totalAppointments": "Total Appointments",
+            "pendingAppointments": "Pending Appointments",
+            "totalArticles": "Total Articles",
+            "publishedArticles": "Published Articles"
+        }
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "close": "Close",
+        "open": "Open",
+        "search": "Search",
+        "filter": "Filter",
+        "sort": "Sort",
+        "view": "View",
+        "download": "Download",
+        "upload": "Upload",
+        "select": "Select",
+        "all": "All",
+        "none": "None",
+        "yes": "Yes",
+        "no": "No",
+        "confirm": "Confirm",
+        "warning": "Warning",
+        "info": "Information",
+        "required": "Required field",
+        "optional": "Optional",
+        "invalid": "Invalid",
+        "valid": "Valid",
+        "hour": "hr",
+        "min": "min",
+        "views": "views",
+        "readMore": "Read More"
+    },
+    "footer": {
+        "about": "About",
+        "quickLinks": "Quick Links",
+        "contact": "Contact",
+        "followUs": "Follow Us",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Use",
+        "copyright": "All rights reserved"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login",
+        "remember": "Remember me",
+        "forgot": "Forgot password?",
+        "error": "Login error"
+    },
+    "errors": {
+        "pageNotFound": "Page not found",
+        "serverError": "Server error",
+        "networkError": "Network error",
+        "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "tryAgain": "Try again",
+        "goHome": "Go to home page",
+        "loginFailed": "Login failed. Please try again."
+    },
+    "admin": {
+        "title": "Admin",
+        "dashboard": "Dashboard",
+        "articles": "Articles",
+        "gallery": "Gallery",
+        "appointments": "Appointments",
+        "health": "Health Declarations",
+        "services": "Services",
+        "settings": "Settings",
+        "logout": "Logout",
+        "login": {
+            "title": "Admin Login",
+            "subtitle": "Enter your login credentials",
+            "email": "Email",
+            "password": "Password",
+            "rememberMe": "Remember me",
+            "forgotPassword": "Forgot password",
+            "loginButton": "Login",
+            "backToSite": "Back to site",
+            "errors": {
+                "emailRequired": "Email is required",
+                "emailInvalid": "Invalid email address",
+                "passwordRequired": "Password is required",
+                "passwordMinLength": "Password must be at least 6 characters"
+            },
+            "quotes": {
+                "quote1": {
+                    "text": "Health is the real wealth",
+                    "author": "Mahatma Gandhi"
+                },
+                "quote2": {
+                    "text": "Healing is an art of caring",
+                    "author": "Hippocrates"
+                },
+                "quote3": {
+                    "text": "The body holds the score, but the spirit is the music",
+                    "author": "George Santayana"
+                }
+            }
+        },
+        "sidebar": {
+            "dashboard": "Dashboard",
+            "articles": "Articles",
+            "allArticles": "All Articles",
+            "newArticle": "New Article",
+            "gallery": "Gallery",
+            "appointments": "Appointments",
+            "healthDeclarations": "Health Declarations",
+            "services": "Services",
+            "settings": "Settings",
+            "logout": "Logout"
+        },
+        "header": {
+            "dashboard": "Dashboard",
+            "notifications": "Notifications",
+            "profile": "Profile",
+            "settings": "Settings",
+            "logout": "Logout"
+        },
+        "dashboard": {
+            "title": "Dashboard",
+            "subtitle": "Welcome to the admin panel",
+            "totalAppointments": "Total Appointments",
+            "pendingAppointments": "Pending Appointments",
+            "totalArticles": "Total Articles",
+            "healthDeclarations": "Health Declarations",
+            "appointmentsChart": "Appointments Chart",
+            "servicesDistribution": "Services Distribution",
+            "recentActivity": "Recent Activity",
+            "viewAll": "View All",
+            "quickActions": "Quick Actions",
+            "newArticle": "New Article",
+            "uploadImage": "Upload Image",
+            "newAppointment": "New Appointment",
+            "viewHealth": "View Health"
+        }
+    }
+}
