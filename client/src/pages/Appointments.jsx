@@ -163,34 +163,42 @@ const Appointments = () => {
                 </motion.div>
 
                 {/* Calendly Widget */}
-                {bookingMethod === 'calendly' && calendlyUrl && (
+                {bookingMethod === 'calendly' && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <Card sx={{ p: 0, borderRadius: 0 }}>
-                            <Box sx={{ width: '100%', height: '800px' }}>
-                                <InlineWidget
-                                    url={calendlyUrl}
-                                    styles={{
-                                        height: '100%',
-                                        minWidth: '320px'
-                                    }}
-                                    pageSettings={{
-                                        backgroundColor: 'ffffff',
-                                        hideEventTypeDetails: false,
-                                        hideLandingPageDetails: false,
-                                        primaryColor: 'D4B5B0',
-                                        textColor: '1A1A1A'
-                                    }}
-                                    prefill={{
-                                        name: formData.clientName || '',
-                                        email: formData.clientEmail || ''
-                                    }}
-                                />
-                            </Box>
-                        </Card>
+                        {calendlyUrl ? (
+                            <Card sx={{ p: 0, borderRadius: 0 }}>
+                                <Box sx={{ width: '100%', height: '800px' }}>
+                                    <InlineWidget
+                                        url={calendlyUrl}
+                                        styles={{
+                                            height: '100%',
+                                            minWidth: '320px'
+                                        }}
+                                        pageSettings={{
+                                            backgroundColor: 'ffffff',
+                                            hideEventTypeDetails: false,
+                                            hideLandingPageDetails: false,
+                                            primaryColor: 'D4B5B0',
+                                            textColor: '1A1A1A'
+                                        }}
+                                        prefill={{
+                                            name: formData.clientName || '',
+                                            email: formData.clientEmail || ''
+                                        }}
+                                    />
+                                </Box>
+                            </Card>
+                        ) : (
+                            <Card sx={{ p: 4, borderRadius: 0 }}>
+                                <Alert severity="info">
+                                    Calendly integration לא הוגדר עדיין. אנא השתמשי בטופס הפנימי או צרי קשר טלפונית.
+                                </Alert>
+                            </Card>
+                        )}
                     </motion.div>
                 )}
 
