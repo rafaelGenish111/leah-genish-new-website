@@ -132,6 +132,24 @@ const AdminCalendly = () => {
         { title: 'זמינות דינמית', desc: 'ניהול שעות עבודה וחריגות', available: true }
     ];
 
+    // Auto-persist to localStorage on changes (debounced)
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            try {
+                const trimmedUrl = (config.calendlyUrl || '').trim();
+                localStorage.setItem('calendly_url', trimmedUrl);
+                localStorage.setItem('calendly_enabled', String(config.enabled));
+                localStorage.setItem('calendly_primary_color', config.primaryColor);
+                localStorage.setItem('calendly_text_color', config.textColor);
+                localStorage.setItem('calendly_background_color', config.backgroundColor);
+                window.dispatchEvent(new CustomEvent('calendly-config-updated'));
+            } catch (_) {
+                // ignore
+            }
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [config.enabled, config.calendlyUrl, config.primaryColor, config.textColor, config.backgroundColor]);
+
     return (
         <Box>
             {/* Header */}
