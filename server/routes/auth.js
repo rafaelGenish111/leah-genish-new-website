@@ -43,6 +43,9 @@ const registerLimiter = rateLimit({
 router.post('/login', loginLimiter, validateLogin, handleValidationErrors, login);
 router.post('/logout', logout);
 
+// First admin registration (no auth required if no users exist)
+router.post('/register-first-admin', registerLimiter, validateRegister, handleValidationErrors, register);
+
 // Protected routes (require authentication)
 router.get('/me', auth, getMe);
 router.put('/update-password', auth, validatePasswordUpdate, handleValidationErrors, updatePassword);
