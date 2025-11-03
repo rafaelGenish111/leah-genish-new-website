@@ -84,15 +84,15 @@ const colors = {
 const theme = createTheme({
     palette: {
         primary: {
-            main: colors.primary,
-            light: '#E8D5D2',
-            dark: '#B89B97',
+            main: colors.primary.main,
+            light: colors.primary.light,
+            dark: colors.primary.dark,
             contrastText: '#ffffff'
         },
         secondary: {
-            main: colors.secondary,
-            light: '#A69A99',
-            dark: '#6B5E5D',
+            main: colors.secondary.main,
+            light: colors.secondary.light,
+            dark: colors.secondary.dark,
             contrastText: '#ffffff'
         },
         background: {
@@ -227,17 +227,17 @@ const theme = createTheme({
                     }
                 },
                 contained: {
-                    backgroundColor: colors.primaryDarker, // Better contrast
+                    backgroundColor: colors.primary.dark,
                     color: '#FFFFFF',
                     '&:hover': {
                         backgroundColor: '#B89B97'
                     }
                 },
                 outlined: {
-                    borderColor: colors.primaryDarker,
-                    color: colors.primaryDarker,
+                    borderColor: colors.primary.dark,
+                    color: colors.primary.dark,
                     '&:hover': {
-                        borderColor: colors.primaryDarker,
+                        borderColor: colors.primary.dark,
                         backgroundColor: 'rgba(212, 181, 176, 0.1)'
                     }
                 }
@@ -265,10 +265,10 @@ const theme = createTheme({
                             borderColor: '#E0E0E0'
                         },
                         '&:hover fieldset': {
-                            borderColor: colors.primary
+                            borderColor: colors.primary.main
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: colors.primary
+                            borderColor: colors.primary.main
                         }
                     }
                 }
@@ -293,7 +293,7 @@ const theme = createTheme({
             styleOverrides: {
                 paper: {
                     backgroundColor: colors.background.paper,
-                    borderLeft: `1px solid ${colors.primary}20`
+                    borderLeft: `1px solid ${colors.primary.main}20`
                 }
             }
         },
@@ -301,9 +301,9 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 20,
-                    backgroundColor: `${colors.primary}20`,
-                    color: colors.primary,
-                    border: `1px solid ${colors.primary}40`
+                    backgroundColor: `${colors.primary.main}20`,
+                    color: colors.primary.main,
+                    border: `1px solid ${colors.primary.main}40`
                 }
             }
         },
