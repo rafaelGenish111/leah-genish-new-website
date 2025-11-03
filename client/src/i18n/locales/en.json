@@ -233,7 +233,25 @@
         "followUs": "Follow Us",
         "privacy": "Privacy Policy",
         "terms": "Terms of Use",
+        "accessibility": "Accessibility Statement",
         "copyright": "All rights reserved"
+    },
+    "accessibility": {
+        "title": "Accessibility Statement",
+        "commitment": "This website is committed to providing accessible service to all users, including people with disabilities.",
+        "compliance": "Level of Compliance",
+        "complianceText": "The website conforms to level AA of the WCAG 2.0 standard (Web Content Accessibility Guidelines).",
+        "features": "Accessibility Features",
+        "feature1": "Full keyboard navigation",
+        "feature2": "Screen reader support",
+        "feature3": "Adjusted color contrast",
+        "feature4": "Resizable font sizes",
+        "feature5": "Alt tags for all images",
+        "reportTitle": "Report Accessibility Issues",
+        "reportText": "If you encountered an accessibility issue on the website, please contact:",
+        "email": "Email:",
+        "phone": "Phone:",
+        "lastUpdated": "Last Updated:"
     },
     "login": {
         "title": "Login",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -70,6 +70,17 @@ const Navbar = () => {
         changeLanguage(lang);
         handleLanguageClose();
     };
+
+    // Keyboard trap prevention - ESC closes drawer
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && mobileOpen) {
+                handleDrawerToggle();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [mobileOpen]);
 
     // Mobile Drawer
     const drawer = (
@@ -162,7 +173,8 @@ const Navbar = () => {
     return (
         <>
             <AppBar
-                component={motion.header}
+                component="header"
+                role="banner"
                 position="fixed"
                 elevation={0}
                 sx={{
@@ -173,21 +185,22 @@ const Navbar = () => {
                     boxShadow: trigger
                         ? '0 2px 20px rgba(0, 0, 0, 0.05)'
                         : 'none',
-                    transition: 'all 0.3s ease-in-out',
+                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     borderBottom: trigger
                         ? '1px solid rgba(212, 181, 176, 0.1)'
                         : 'none'
                 }}
             >
                 <Container maxWidth="xl">
-                    <Toolbar
-                        sx={{
-                            justifyContent: 'space-between',
-                            py: 1.5,
-                            px: { xs: 2, sm: 4 },
-                            minHeight: '64px !important'
-                        }}
-                    >
+                    <nav role="navigation" aria-label="תפריט ראשי">
+                        <Toolbar
+                            sx={{
+                                justifyContent: 'space-between',
+                                py: 1.5,
+                                px: { xs: 2, sm: 4 },
+                                minHeight: '64px !important'
+                            }}
+                        >
                         {/* Logo */}
                         <motion.div
                             whileHover={{ scale: 1.05 }}
@@ -201,7 +214,7 @@ const Navbar = () => {
                                     alignItems: 'center',
                                     gap: 1.5,
                                     textDecoration: 'none',
-                                    transition: 'all 0.3s ease',
+                                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                     cursor: 'pointer'
                                 }}
                             >
@@ -211,7 +224,7 @@ const Navbar = () => {
                                         scale: trigger ? 1 : [1, 1.05, 1]
                                     }}
                                     transition={{
-                                        duration: trigger ? 0.3 : 2,
+                                        duration: trigger ? 0.5 : 2,
                                         repeat: trigger ? 0 : Infinity,
                                         repeatDelay: 3
                                     }}
@@ -220,7 +233,7 @@ const Navbar = () => {
                                         sx={{
                                             fontSize: trigger ? 35 : 40,
                                             color: trigger ? 'primary.main' : 'white',
-                                            transition: 'all 0.3s ease'
+                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                                         }}
                                     />
                                 </motion.div>
@@ -236,7 +249,7 @@ const Navbar = () => {
                                             color: trigger ? 'text.primary' : 'white',
                                             letterSpacing: 1,
                                             fontFamily: '"Cormorant Garamond", serif',
-                                            transition: 'all 0.3s ease',
+                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                             display: { xs: 'none', sm: 'block' }
                                         }}
                                     >
@@ -271,7 +284,7 @@ const Navbar = () => {
                                                     : trigger
                                                         ? '#2C2C2C'
                                                         : 'rgba(255, 255, 255, 0.95)',
-                                                transition: 'color 0.3s ease',
+                                                transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 cursor: 'pointer',
                                                 textShadow: trigger ? 'none' : '0 1px 2px rgba(0,0,0,0.3)',
                                                 '&:hover': {
@@ -286,7 +299,7 @@ const Navbar = () => {
                                                     width: '80%',
                                                     height: 2,
                                                     bgcolor: 'primary.main',
-                                                    transition: 'transform 0.3s ease',
+                                                    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                                     transformOrigin: 'center'
                                                 },
                                                 '&:hover::after': {
@@ -327,7 +340,7 @@ const Navbar = () => {
                                             fontWeight: 500,
                                             textTransform: 'none',
                                             boxShadow: '0 3px 12px rgba(212, 181, 176, 0.3)',
-                                            transition: 'all 0.3s ease',
+                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                             position: 'relative',
                                             overflow: 'hidden',
                                             minHeight: '40px',
@@ -340,7 +353,7 @@ const Navbar = () => {
                                                 width: '100%',
                                                 height: '100%',
                                                 background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                                                transition: 'left 0.5s'
+                                                transition: 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
                                             },
                                             '&:hover': {
                                                 background: 'linear-gradient(135deg, #C9A9A4 0%, #D4B5B0 100%)',
@@ -373,7 +386,7 @@ const Navbar = () => {
                                             color: trigger
                                                 ? '#2C2C2C'
                                                 : 'rgba(255, 255, 255, 0.95)',
-                                            transition: 'all 0.3s ease',
+                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                             borderRadius: '50%',
                                             width: 36,
                                             height: 36,
@@ -503,7 +516,8 @@ const Navbar = () => {
                                 </motion.div>
                             </Box>
                         )}
-                    </Toolbar>
+                        </Toolbar>
+                    </nav>
                 </Container>
             </AppBar>
 
@@ -567,7 +581,8 @@ const Navbar = () => {
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 ModalProps={{
-                    keepMounted: true // Better mobile performance
+                    keepMounted: true, // Better mobile performance
+                    disableRestoreFocus: false // Return focus to original element
                 }}
                 PaperProps={{
                     sx: {

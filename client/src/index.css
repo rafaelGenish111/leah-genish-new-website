@@ -7,21 +7,28 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px; /* Base font size */
+}
+
+/* Max width to prevent horizontal scrolling on large screens */
+* {
+    max-width: 100%;
 }
 
 body {
-    font-family: 'Heebo', 'Assistant', sans-serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     direction: rtl;
     text-align: right;
     line-height: 1.6;
-    color: #333;
+    color: #2C2C2C;
     background-color: #ffffff;
+    font-size: 1rem;
 }
 
 body[dir="ltr"] {
     direction: ltr;
     text-align: left;
-    font-family: 'Montserrat', 'Cormorant Garamond', serif;
+    font-family: 'Lora', 'Crimson Text', serif;
 }
 
 /* Scrollbar styling */
@@ -53,10 +60,16 @@ body[dir="ltr"] {
     color: white;
 }
 
-/* Focus styles */
-*:focus {
-    outline: 2px solid #D4B5B0;
-    outline-offset: 2px;
+/* Focus styles - WCAG compliant */
+*:focus-visible {
+    outline: 3px solid #D4B5B0;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Remove outline only when not using keyboard */
+*:focus:not(:focus-visible) {
+    outline: none;
 }
 
 /* Utility classes */
@@ -80,15 +93,15 @@ body[dir="ltr"] {
     direction: ltr;
 }
 
-/* Animation classes */
+/* Animation classes - Slower and smoother */
 .fade-in {
-    animation: fadeIn 0.5s ease-in;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
 
     to {
@@ -150,6 +163,46 @@ body[dir="ltr"] {
     }
 }
 
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 9999;
+    padding: 1rem 2rem;
+    background: #D4B5B0;
+    color: white;
+    text-decoration: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.skip-link:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+}
+
+/* Safe pulse animation - no seizure risk */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.pulse-safe {
+    animation: pulse 2s ease-in-out infinite; /* 0.5Hz - safe */
+}
+
 /* Responsive utilities */
 @media (max-width: 768px) {
     .mobile-hidden {
@@ -160,5 +213,12 @@ body[dir="ltr"] {
 @media (min-width: 769px) {
     .desktop-hidden {
         display: none !important;
+    }
+}
+
+/* Support for 200% zoom */
+@media (min-width: 1280px) {
+    .container {
+        max-width: min(1200px, 90vw);
     }
 }

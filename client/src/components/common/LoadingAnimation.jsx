@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Spa } from '@mui/icons-material';
 
 const LoadingAnimation = () => {
+    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
     return (
         <Box
             sx={{
@@ -14,19 +16,26 @@ const LoadingAnimation = () => {
                 flexDirection: 'column',
                 backgroundColor: '#FAF5F3'
             }}
+            aria-label="טוען..."
+            role="status"
         >
             <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                animate={prefersReducedMotion ? {} : { rotate: 360 }}
+                transition={{ 
+                    duration: prefersReducedMotion ? 0.01 : 3, 
+                    repeat: Infinity, 
+                    ease: "linear" 
+                }}
                 style={{ marginBottom: '2rem' }}
+                aria-hidden="true"
             >
                 <Spa sx={{ fontSize: 60, color: '#D4B5B0' }} />
             </motion.div>
 
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: prefersReducedMotion ? 0.01 : 0.8 }}
             >
                 <Typography
                     variant="h6"

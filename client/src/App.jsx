@@ -12,6 +12,7 @@ import Footer from './components/common/Footer.jsx';
 import Loading from './components/common/Loading.jsx';
 import LoadingAnimation from './components/common/LoadingAnimation.jsx';
 import ErrorBoundary from './components/common/ErrorBoundary.jsx';
+import SkipLink from './components/common/SkipLink.jsx';
 
 // Import pages
 import Home from './pages/Home.jsx';
@@ -22,6 +23,7 @@ import Gallery from './pages/Gallery.jsx';
 import Appointments from './pages/Appointments.jsx';
 import HealthDeclaration from './pages/HealthDeclaration.jsx';
 import Contact from './pages/Contact.jsx';
+import Accessibility from './pages/Accessibility.jsx';
 import Login from './pages/Login.jsx';
 
 // Import admin pages
@@ -48,15 +50,22 @@ function AppContent() {
     const { language } = useLanguage();
     const currentTheme = language === 'en' ? englishTheme : theme;
 
+    // Update document language and direction
+    useEffect(() => {
+        document.documentElement.lang = language;
+        document.documentElement.dir = language === 'he' ? 'rtl' : 'ltr';
+    }, [language]);
+
     return (
         <ThemeProvider theme={currentTheme}>
             <CssBaseline />
             <ErrorBoundary>
                 <Router>
-                    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} lang={language}>
+                        <SkipLink />
                         <Navbar />
 
-                        <main style={{ flex: 1 }}>
+                        <main id="main-content" role="main" tabIndex="-1" style={{ flex: 1 }}>
                             <Routes>
                                 {/* Public routes */}
                                 <Route path="/" element={<Home />} />
@@ -67,6 +76,7 @@ function AppContent() {
                                 <Route path="/appointments" element={<Appointments />} />
                                 <Route path="/health-declaration" element={<HealthDeclaration />} />
                                 <Route path="/contact" element={<Contact />} />
+                                <Route path="/accessibility" element={<Accessibility />} />
                                 <Route path="/login" element={<Login />} />
 
                                 {/* Admin Login */}

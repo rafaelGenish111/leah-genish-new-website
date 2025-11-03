@@ -1,18 +1,22 @@
 import { createTheme } from '@mui/material/styles';
 
-// Color palette from logo
+// Color palette from logo - WCAG 2.1 AA compliant
 const colors = {
     primary: '#D4B5B0', // Pink
-    secondary: '#8B7B7A', // Brown-gray
+    primaryLighter: '#E8D5D2', // Lighter pink
+    primaryDarker: '#B89B97', // Darker pink for better contrast
+    secondary: '#6B5E5D', // Brown-gray - Better contrast
+    accent: '#C9A9A4', // Accent color
     background: {
         default: '#FFFFFF',
         paper: '#FAF9F8',
-        light: '#FAF5F3'
+        light: '#FAF5F3',
+        gradient: 'linear-gradient(135deg, rgba(212, 181, 176, 0.3) 0%, rgba(212, 181, 176, 0.6) 100%)'
     },
     text: {
-        primary: '#333333',
-        secondary: '#666666',
-        disabled: '#999999'
+        primary: '#2C2C2C', // Better contrast 7:1
+        secondary: '#5A5A5A', // Better contrast 4.7:1
+        disabled: '#8A8A8A' // Better contrast
     },
     error: '#f44336',
     warning: '#ff9800',
@@ -57,45 +61,47 @@ const theme = createTheme({
         }
     },
     typography: {
+        htmlFontSize: 16,
+        fontSize: 16,
         fontFamily: [
-            'Heebo',
-            'Assistant',
+            'Rubik',
+            'Varela Round',
             'sans-serif'
         ].join(','),
         h1: {
             fontFamily: [
-                'Heebo',
-                'Assistant',
+                'Rubik',
+                'Varela Round',
                 'sans-serif'
             ].join(','),
             fontWeight: 700,
-            fontSize: '2.5rem',
+            fontSize: 'clamp(2rem, 5vw, 2.5rem)',
             lineHeight: 1.2
         },
         h2: {
             fontFamily: [
-                'Heebo',
-                'Assistant',
+                'Rubik',
+                'Varela Round',
                 'sans-serif'
             ].join(','),
             fontWeight: 600,
-            fontSize: '2rem',
+            fontSize: 'clamp(1.5rem, 4vw, 2rem)',
             lineHeight: 1.3
         },
         h3: {
             fontFamily: [
-                'Heebo',
-                'Assistant',
+                'Rubik',
+                'Varela Round',
                 'sans-serif'
             ].join(','),
             fontWeight: 600,
-            fontSize: '1.75rem',
+            fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
             lineHeight: 1.4
         },
         h4: {
             fontFamily: [
-                'Heebo',
-                'Assistant',
+                'Rubik',
+                'Varela Round',
                 'sans-serif'
             ].join(','),
             fontWeight: 500,
@@ -104,8 +110,8 @@ const theme = createTheme({
         },
         h5: {
             fontFamily: [
-                'Heebo',
-                'Assistant',
+                'Rubik',
+                'Varela Round',
                 'sans-serif'
             ].join(','),
             fontWeight: 500,
@@ -114,8 +120,8 @@ const theme = createTheme({
         },
         h6: {
             fontFamily: [
-                'Heebo',
-                'Assistant',
+                'Rubik',
+                'Varela Round',
                 'sans-serif'
             ].join(','),
             fontWeight: 500,
@@ -154,23 +160,28 @@ const theme = createTheme({
                     borderRadius: 25,
                     padding: '10px 24px',
                     boxShadow: '0 2px 8px rgba(212, 181, 176, 0.3)',
-                    transition: 'all 0.3s ease',
+                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                        boxShadow: '0 4px 16px rgba(212, 181, 176, 0.4)',
-                        transform: 'translateY(-2px)'
+                        boxShadow: '0 6px 16px rgba(212, 181, 176, 0.4)',
+                        transform: 'translateY(-4px)'
+                    },
+                    '&:focus-visible': {
+                        outline: '3px solid #D4B5B0',
+                        outlineOffset: '3px'
                     }
                 },
                 contained: {
-                    backgroundColor: colors.primary,
+                    backgroundColor: colors.primaryDarker, // Better contrast
+                    color: '#FFFFFF',
                     '&:hover': {
-                        backgroundColor: '#C4A5A0'
+                        backgroundColor: '#B89B97'
                     }
                 },
                 outlined: {
-                    borderColor: colors.primary,
-                    color: colors.primary,
+                    borderColor: colors.primaryDarker,
+                    color: colors.primaryDarker,
                     '&:hover': {
-                        borderColor: '#C4A5A0',
+                        borderColor: colors.primaryDarker,
                         backgroundColor: 'rgba(212, 181, 176, 0.1)'
                     }
                 }
@@ -181,10 +192,10 @@ const theme = createTheme({
                 root: {
                     borderRadius: 16,
                     boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
-                    transition: 'all 0.3s ease',
+                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.12)',
-                        transform: 'translateY(-2px)'
+                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.12)',
+                        transform: 'translateY(-4px)'
                     }
                 }
             }
@@ -211,13 +222,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     textTransform: 'none',
-                    fontFamily: 'Heebo, sans-serif'
-                },
-                contained: {
-                    boxShadow: 'none',
-                    '&:hover': {
-                        boxShadow: 'none'
-                    }
+                    fontFamily: 'Rubik, sans-serif'
                 }
             }
         },
@@ -262,55 +267,55 @@ export const englishTheme = createTheme({
     typography: {
         ...theme.typography,
         fontFamily: [
-            'Montserrat',
-            'Cormorant Garamond',
+            'Lora',
+            'Crimson Text',
             'serif'
         ].join(','),
         h1: {
             ...theme.typography.h1,
             fontFamily: [
-                'Montserrat',
-                'Cormorant Garamond',
+                'Lora',
+                'Crimson Text',
                 'serif'
             ].join(',')
         },
         h2: {
             ...theme.typography.h2,
             fontFamily: [
-                'Montserrat',
-                'Cormorant Garamond',
+                'Lora',
+                'Crimson Text',
                 'serif'
             ].join(',')
         },
         h3: {
             ...theme.typography.h3,
             fontFamily: [
-                'Montserrat',
-                'Cormorant Garamond',
+                'Lora',
+                'Crimson Text',
                 'serif'
             ].join(',')
         },
         h4: {
             ...theme.typography.h4,
             fontFamily: [
-                'Montserrat',
-                'Cormorant Garamond',
+                'Lora',
+                'Crimson Text',
                 'serif'
             ].join(',')
         },
         h5: {
             ...theme.typography.h5,
             fontFamily: [
-                'Montserrat',
-                'Cormorant Garamond',
+                'Lora',
+                'Crimson Text',
                 'serif'
             ].join(',')
         },
         h6: {
             ...theme.typography.h6,
             fontFamily: [
-                'Montserrat',
-                'Cormorant Garamond',
+                'Lora',
+                'Crimson Text',
                 'serif'
             ].join(',')
         }

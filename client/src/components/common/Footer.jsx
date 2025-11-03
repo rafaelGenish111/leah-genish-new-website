@@ -281,6 +281,20 @@ const Footer = () => {
                             >
                                 {t('footer.terms')}
                             </Link>
+                            <Link
+                                component="button"
+                                variant="body2"
+                                onClick={() => handleNavigation('/accessibility')}
+                                sx={{
+                                    color: 'text.secondary',
+                                    textDecoration: 'none',
+                                    '&:hover': {
+                                        color: 'primary.main'
+                                    }
+                                }}
+                            >
+                                {t('footer.accessibility')}
+                            </Link>
                         </Box>
                     </Grid>
                 </Grid>

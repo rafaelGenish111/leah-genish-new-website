@@ -232,7 +232,25 @@
         "followUs": "עקבו אחרינו",
         "privacy": "מדיניות פרטיות",
         "terms": "תנאי שימוש",
+        "accessibility": "הצהרת נגישות",
         "copyright": "כל הזכויות שמורות"
+    },
+    "accessibility": {
+        "title": "הצהרת נגישות",
+        "commitment": "אתר זה מתחייב לספק שירות נגיש לכלל המשתמשים, לרבות אנשים עם מוגבלות.",
+        "compliance": "רמת תאימות",
+        "complianceText": "האתר תואם לרמת AA של תקן WCAG 2.0 (Web Content Accessibility Guidelines).",
+        "features": "תכונות נגישות באתר",
+        "feature1": "ניווט מקלדת מלא",
+        "feature2": "תמיכה בקוראי מסך",
+        "feature3": "ניגודיות צבעים מותאמת",
+        "feature4": "גדלי פונט ניתנים לשינוי",
+        "feature5": "תגיות Alt לכל התמונות",
+        "reportTitle": "דיווח על בעיות נגישות",
+        "reportText": "אם נתקלתם בבעיית נגישות באתר, אנא צרו קשר:",
+        "email": "אימייל:",
+        "phone": "טלפון:",
+        "lastUpdated": "עדכון אחרון:"
     },
     "login": {
         "title": "התחברות",

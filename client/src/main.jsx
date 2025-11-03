@@ -10,6 +10,13 @@ import theme from './theme/theme.js'
 import i18n from './i18n/i18n.js'
 import './index.css'
 
+// Initialize axe for accessibility testing in development
+if (process.env.NODE_ENV !== 'production') {
+    import('@axe-core/react').then((axe) => {
+        axe.default(React, ReactDOM, 1000);
+    });
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <I18nextProvider i18n={i18n}>

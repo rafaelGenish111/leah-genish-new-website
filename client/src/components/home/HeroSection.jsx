@@ -59,14 +59,14 @@ const HeroSection = () => {
         });
     };
 
-    // Animation variants
+    // Animation variants - Slower and smoother
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.3
+                staggerChildren: 0.2,
+                delayChildren: 0.4
             }
         }
     };
@@ -78,8 +78,8 @@ const HeroSection = () => {
             scale: 1,
             y: 0,
             transition: {
-                duration: 1.2,
-                ease: "easeOut"
+                duration: 1.5,
+                ease: [0.4, 0, 0.2, 1]
             }
         },
         float: {
@@ -98,8 +98,8 @@ const HeroSection = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.3
+                staggerChildren: 0.2,
+                delayChildren: 0.4
             }
         }
     };
@@ -109,7 +109,10 @@ const HeroSection = () => {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.8, ease: "easeOut" }
+            transition: { 
+                duration: 0.8, 
+                ease: [0.4, 0, 0.2, 1]
+            }
         }
     };
 
@@ -118,12 +121,12 @@ const HeroSection = () => {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, delay: 1 }
+            transition: { duration: 0.8, delay: 1.2 }
         },
         hover: {
             scale: 1.05,
             boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-            transition: { duration: 0.3 }
+            transition: { duration: 0.4 }
         }
     };
 
