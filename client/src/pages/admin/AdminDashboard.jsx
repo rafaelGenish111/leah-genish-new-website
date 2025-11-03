@@ -46,32 +46,54 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts';
+import { adminService } from '../../services/adminService.js';
 
 const AdminDashboard = () => {
     const { t } = useTranslation();
+    const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState({
-        appointments: { total: 48, change: 12 },
-        articles: { total: 23, change: -3 },
-        visitors: { total: 1243, change: 18 },
-        declarations: { total: 15, change: 5 }
+        appointments: { total: 0 },
+        articles: { total: 0 },
+        visitors: { total: 0 },
+        declarations: { total: 0 }
     });
+    const [appointmentsData, setAppointmentsData] = useState([]);
+    const [servicesData, setServicesData] = useState([]);
 
-    // Sample data for charts
-    const appointmentsData = [
-        { name: 'ינואר', תורים: 35 },
-        { name: 'פברואר', תורים: 42 },
-        { name: 'מרץ', תורים: 38 },
-        { name: 'אפריל', תורים: 50 },
-        { name: 'מאי', תורים: 48 },
-        { name: 'יוני', תורים: 55 }
-    ];
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                setLoading(true);
+                const data = await adminService.getStats();
 
-    const servicesData = [
-        { name: 'רפלקסולוגיה', value: 45 },
-        { name: 'טיפול הוליסטי', value: 30 },
-        { name: 'ייעוץ תזונתי', value: 15 },
-        { name: 'אחר', value: 10 }
-    ];
+                setStats({
+                    appointments: { total: data.counts.appointments },
+                    articles: { total: data.counts.articles },
+                    visitors: { total: 0 }, // אין כרגע אנליטיקס, נשאיר 0
+                    declarations: { total: data.counts.healthDeclarations }
+                });
+
+                // timeseries -> recharts data
+                const ts = (data.timeseries || []).map(d => ({
+                    name: d._id?.substring(5) || '',
+                    תורים: d.count
+                }));
+                setAppointmentsData(ts);
+
+                // top services -> pie data
+                const pie = (data.topServices || []).map(s => ({
+                    name: s.name_he,
+                    value: s.count
+                }));
+                setServicesData(pie);
+            } catch (e) {
+                // fallback silent
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchStats();
+    }, []);
 
     const COLORS = ['#D4B5B0', '#8B7B7A', '#C9A9A4', '#A89997'];
 

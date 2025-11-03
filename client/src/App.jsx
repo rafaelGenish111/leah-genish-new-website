@@ -25,11 +25,13 @@ import HealthDeclaration from './pages/HealthDeclaration.jsx';
 import Contact from './pages/Contact.jsx';
 import Accessibility from './pages/Accessibility.jsx';
 import Login from './pages/Login.jsx';
+import Treatments from './pages/Treatments.jsx';
 
 // Import admin pages
 import AdminLogin from './pages/admin/AdminLogin.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import AdminArticles from './pages/admin/AdminArticles.jsx';
+import AdminArticleEditor from './pages/admin/AdminArticleEditor.jsx';
 import AdminGallery from './pages/admin/AdminGallery.jsx';
 import AdminAppointments from './pages/admin/AdminAppointments.jsx';
 import AdminHealth from './pages/admin/AdminHealth.jsx';
@@ -75,6 +77,7 @@ function AppContent() {
                                 <Route path="/articles" element={<Articles />} />
                                 <Route path="/articles/:id" element={<ArticleDetail />} />
                                 <Route path="/gallery" element={<Gallery />} />
+                                <Route path="/treatments" element={<Treatments />} />
                                 <Route path="/appointments" element={<Appointments />} />
                                 <Route path="/health-declaration" element={<HealthDeclaration />} />
                                 <Route path="/contact" element={<Contact />} />
@@ -91,9 +94,9 @@ function AppContent() {
                                     </ProtectedRoute>
                                 }>
                                 <Route index element={<AdminDashboard />} />
-                                <Route path="articles" element={<AdminArticles />} />
-                                <Route path="articles/new" element={<div>Article Editor - Coming Soon</div>} />
-                                <Route path="articles/:id/edit" element={<div>Article Editor - Coming Soon</div>} />
+                                    <Route path="articles" element={<AdminArticles />} />
+                                    <Route path="articles/new" element={<AdminArticleEditor />} />
+                                    <Route path="articles/:id/edit" element={<AdminArticleEditor />} />
                                 <Route path="gallery" element={<AdminGallery />} />
                                 <Route path="appointments" element={<AdminAppointments />} />
                                 <Route path="health" element={<AdminHealth />} />

@@ -8,9 +8,9 @@
 curl -X POST http://localhost:5000/api/auth/register-first-admin \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "your-email@example.com",
-    "password": "your-secure-password",
-    "name": "Your Name"
+    "email": "leahgenish111@gmail.com",
+    "password": "Noam2012",
+    "name": "לאה גניש"
   }'
 ```
 

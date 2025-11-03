@@ -93,14 +93,17 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
         navigate('/login');
     };
 
+    const isCollapsed = !open && !isMobile;
+    const drawerWidth = isCollapsed ? 80 : 280;
+
     const drawerContent = (
         <Box
             sx={{
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                bgcolor: '#2C2C2C',
-                color: '#F5F5F5'
+                bgcolor: '#F7F7F7',
+                color: '#1A1A1A'
             }}
         >
             {/* Logo & User Info */}
@@ -122,10 +125,12 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                             mb: 3
                         }}
                     >
-                        <Spa sx={{ fontSize: 40, color: '#D4B5B0' }} />
-                        <Typography variant="h6" sx={{ fontWeight: 300 }}>
-                            Leah Genish
-                        </Typography>
+                        <Spa sx={{ fontSize: 32, color: 'primary.main' }} />
+                        {!isCollapsed && (
+                            <Typography variant="h6" sx={{ fontWeight: 300 }}>
+                                Leah Genish
+                            </Typography>
+                        )}
                     </Box>
 
                     {/* User Profile */}
@@ -136,11 +141,11 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                             gap: 2,
                             p: 2,
                             borderRadius: 2,
-                            bgcolor: 'rgba(255,255,255,0.05)',
+                            bgcolor: 'rgba(0,0,0,0.03)',
                             transition: 'all 0.3s ease',
                             cursor: 'pointer',
                             '&:hover': {
-                                bgcolor: 'rgba(255,255,255,0.08)'
+                                bgcolor: 'rgba(0,0,0,0.05)'
                             }
                         }}
                     >
@@ -148,12 +153,13 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                             sx={{
                                 width: 45,
                                 height: 45,
-                                bgcolor: '#D4B5B0',
+                                bgcolor: 'primary.main',
                                 fontWeight: 600
                             }}
                         >
                             {user?.name?.[0] || 'L'}
                         </Avatar>
+                        {!isCollapsed && (
                         <Box sx={{ flex: 1, minWidth: 0 }}>
                             <Typography
                                 variant="subtitle2"
@@ -169,7 +175,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                             <Typography
                                 variant="caption"
                                 sx={{
-                                    color: 'rgba(255,255,255,0.6)',
+                                    color: 'text.secondary',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     whiteSpace: 'nowrap',
@@ -179,11 +185,11 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                 {user?.email || 'admin@leahgenish.com'}
                             </Typography>
                         </Box>
+                        )}
                     </Box>
                 </motion.div>
             </Box>
-
-            <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+            <Divider sx={{ borderColor: 'rgba(0,0,0,0.08)' }} />
 
             {/* Navigation Menu */}
             <List sx={{ flex: 1, py: 2, px: 2 }}>
@@ -233,13 +239,15 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                     >
                                         {item.icon}
                                     </ListItemIcon>
-                                    <ListItemText
-                                        primary={item.title}
-                                        primaryTypographyProps={{
-                                            fontSize: 15,
-                                            fontWeight: location.pathname === item.path ? 500 : 400
-                                        }}
-                                    />
+                                    {!isCollapsed && (
+                                        <ListItemText
+                                            primary={item.title}
+                                            primaryTypographyProps={{
+                                                fontSize: 15,
+                                                fontWeight: location.pathname === item.path ? 500 : 400
+                                            }}
+                                        />
+                                    )}
                                     {item.badge && (
                                         <Badge
                                             badgeContent={item.badge}
@@ -253,7 +261,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                             }}
                                         />
                                     )}
-                                    {item.submenu && (
+                                    {!isCollapsed && item.submenu && (
                                         articlesOpen ? <ExpandLess /> : <ExpandMore />
                                     )}
                                 </ListItemButton>
@@ -261,7 +269,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
 
                             {/* Submenu */}
                             <AnimatePresence>
-                                {item.submenu && (
+                                {!isCollapsed && item.submenu && (
                                     <Collapse in={articlesOpen} timeout="auto" unmountOnExit>
                                         <List component="div" disablePadding>
                                             {item.submenu.map((subItem, subIndex) => (
@@ -310,7 +318,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                 ))}
             </List>
 
-            <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+            <Divider sx={{ borderColor: 'rgba(0,0,0,0.08)' }} />
 
             {/* Bottom Actions */}
             <Box sx={{ p: 2 }}>
@@ -322,10 +330,10 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                     <ListItemButton
                         sx={{
                             borderRadius: 2,
-                            color: 'rgba(255,255,255,0.8)',
+                            color: 'text.primary',
                             transition: 'all 0.2s ease',
                             '&:hover': {
-                                bgcolor: 'rgba(255,255,255,0.05)',
+                                bgcolor: 'rgba(0,0,0,0.04)',
                                 transform: 'translateX(4px)'
                             },
                             mb: 1
@@ -334,7 +342,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                         <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
                             <SettingsIcon />
                         </ListItemIcon>
-                        <ListItemText primary={t('admin.sidebar.settings')} />
+                        {!isCollapsed && <ListItemText primary={t('admin.sidebar.settings')} />}
                     </ListItemButton>
 
                     <ListItemButton
@@ -352,7 +360,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                         <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
                             <LogoutIcon />
                         </ListItemIcon>
-                        <ListItemText primary={t('admin.sidebar.logout')} />
+                        {!isCollapsed && <ListItemText primary={t('admin.sidebar.logout')} />}
                     </ListItemButton>
                 </motion.div>
             </Box>
@@ -369,7 +377,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                     PaperProps={{
                         sx: {
                             width: 280,
-                            bgcolor: '#2C2C2C'
+                            bgcolor: '#F7F7F7'
                         }
                     }}
                 >
@@ -380,9 +388,10 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                     variant="permanent"
                     PaperProps={{
                         sx: {
-                            width: 280,
+                            width: drawerWidth,
                             boxShadow: '2px 0 8px rgba(0,0,0,0.05)',
-                            bgcolor: '#2C2C2C'
+                            bgcolor: '#F7F7F7',
+                            transition: 'width 0.3s ease'
                         }
                     }}
                 >

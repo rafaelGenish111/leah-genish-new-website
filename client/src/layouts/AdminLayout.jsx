@@ -11,14 +11,19 @@ const AdminLayout = () => {
     const { isAuthenticated, loading } = useAuth();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+    const [sidebarOpen, setSidebarOpen] = useState(() => {
+        const saved = localStorage.getItem('adminSidebarOpen');
+        return saved === null ? !isMobile : saved === 'true';
+    });
 
     // Close sidebar on mobile when route changes
     useEffect(() => {
-        if (isMobile) {
-            setSidebarOpen(false);
-        }
+        if (isMobile) setSidebarOpen(false);
     }, [isMobile]);
+
+    useEffect(() => {
+        localStorage.setItem('adminSidebarOpen', String(sidebarOpen));
+    }, [sidebarOpen]);
 
     if (loading) {
         return <Loading />;
@@ -31,21 +36,17 @@ const AdminLayout = () => {
     return (
         <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#FAFAFA' }}>
             {/* Sidebar */}
-            <AdminSidebar
-                open={sidebarOpen}
-                onClose={() => setSidebarOpen(false)}
-                isMobile={isMobile}
-            />
+            <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} isMobile={isMobile} />
 
             {/* Main Content */}
             <Box
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    width: { md: `calc(100% - 280px)` },
                     minHeight: '100vh',
-                    transition: 'margin 0.3s ease',
-                    ml: { md: sidebarOpen ? 0 : '-280px' }
+                    transition: 'margin 0.3s ease, width 0.3s ease',
+                    ml: { md: 0 },
+                    width: { md: `calc(100% - ${sidebarOpen ? 280 : 80}px)` }
                 }}
             >
                 {/* Header */}

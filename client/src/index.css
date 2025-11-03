@@ -11,6 +11,11 @@ html {
     /* Base font size */
 }
 
+/* מניעת גלילה אופקית כללית */
+html, body, #root {
+    overflow-x: hidden;
+}
+
 /* Max width to prevent horizontal scrolling on large screens */
 * {
     max-width: 100%;

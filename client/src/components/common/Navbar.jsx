@@ -50,6 +50,7 @@ const Navbar = () => {
         { label: t('nav.about'), path: '/about' },
         { label: t('nav.articles'), path: '/articles' },
         { label: t('nav.gallery'), path: '/gallery' },
+        { label: 'טיפולים', path: '/treatments' },
         { label: t('nav.health'), path: '/health-declaration' },
         { label: t('nav.contact'), path: '/contact' }
     ];
