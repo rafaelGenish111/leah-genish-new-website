@@ -1,19 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Container,
     Typography,
     Box,
     Card,
-    Alert
+    Alert,
+    Button
 } from '@mui/material';
+import { PhoneInTalk as PhoneIcon, WhatsApp as WhatsAppIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { InlineWidget } from 'react-calendly';
 import SEO from '../components/common/SEO.jsx';
 
 const Appointments = () => {
     const { t } = useTranslation();
-    const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || '';
+    
+    // Read Calendly config from localStorage (set by admin)
+    const [calendlyConfig, setCalendlyConfig] = useState({
+        url: localStorage.getItem('calendly_url') || import.meta.env.VITE_CALENDLY_URL || '',
+        enabled: localStorage.getItem('calendly_enabled') === 'true',
+        primaryColor: localStorage.getItem('calendly_primary_color') || 'D4B5B0',
+        textColor: localStorage.getItem('calendly_text_color') || '1A1A1A',
+        backgroundColor: localStorage.getItem('calendly_background_color') || 'FFFFFF'
+    });
+
+    // Listen for config updates from admin panel
+    useEffect(() => {
+        const handleConfigUpdate = () => {
+            setCalendlyConfig({
+                url: localStorage.getItem('calendly_url') || '',
+                enabled: localStorage.getItem('calendly_enabled') === 'true',
+                primaryColor: localStorage.getItem('calendly_primary_color') || 'D4B5B0',
+                textColor: localStorage.getItem('calendly_text_color') || '1A1A1A',
+                backgroundColor: localStorage.getItem('calendly_background_color') || 'FFFFFF'
+            });
+        };
+
+        window.addEventListener('calendly-config-updated', handleConfigUpdate);
+        return () => window.removeEventListener('calendly-config-updated', handleConfigUpdate);
+    }, []);
+
+    const calendlyUrl = calendlyConfig.enabled ? calendlyConfig.url : '';
 
     return (
         <>
@@ -60,11 +88,11 @@ const Appointments = () => {
                                         minWidth: '320px'
                                     }}
                                     pageSettings={{
-                                        backgroundColor: 'ffffff',
+                                        backgroundColor: calendlyConfig.backgroundColor.replace('#', ''),
                                         hideEventTypeDetails: false,
                                         hideLandingPageDetails: false,
-                                        primaryColor: 'D4B5B0',
-                                        textColor: '1A1A1A'
+                                        primaryColor: calendlyConfig.primaryColor.replace('#', ''),
+                                        textColor: calendlyConfig.textColor.replace('#', '')
                                     }}
                                 />
                             </Box>
@@ -77,9 +105,47 @@ const Appointments = () => {
                         transition={{ duration: 0.6 }}
                     >
                         <Card sx={{ p: 4, borderRadius: 0 }}>
-                            <Alert severity="info" sx={{ borderRadius: 0 }}>
-                                Calendly integration לא הוגדר עדיין. אנא צרי קשר טלפונית לקביעת תור.
+                            <Alert severity="info" sx={{ borderRadius: 0, mb: 3 }}>
+                                מערכת קביעת התורים הדיגיטלית אינה פעילה כרגע
                             </Alert>
+                            
+                            <Typography variant="h6" sx={{ mb: 3, textAlign: 'center' }}>
+                                ניתן לקבוע תור בדרכים הבאות:
+                            </Typography>
+
+                            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    startIcon={<PhoneIcon />}
+                                    href="tel:+972-50-123-4567"
+                                    sx={{
+                                        background: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
+                                        px: 4
+                                    }}
+                                >
+                                    התקשרי: 050-123-4567
+                                </Button>
+                                
+                                <Button
+                                    variant="outlined"
+                                    size="large"
+                                    startIcon={<WhatsAppIcon />}
+                                    href="https://wa.me/972501234567"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={{
+                                        borderColor: '#25D366',
+                                        color: '#25D366',
+                                        '&:hover': {
+                                            borderColor: '#128C7E',
+                                            bgcolor: 'rgba(37, 211, 102, 0.04)'
+                                        }
+                                    }}
+                                >
+                                    שלחי הודעת WhatsApp
+                                </Button>
+                            </Box>
                         </Card>
                     </motion.div>
                 )}

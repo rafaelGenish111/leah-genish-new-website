@@ -38,6 +38,7 @@ import AdminHealth from './pages/admin/AdminHealth.jsx';
 import AdminServices from './pages/admin/AdminServices.jsx';
 import AdminAvailability from './pages/admin/AdminAvailability.jsx';
 import AdminExceptions from './pages/admin/AdminExceptions.jsx';
+import AdminCalendly from './pages/admin/AdminCalendly.jsx';
 
 // Import layouts
 import AdminLayout from './layouts/AdminLayout.jsx';
@@ -116,6 +117,7 @@ function AppRoutes({ language }) {
                         <Route path="services" element={<AdminServices />} />
                         <Route path="availability" element={<AdminAvailability />} />
                         <Route path="exceptions" element={<AdminExceptions />} />
+                        <Route path="calendly" element={<AdminCalendly />} />
                     </Route>
 
                     {/* 404 route */}

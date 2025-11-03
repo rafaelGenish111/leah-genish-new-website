@@ -29,7 +29,8 @@ import {
     ExpandMore,
     Spa,
     Schedule as ScheduleIcon,
-    Warning as WarningIcon
+    Warning as WarningIcon,
+    CalendarMonth as CalendarMonthIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -85,6 +86,11 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
             title: 'חריגות',
             icon: <WarningIcon />,
             path: '/admin/exceptions'
+        },
+        {
+            title: 'הגדרות Calendly',
+            icon: <CalendarMonthIcon />,
+            path: '/admin/calendly'
         }
     ];
 

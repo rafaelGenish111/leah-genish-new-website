@@ -25,14 +25,17 @@ const HeroSection = () => {
 
     // Hero slideshow images - Holistic therapy clinic themed
     const images = [
-        // Serene spa treatment room
+        // שמן עיסוי על גב של אישה
+        // 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+        // אבנים חמות על גב של אישה
+        // 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+        // רקע של משטח עם נרות וצמחים
         'https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-        // Reflexology foot massage
-        'https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-        // Peaceful meditation space
-        'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-        // Essential oils and healing elements
-        'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+        // שמנים אתריים ופרחים על רקע עץ
+        'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+
+        // // עלי במבוק ואבנים על רקע מים
+        'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
     ];
 
     const [currentImage, setCurrentImage] = useState(0);
@@ -40,7 +43,7 @@ const HeroSection = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % images.length);
-        }, 5000);
+        }, 6000);
         return () => clearInterval(timer);
     }, [images.length]);
 
@@ -155,13 +158,16 @@ const HeroSection = () => {
                     zIndex: 0
                 }}
             >
-                <AnimatePresence mode="wait">
+                <AnimatePresence initial={false}>
                     <motion.div
                         key={currentImage}
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.1 }}
-                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 2.5,
+                            ease: [0.4, 0, 0.2, 1]
+                        }}
                         style={{
                             position: 'absolute',
                             top: 0,
@@ -171,7 +177,8 @@ const HeroSection = () => {
                             backgroundImage: `url(${images[currentImage]})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
-                            backgroundAttachment: 'fixed'
+                            backgroundAttachment: 'fixed',
+                            willChange: 'opacity'
                         }}
                     />
                 </AnimatePresence>
