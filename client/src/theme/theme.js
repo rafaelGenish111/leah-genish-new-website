@@ -310,67 +310,6 @@ const theme = createTheme({
     }
 });
 
-// English theme (LTR)
-export const englishTheme = createTheme({
-    ...theme,
-    typography: {
-        ...theme.typography,
-        fontFamily: [
-            'Lora',
-            'Crimson Text',
-            'serif'
-        ].join(','),
-        h1: {
-            ...theme.typography.h1,
-            fontFamily: [
-                'Lora',
-                'Crimson Text',
-                'serif'
-            ].join(',')
-        },
-        h2: {
-            ...theme.typography.h2,
-            fontFamily: [
-                'Lora',
-                'Crimson Text',
-                'serif'
-            ].join(',')
-        },
-        h3: {
-            ...theme.typography.h3,
-            fontFamily: [
-                'Lora',
-                'Crimson Text',
-                'serif'
-            ].join(',')
-        },
-        h4: {
-            ...theme.typography.h4,
-            fontFamily: [
-                'Lora',
-                'Crimson Text',
-                'serif'
-            ].join(',')
-        },
-        h5: {
-            ...theme.typography.h5,
-            fontFamily: [
-                'Lora',
-                'Crimson Text',
-                'serif'
-            ].join(',')
-        },
-        h6: {
-            ...theme.typography.h6,
-            fontFamily: [
-                'Lora',
-                'Crimson Text',
-                'serif'
-            ].join(',')
-        }
-    }
-});
-
 // English Theme - Cormorant Garamond
 export const englishTheme = createTheme({
     ...theme,
