@@ -205,7 +205,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                 <ListItemButton
                                     component={item.submenu ? 'button' : Link}
                                     to={!item.submenu ? item.path : undefined}
-                                    onClick={item.submenu ? () => setArticlesOpen(!articlesOpen) : isMobile ? onClose : undefined}
+                                    onClick={item.submenu ? () => setArticlesOpen(!articlesOpen) : onClose}
                                     selected={location.pathname === item.path}
                                     sx={{
                                         borderRadius: 2,
@@ -284,7 +284,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                                         <ListItemButton
                                                             component={Link}
                                                             to={subItem.path}
-                                                            onClick={isMobile ? onClose : undefined}
+                                                            onClick={onClose}
                                                             selected={location.pathname === subItem.path}
                                                             sx={{
                                                                 borderRadius: 2,
@@ -386,7 +386,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                 </Drawer>
             ) : (
                 <Drawer
-                    anchor="left"
+                    anchor="right"
                     variant="temporary"
                     open={open}
                     onClose={onClose}
