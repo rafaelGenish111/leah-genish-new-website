@@ -7,7 +7,8 @@
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px; /* Base font size */
+    font-size: 16px;
+    /* Base font size */
 }
 
 /* Max width to prevent horizontal scrolling on large screens */
@@ -165,6 +166,7 @@ body[dir="ltr"] {
 
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -195,12 +197,20 @@ body[dir="ltr"] {
 
 /* Safe pulse animation - no seizure risk */
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
 }
 
 .pulse-safe {
-    animation: pulse 2s ease-in-out infinite; /* 0.5Hz - safe */
+    animation: pulse 2s ease-in-out infinite;
+    /* 0.5Hz - safe */
 }
 
 /* Responsive utilities */

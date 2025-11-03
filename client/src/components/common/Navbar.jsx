@@ -201,321 +201,321 @@ const Navbar = () => {
                                 minHeight: '64px !important'
                             }}
                         >
-                        {/* Logo */}
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Box
-                                component={Link}
-                                to="/"
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 1.5,
-                                    textDecoration: 'none',
-                                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    cursor: 'pointer'
-                                }}
+                            {/* Logo */}
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <motion.div
-                                    animate={{
-                                        rotate: trigger ? 0 : [0, 5, -5, 0],
-                                        scale: trigger ? 1 : [1, 1.05, 1]
-                                    }}
-                                    transition={{
-                                        duration: trigger ? 0.5 : 2,
-                                        repeat: trigger ? 0 : Infinity,
-                                        repeatDelay: 3
+                                <Box
+                                    component={Link}
+                                    to="/"
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 1.5,
+                                        textDecoration: 'none',
+                                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        cursor: 'pointer'
                                     }}
                                 >
-                                    <Spa
-                                        sx={{
-                                            fontSize: trigger ? 35 : 40,
-                                            color: trigger ? 'primary.main' : 'white',
-                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+                                    <motion.div
+                                        animate={{
+                                            rotate: trigger ? 0 : [0, 5, -5, 0],
+                                            scale: trigger ? 1 : [1, 1.05, 1]
                                         }}
-                                    />
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.2 }}
-                                >
-                                    <Box
-                                        sx={{
-                                            fontSize: trigger ? 20 : 22,
-                                            fontWeight: 400,
-                                            color: trigger ? 'text.primary' : 'white',
-                                            letterSpacing: 1,
-                                            fontFamily: '"Cormorant Garamond", serif',
-                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                            display: { xs: 'none', sm: 'block' }
+                                        transition={{
+                                            duration: trigger ? 0.5 : 2,
+                                            repeat: trigger ? 0 : Infinity,
+                                            repeatDelay: 3
                                         }}
                                     >
-                                        Leah Genish
-                                    </Box>
-                                </motion.div>
-                            </Box>
-                        </motion.div>
-
-                        {/* Desktop Navigation */}
-                        {!isMobile && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                                {/* Nav Links */}
-                                {navItems.map((item, index) => (
+                                        <Spa
+                                            sx={{
+                                                fontSize: trigger ? 35 : 40,
+                                                color: trigger ? 'primary.main' : 'white',
+                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+                                            }}
+                                        />
+                                    </motion.div>
                                     <motion.div
-                                        key={item.path}
-                                        initial={{ opacity: 0, y: -20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.1 * index }}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.2 }}
                                     >
                                         <Box
-                                            component={Link}
-                                            to={item.path}
                                             sx={{
-                                                position: 'relative',
-                                                textDecoration: 'none',
-                                                fontSize: 16,
-                                                fontWeight: 500,
-                                                letterSpacing: 0.5,
-                                                color: location.pathname === item.path
-                                                    ? 'primary.main'
-                                                    : trigger
-                                                        ? '#2C2C2C'
-                                                        : 'rgba(255, 255, 255, 0.95)',
-                                                transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                cursor: 'pointer',
-                                                textShadow: trigger ? 'none' : '0 1px 2px rgba(0,0,0,0.3)',
-                                                '&:hover': {
-                                                    color: 'primary.main'
-                                                },
-                                                '&::after': {
-                                                    content: '""',
-                                                    position: 'absolute',
-                                                    bottom: -5,
-                                                    left: '50%',
-                                                    transform: 'translateX(-50%) scaleX(0)',
-                                                    width: '80%',
-                                                    height: 2,
-                                                    bgcolor: 'primary.main',
-                                                    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                    transformOrigin: 'center'
-                                                },
-                                                '&:hover::after': {
-                                                    transform: 'translateX(-50%) scaleX(1)'
-                                                },
-                                                ...(location.pathname === item.path && {
-                                                    '&::after': {
-                                                        transform: 'translateX(-50%) scaleX(1)'
-                                                    }
-                                                })
+                                                fontSize: trigger ? 20 : 22,
+                                                fontWeight: 400,
+                                                color: trigger ? 'text.primary' : 'white',
+                                                letterSpacing: 1,
+                                                fontFamily: '"Cormorant Garamond", serif',
+                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                display: { xs: 'none', sm: 'block' }
                                             }}
                                         >
-                                            {item.label}
+                                            Leah Genish
                                         </Box>
                                     </motion.div>
-                                ))}
+                                </Box>
+                            </motion.div>
 
-                                {/* CTA Button */}
-                                <motion.div
-                                    whileHover={{
-                                        scale: 1.02,
-                                        y: -2
-                                    }}
-                                    whileTap={{ scale: 0.98 }}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 }}
-                                >
-                                    <Button
-                                        onClick={() => navigate('/appointments')}
-                                        sx={{
-                                            background: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
-                                            color: 'white',
-                                            borderRadius: '20px',
-                                            px: 3,
-                                            py: 1,
-                                            fontSize: 14,
-                                            fontWeight: 500,
-                                            textTransform: 'none',
-                                            boxShadow: '0 3px 12px rgba(212, 181, 176, 0.3)',
-                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            minHeight: '40px',
-                                            maxHeight: '40px',
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: '-100%',
-                                                width: '100%',
-                                                height: '100%',
-                                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                                                transition: 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                                            },
-                                            '&:hover': {
-                                                background: 'linear-gradient(135deg, #C9A9A4 0%, #D4B5B0 100%)',
-                                                boxShadow: '0 4px 16px rgba(212, 181, 176, 0.4)',
-                                                '&::before': {
-                                                    left: '100%'
-                                                }
-                                            }
-                                        }}
-                                    >
-                                        {t('nav.appointments')}
-                                    </Button>
-                                </motion.div>
+                            {/* Desktop Navigation */}
+                            {!isMobile && (
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                    {/* Nav Links */}
+                                    {navItems.map((item, index) => (
+                                        <motion.div
+                                            key={item.path}
+                                            initial={{ opacity: 0, y: -20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.1 * index }}
+                                        >
+                                            <Box
+                                                component={Link}
+                                                to={item.path}
+                                                sx={{
+                                                    position: 'relative',
+                                                    textDecoration: 'none',
+                                                    fontSize: 16,
+                                                    fontWeight: 500,
+                                                    letterSpacing: 0.5,
+                                                    color: location.pathname === item.path
+                                                        ? 'primary.main'
+                                                        : trigger
+                                                            ? '#2C2C2C'
+                                                            : 'rgba(255, 255, 255, 0.95)',
+                                                    transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                    cursor: 'pointer',
+                                                    textShadow: trigger ? 'none' : '0 1px 2px rgba(0,0,0,0.3)',
+                                                    '&:hover': {
+                                                        color: 'primary.main'
+                                                    },
+                                                    '&::after': {
+                                                        content: '""',
+                                                        position: 'absolute',
+                                                        bottom: -5,
+                                                        left: '50%',
+                                                        transform: 'translateX(-50%) scaleX(0)',
+                                                        width: '80%',
+                                                        height: 2,
+                                                        bgcolor: 'primary.main',
+                                                        transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                        transformOrigin: 'center'
+                                                    },
+                                                    '&:hover::after': {
+                                                        transform: 'translateX(-50%) scaleX(1)'
+                                                    },
+                                                    ...(location.pathname === item.path && {
+                                                        '&::after': {
+                                                            transform: 'translateX(-50%) scaleX(1)'
+                                                        }
+                                                    })
+                                                }}
+                                            >
+                                                {item.label}
+                                            </Box>
+                                        </motion.div>
+                                    ))}
 
-                                {/* Language Switcher */}
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.6 }}
-                                >
-                                    <IconButton
-                                        onClick={handleLanguageClick}
-                                        component={motion.button}
+                                    {/* CTA Button */}
+                                    <motion.div
                                         whileHover={{
-                                            scale: 1.1,
-                                            rotate: 5
+                                            scale: 1.02,
+                                            y: -2
                                         }}
-                                        whileTap={{ scale: 0.95 }}
-                                        sx={{
-                                            color: trigger
-                                                ? '#2C2C2C'
-                                                : 'rgba(255, 255, 255, 0.95)',
-                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                            borderRadius: '50%',
-                                            width: 36,
-                                            height: 36,
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                                            border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
-                                                borderRadius: '50%',
-                                                background: 'linear-gradient(45deg, rgba(212, 181, 176, 0.1), rgba(212, 181, 176, 0.05))',
-                                                opacity: 0,
-                                                transition: 'opacity 0.3s ease'
-                                            },
-                                            '&:hover': {
-                                                bgcolor: 'rgba(212, 181, 176, 0.15)',
-                                                color: 'primary.main',
+                                        whileTap={{ scale: 0.98 }}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.5 }}
+                                    >
+                                        <Button
+                                            onClick={() => navigate('/appointments')}
+                                            sx={{
+                                                background: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
+                                                color: 'white',
+                                                borderRadius: '20px',
+                                                px: 3,
+                                                py: 1,
+                                                fontSize: 14,
+                                                fontWeight: 500,
+                                                textTransform: 'none',
+                                                boxShadow: '0 3px 12px rgba(212, 181, 176, 0.3)',
+                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                position: 'relative',
+                                                overflow: 'hidden',
+                                                minHeight: '40px',
+                                                maxHeight: '40px',
                                                 '&::before': {
-                                                    opacity: 1
+                                                    content: '""',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: '-100%',
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                                                    transition: 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                                                },
+                                                '&:hover': {
+                                                    background: 'linear-gradient(135deg, #C9A9A4 0%, #D4B5B0 100%)',
+                                                    boxShadow: '0 4px 16px rgba(212, 181, 176, 0.4)',
+                                                    '&::before': {
+                                                        left: '100%'
+                                                    }
                                                 }
-                                            }
-                                        }}
-                                    >
-                                        <motion.div
-                                            animate={{
-                                                rotate: language === 'he' ? 0 : 180
                                             }}
-                                            transition={{ duration: 0.5 }}
                                         >
-                                            <TranslateIcon />
-                                        </motion.div>
-                                    </IconButton>
-                                </motion.div>
-                            </Box>
-                        )}
+                                            {t('nav.appointments')}
+                                        </Button>
+                                    </motion.div>
 
-                        {/* Mobile Menu Button */}
-                        {isMobile && (
-                            <Box sx={{ display: 'flex', gap: 1 }}>
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.3 }}
-                                >
-                                    <IconButton
-                                        onClick={handleLanguageClick}
-                                        component={motion.button}
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        sx={{
-                                            color: trigger ? '#2C2C2C' : 'rgba(255, 255, 255, 0.95)',
-                                            borderRadius: '50%',
-                                            width: 36,
-                                            height: 36,
-                                            bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                                            border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
-                                            '&:hover': {
-                                                bgcolor: 'rgba(212, 181, 176, 0.15)'
-                                            }
-                                        }}
+                                    {/* Language Switcher */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.6 }}
                                     >
-                                        <motion.div
-                                            animate={{
-                                                rotate: language === 'he' ? 0 : 180
+                                        <IconButton
+                                            onClick={handleLanguageClick}
+                                            component={motion.button}
+                                            whileHover={{
+                                                scale: 1.1,
+                                                rotate: 5
                                             }}
-                                            transition={{ duration: 0.5 }}
-                                        >
-                                            <TranslateIcon />
-                                        </motion.div>
-                                    </IconButton>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                >
-                                    <IconButton
-                                        onClick={handleDrawerToggle}
-                                        component={motion.button}
-                                        whileTap={{ scale: 0.9 }}
-                                        whileHover={{ scale: 1.05 }}
-                                        sx={{
-                                            color: trigger ? '#2C2C2C' : 'rgba(255, 255, 255, 0.95)',
-                                            borderRadius: '50%',
-                                            width: 36,
-                                            height: 36,
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                                            border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
+                                            whileTap={{ scale: 0.95 }}
+                                            sx={{
+                                                color: trigger
+                                                    ? '#2C2C2C'
+                                                    : 'rgba(255, 255, 255, 0.95)',
+                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 borderRadius: '50%',
-                                                background: 'linear-gradient(45deg, rgba(212, 181, 176, 0.1), rgba(212, 181, 176, 0.05))',
-                                                opacity: 0,
-                                                transition: 'opacity 0.3s ease'
-                                            },
-                                            '&:hover': {
-                                                bgcolor: 'rgba(212, 181, 176, 0.15)',
+                                                width: 36,
+                                                height: 36,
+                                                position: 'relative',
+                                                overflow: 'hidden',
+                                                bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
+                                                border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
                                                 '&::before': {
-                                                    opacity: 1
+                                                    content: '""',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    bottom: 0,
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(45deg, rgba(212, 181, 176, 0.1), rgba(212, 181, 176, 0.05))',
+                                                    opacity: 0,
+                                                    transition: 'opacity 0.3s ease'
+                                                },
+                                                '&:hover': {
+                                                    bgcolor: 'rgba(212, 181, 176, 0.15)',
+                                                    color: 'primary.main',
+                                                    '&::before': {
+                                                        opacity: 1
+                                                    }
                                                 }
-                                            }
-                                        }}
-                                    >
-                                        <motion.div
-                                            animate={{
-                                                rotate: mobileOpen ? 180 : 0,
-                                                scale: mobileOpen ? 1.1 : 1
                                             }}
-                                            transition={{ duration: 0.3 }}
                                         >
-                                            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-                                        </motion.div>
-                                    </IconButton>
-                                </motion.div>
-                            </Box>
-                        )}
+                                            <motion.div
+                                                animate={{
+                                                    rotate: language === 'he' ? 0 : 180
+                                                }}
+                                                transition={{ duration: 0.5 }}
+                                            >
+                                                <TranslateIcon />
+                                            </motion.div>
+                                        </IconButton>
+                                    </motion.div>
+                                </Box>
+                            )}
+
+                            {/* Mobile Menu Button */}
+                            {isMobile && (
+                                <Box sx={{ display: 'flex', gap: 1 }}>
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.3 }}
+                                    >
+                                        <IconButton
+                                            onClick={handleLanguageClick}
+                                            component={motion.button}
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.9 }}
+                                            sx={{
+                                                color: trigger ? '#2C2C2C' : 'rgba(255, 255, 255, 0.95)',
+                                                borderRadius: '50%',
+                                                width: 36,
+                                                height: 36,
+                                                bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
+                                                border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
+                                                '&:hover': {
+                                                    bgcolor: 'rgba(212, 181, 176, 0.15)'
+                                                }
+                                            }}
+                                        >
+                                            <motion.div
+                                                animate={{
+                                                    rotate: language === 'he' ? 0 : 180
+                                                }}
+                                                transition={{ duration: 0.5 }}
+                                            >
+                                                <TranslateIcon />
+                                            </motion.div>
+                                        </IconButton>
+                                    </motion.div>
+
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.4 }}
+                                    >
+                                        <IconButton
+                                            onClick={handleDrawerToggle}
+                                            component={motion.button}
+                                            whileTap={{ scale: 0.9 }}
+                                            whileHover={{ scale: 1.05 }}
+                                            sx={{
+                                                color: trigger ? '#2C2C2C' : 'rgba(255, 255, 255, 0.95)',
+                                                borderRadius: '50%',
+                                                width: 36,
+                                                height: 36,
+                                                position: 'relative',
+                                                overflow: 'hidden',
+                                                bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
+                                                border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
+                                                '&::before': {
+                                                    content: '""',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    bottom: 0,
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(45deg, rgba(212, 181, 176, 0.1), rgba(212, 181, 176, 0.05))',
+                                                    opacity: 0,
+                                                    transition: 'opacity 0.3s ease'
+                                                },
+                                                '&:hover': {
+                                                    bgcolor: 'rgba(212, 181, 176, 0.15)',
+                                                    '&::before': {
+                                                        opacity: 1
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            <motion.div
+                                                animate={{
+                                                    rotate: mobileOpen ? 180 : 0,
+                                                    scale: mobileOpen ? 1.1 : 1
+                                                }}
+                                                transition={{ duration: 0.3 }}
+                                            >
+                                                {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+                                            </motion.div>
+                                        </IconButton>
+                                    </motion.div>
+                                </Box>
+                            )}
                         </Toolbar>
                     </nav>
                 </Container>

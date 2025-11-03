@@ -205,7 +205,7 @@ const LatestArticle = () => {
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                                                 <Person sx={{ fontSize: 18, color: 'primary.main' }} />
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {article.author?.name || 'ליאה גניש'}
+                                                    {article.author?.name || 'לאה גניש'}
                                                 </Typography>
                                             </Box>
 

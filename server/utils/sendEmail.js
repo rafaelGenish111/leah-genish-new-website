@@ -56,7 +56,7 @@ export const emailTemplates = {
             </div>
             <p>אם יש צורך בשינוי או ביטול התור, אנא צרי קשר לפחות 24 שעות מראש.</p>
             <p>נשמח לראותך בקליניקה!</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -101,7 +101,7 @@ export const emailTemplates = {
               <p><strong>שעה:</strong> ${appointment.time}</p>
             </div>
             <p>נשמח לראותך בקליניקה!</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -137,7 +137,7 @@ export const emailTemplates = {
             <h2 style="color: #D4B5B0;">שלום ${appointment.clientName},</h2>
             <p>התור שלך בוטל בהצלחה.</p>
             <p>אם ברצונך לקבוע תור חדש, אנא צרי קשר איתנו.</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -168,7 +168,7 @@ export const emailTemplates = {
             <p>קיבלנו את הצהרת הבריאות שלך בהצלחה.</p>
             <p>המידע יישמר בצורה בטוחה ויעזור לנו להתאים את הטיפול בצורה הטובה ביותר עבורך.</p>
             <p>תודה על האמון!</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -237,7 +237,7 @@ export const emailTemplates = {
             <h2 style="color: #D4B5B0;">שלום ${contactData.name},</h2>
             <p>תודה רבה על פנייתך בנושא "${contactData.subject}".</p>
             <p>קיבלנו את ההודעה שלך ונחזור אליך בהקדם האפשרי.</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -323,7 +323,7 @@ export const emailTemplates = {
               <p><strong>שעה:</strong> ${appointment.time}</p>
               <p><strong>משך הטיפול:</strong> ${service.duration} דקות</p>
             </div>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -367,7 +367,7 @@ export const emailTemplates = {
               <p><strong>משך הטיפול:</strong> ${service.duration} דקות</p>
             </div>
             <p>נשמח לראותך בקליניקה!</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };
@@ -444,7 +444,7 @@ export const emailTemplates = {
             <h2 style="color: #D4B5B0;">שלום ${user.name},</h2>
             <p>הסיסמה שלך שונתה בהצלחה.</p>
             <p>אם לא ביצעת את השינוי, אנא צרי קשר איתנו מיד.</p>
-            <p>בברכה,<br>ליאה גניש</p>
+            <p>בברכה,<br>לאה גניש</p>
           </div>
         `
             };

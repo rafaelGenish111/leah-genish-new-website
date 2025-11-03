@@ -21,10 +21,10 @@ const LoadingAnimation = () => {
         >
             <motion.div
                 animate={prefersReducedMotion ? {} : { rotate: 360 }}
-                transition={{ 
-                    duration: prefersReducedMotion ? 0.01 : 3, 
-                    repeat: Infinity, 
-                    ease: "linear" 
+                transition={{
+                    duration: prefersReducedMotion ? 0.01 : 3,
+                    repeat: Infinity,
+                    ease: "linear"
                 }}
                 style={{ marginBottom: '2rem' }}
                 aria-hidden="true"

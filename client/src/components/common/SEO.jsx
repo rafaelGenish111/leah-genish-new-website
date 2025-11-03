@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
     title = "Leah Genish - רפואה משלימה וטיפול הוליסטי",
-    description = "ליאה גניש - מטפלת מוסמכת ברפואה משלימה, רפלקסולוגיה וטיפול הוליסטי. קבעו תור לטיפול מקצועי ואישי.",
-    keywords = "רפואה משלימה, רפלקסולוגיה, טיפול הוליסטי, ליאה גניש, מטפלת, בריאות טבעית",
+    description = "לאה גניש - מטפלת מוסמכת ברפואה משלימה, רפלקסולוגיה וטיפול הוליסטי. קבעו תור לטיפול מקצועי ואישי.",
+    keywords = "רפואה משלימה, רפלקסולוגיה, טיפול הוליסטי, לאה גניש, מטפלת, בריאות טבעית",
     image = "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     url = window.location.href,
     type = "website",

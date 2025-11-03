@@ -177,7 +177,7 @@ const AdminDashboard = () => {
             {/* Welcome Section */}
             <Box sx={{ mb: 4 }}>
                 <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-                    שלום, ליאה 👋
+                    שלום, לאה 👋
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
                     הנה מה קורה היום במרפאה שלך

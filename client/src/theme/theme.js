@@ -1,22 +1,78 @@
 import { createTheme } from '@mui/material/styles';
 
-// Color palette from logo - WCAG 2.1 AA compliant
+// Color palette from logo - WCAG 2.1 AA compliant - Enhanced Design System
 const colors = {
-    primary: '#D4B5B0', // Pink
-    primaryLighter: '#E8D5D2', // Lighter pink
-    primaryDarker: '#B89B97', // Darker pink for better contrast
-    secondary: '#6B5E5D', // Brown-gray - Better contrast
-    accent: '#C9A9A4', // Accent color
+    // Primary - גוונים של ורוד עתיק
+    primary: {
+        main: '#D4B5B0',
+        light: '#E8D5D2',
+        lighter: '#F5EAE8',
+        dark: '#B89B97',
+        darker: '#A68B87'
+    },
+    // Secondary - גוונים של חום-אפור
+    secondary: {
+        main: '#8B7B7A',
+        light: '#A69A99',
+        dark: '#6B5E5D',
+        muted: '#7A6E6D'
+    },
+    // Accent - צבעי הדגשה
+    accent: {
+        gold: '#D4A574',
+        sage: '#B4C5B0',
+        lavender: '#C9B4C5',
+        peach: '#E8C5B5'
+    },
+    // Neutrals - גווני רקע
+    neutral: {
+        white: '#FFFFFF',
+        snow: '#FAF9F8',
+        cream: '#FAF5F3',
+        sand: '#F5EFED',
+        stone: '#E8E3E1',
+        slate: '#D5D0CE'
+    },
+    // Text - צבעי טקסט
+    text: {
+        primary: '#2C2C2C',
+        secondary: '#5A5A5A',
+        tertiary: '#7A7A7A',
+        disabled: '#999999',
+        white: '#FFFFFF',
+        muted: '#A0A0A0'
+    },
+    // Semantic - צבעים סמנטיים
+    semantic: {
+        success: '#7CAF7C',
+        warning: '#E8B865',
+        error: '#D68B8B',
+        info: '#7CA5C5'
+    },
+    // Shadows - צללים
+    shadow: {
+        soft: 'rgba(212, 181, 176, 0.1)',
+        medium: 'rgba(212, 181, 176, 0.2)',
+        hard: 'rgba(139, 123, 122, 0.3)'
+    },
+    // Gradients - גרדיאנטים
+    gradients: {
+        primary: 'linear-gradient(135deg, #FAF5F3 0%, #F5EAE8 100%)',
+        warmth: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
+        sunset: 'linear-gradient(135deg, #E8C5B5 0%, #D4B5B0 50%, #B89B97 100%)',
+        nature: 'linear-gradient(135deg, #B4C5B0 0%, #D4B5B0 100%)',
+        overlay: 'linear-gradient(180deg, rgba(44,44,44,0.7) 0%, rgba(44,44,44,0.4) 100%)'
+    },
+    // Legacy support
+    primary_main: '#D4B5B0',
+    primaryLighter: '#E8D5D2',
+    primaryDarker: '#B89B97',
+    secondary_main: '#6B5E5D',
+    accent_main: '#C9A9A4',
     background: {
         default: '#FFFFFF',
         paper: '#FAF9F8',
-        light: '#FAF5F3',
-        gradient: 'linear-gradient(135deg, rgba(212, 181, 176, 0.3) 0%, rgba(212, 181, 176, 0.6) 100%)'
-    },
-    text: {
-        primary: '#2C2C2C', // Better contrast 7:1
-        secondary: '#5A5A5A', // Better contrast 4.7:1
-        disabled: '#8A8A8A' // Better contrast
+        light: '#FAF5F3'
     },
     error: '#f44336',
     warning: '#ff9800',
