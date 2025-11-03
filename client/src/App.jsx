@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { LanguageProvider } from './context/LanguageContext.jsx';
 import { ThemeProvider } from '@mui/material/styles';
@@ -65,68 +65,78 @@ function AppContent() {
             <CssBaseline />
             <ErrorBoundary>
                 <Router>
-                    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} lang={language}>
-                        <SkipLink />
-                        <Navbar />
-
-                        <main id="main-content" role="main" tabIndex="-1" style={{ flex: 1 }}>
-                            <Routes>
-                                {/* Public routes */}
-                                <Route path="/" element={<Home />} />
-                                <Route path="/about" element={<About />} />
-                                <Route path="/articles" element={<Articles />} />
-                                <Route path="/articles/:id" element={<ArticleDetail />} />
-                                <Route path="/gallery" element={<Gallery />} />
-                                <Route path="/treatments" element={<Treatments />} />
-                                <Route path="/appointments" element={<Appointments />} />
-                                <Route path="/health-declaration" element={<HealthDeclaration />} />
-                                <Route path="/contact" element={<Contact />} />
-                                <Route path="/accessibility" element={<Accessibility />} />
-                                <Route path="/login" element={<Login />} />
-
-                                {/* Admin Login */}
-                                <Route path="/admin/login" element={<AdminLogin />} />
-
-                                {/* Admin routes with layout */}
-                                <Route path="/admin" element={
-                                    <ProtectedRoute>
-                                        <AdminLayout />
-                                    </ProtectedRoute>
-                                }>
-                                    <Route index element={<AdminDashboard />} />
-                                    <Route path="articles" element={<AdminArticles />} />
-                                    <Route path="articles/new" element={<AdminArticleEditor />} />
-                                    <Route path="articles/:id/edit" element={<AdminArticleEditor />} />
-                                    <Route path="gallery" element={<AdminGallery />} />
-                                    <Route path="appointments" element={<AdminAppointments />} />
-                                    <Route path="health" element={<AdminHealth />} />
-                                    <Route path="services" element={<AdminServices />} />
-                                    <Route path="availability" element={<AdminAvailability />} />
-                                    <Route path="exceptions" element={<AdminExceptions />} />
-                                </Route>
-
-                                {/* 404 route */}
-                                <Route path="*" element={
-                                    <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        minHeight: '50vh',
-                                        flexDirection: 'column',
-                                        gap: '1rem'
-                                    }}>
-                                        <h1>404</h1>
-                                        <p>Page not found</p>
-                                    </div>
-                                } />
-                            </Routes>
-                        </main>
-
-                        <Footer />
-                    </div>
+                    <AppRoutes language={language} />
                 </Router>
             </ErrorBoundary>
         </ThemeProvider>
+    );
+}
+
+function AppRoutes({ language }) {
+    const location = useLocation();
+    const isAdminRoute = location.pathname.startsWith('/admin') && location.pathname !== '/admin/login';
+    const isAdminLogin = location.pathname === '/admin/login';
+
+    return (
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} lang={language}>
+            {!isAdminRoute && !isAdminLogin && <SkipLink />}
+            {!isAdminRoute && !isAdminLogin && <Navbar />}
+
+            <main id="main-content" role="main" tabIndex="-1" style={{ flex: 1 }}>
+                <Routes>
+                    {/* Public routes */}
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/articles" element={<Articles />} />
+                    <Route path="/articles/:id" element={<ArticleDetail />} />
+                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/treatments" element={<Treatments />} />
+                    <Route path="/appointments" element={<Appointments />} />
+                    <Route path="/health-declaration" element={<HealthDeclaration />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/accessibility" element={<Accessibility />} />
+                    <Route path="/login" element={<Login />} />
+
+                    {/* Admin Login */}
+                    <Route path="/admin/login" element={<AdminLogin />} />
+
+                    {/* Admin routes with layout */}
+                    <Route path="/admin" element={
+                        <ProtectedRoute>
+                            <AdminLayout />
+                        </ProtectedRoute>
+                    }>
+                        <Route index element={<AdminDashboard />} />
+                        <Route path="articles" element={<AdminArticles />} />
+                        <Route path="articles/new" element={<AdminArticleEditor />} />
+                        <Route path="articles/:id/edit" element={<AdminArticleEditor />} />
+                        <Route path="gallery" element={<AdminGallery />} />
+                        <Route path="appointments" element={<AdminAppointments />} />
+                        <Route path="health" element={<AdminHealth />} />
+                        <Route path="services" element={<AdminServices />} />
+                        <Route path="availability" element={<AdminAvailability />} />
+                        <Route path="exceptions" element={<AdminExceptions />} />
+                    </Route>
+
+                    {/* 404 route */}
+                    <Route path="*" element={
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            minHeight: '50vh',
+                            flexDirection: 'column',
+                            gap: '1rem'
+                        }}>
+                            <h1>404</h1>
+                            <p>Page not found</p>
+                        </div>
+                    } />
+                </Routes>
+            </main>
+
+            {!isAdminRoute && !isAdminLogin && <Footer />}
+        </div>
     );
 }
 
