@@ -190,9 +190,9 @@ const Navbar = () => {
                         <Toolbar
                             sx={{
                                 justifyContent: 'space-between',
-                                py: 1.5,
-                                px: { xs: 2, sm: 4 },
-                                minHeight: '64px !important'
+                                py: 2,
+                                px: { xs: 3, sm: 6 },
+                                minHeight: '80px !important'
                             }}
                         >
                             {/* Logo */}
@@ -256,7 +256,7 @@ const Navbar = () => {
 
                             {/* Desktop Navigation */}
                             {!isMobile && (
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                                     {/* Nav Links */}
                                     {navItems.map((item, index) => (
                                         <motion.div
