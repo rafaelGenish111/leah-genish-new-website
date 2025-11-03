@@ -34,6 +34,8 @@ import AdminGallery from './pages/admin/AdminGallery.jsx';
 import AdminAppointments from './pages/admin/AdminAppointments.jsx';
 import AdminHealth from './pages/admin/AdminHealth.jsx';
 import AdminServices from './pages/admin/AdminServices.jsx';
+import AdminAvailability from './pages/admin/AdminAvailability.jsx';
+import AdminExceptions from './pages/admin/AdminExceptions.jsx';
 
 // Import layouts
 import AdminLayout from './layouts/AdminLayout.jsx';
@@ -88,14 +90,16 @@ function AppContent() {
                                         <AdminLayout />
                                     </ProtectedRoute>
                                 }>
-                                    <Route index element={<AdminDashboard />} />
-                                    <Route path="articles" element={<AdminArticles />} />
-                                    <Route path="articles/new" element={<div>Article Editor - Coming Soon</div>} />
-                                    <Route path="articles/:id/edit" element={<div>Article Editor - Coming Soon</div>} />
-                                    <Route path="gallery" element={<AdminGallery />} />
-                                    <Route path="appointments" element={<AdminAppointments />} />
-                                    <Route path="health" element={<AdminHealth />} />
-                                    <Route path="services" element={<AdminServices />} />
+                                <Route index element={<AdminDashboard />} />
+                                <Route path="articles" element={<AdminArticles />} />
+                                <Route path="articles/new" element={<div>Article Editor - Coming Soon</div>} />
+                                <Route path="articles/:id/edit" element={<div>Article Editor - Coming Soon</div>} />
+                                <Route path="gallery" element={<AdminGallery />} />
+                                <Route path="appointments" element={<AdminAppointments />} />
+                                <Route path="health" element={<AdminHealth />} />
+                                <Route path="services" element={<AdminServices />} />
+                                <Route path="availability" element={<AdminAvailability />} />
+                                <Route path="exceptions" element={<AdminExceptions />} />
                                 </Route>
 
                                 {/* 404 route */}

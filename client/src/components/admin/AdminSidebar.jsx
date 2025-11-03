@@ -27,7 +27,9 @@ import {
     Logout as LogoutIcon,
     ExpandLess,
     ExpandMore,
-    Spa
+    Spa,
+    Schedule as ScheduleIcon,
+    Warning as WarningIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -73,6 +75,16 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
             title: t('admin.sidebar.services'),
             icon: <MedicalServicesIcon />,
             path: '/admin/services'
+        },
+        {
+            title: 'זמינות',
+            icon: <ScheduleIcon />,
+            path: '/admin/availability'
+        },
+        {
+            title: 'חריגות',
+            icon: <WarningIcon />,
+            path: '/admin/exceptions'
         }
     ];
 

@@ -101,7 +101,7 @@ export const getAvailableSlots = async (req, res, next) => {
 
         // Get therapist availability for this day
         const dayAvailability = await TherapistAvailability.findOne({ dayOfWeek, isActive: true });
-        
+
         // If no availability configured for this day, return empty slots
         if (!dayAvailability) {
             return res.json({
@@ -142,7 +142,7 @@ export const getAvailableSlots = async (req, res, next) => {
 
         // Check for custom hours exception
         const customHoursException = exceptions.find(exc => exc.type === 'custom_hours');
-        const workingHours = customHoursException 
+        const workingHours = customHoursException
             ? { start: customHoursException.startTime, end: customHoursException.endTime }
             : { start: dayAvailability.startTime, end: dayAvailability.endTime };
 

@@ -6,44 +6,44 @@ dotenv.config();
 // Decide transport according to environment/credentials
 // In development, prefer mock transport unless explicitly forced
 const useMockTransport = (
-    process.env.NODE_ENV !== 'production' &&
-    process.env.EMAIL_FORCE !== 'true'
+  process.env.NODE_ENV !== 'production' &&
+  process.env.EMAIL_FORCE !== 'true'
 );
 
 // Create transporter (mock in dev without creds)
 const transporter = useMockTransport
-    ? nodemailer.createTransport({ jsonTransport: true })
-    : nodemailer.createTransport({
-        service: process.env.EMAIL_SERVICE || 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
+  ? nodemailer.createTransport({ jsonTransport: true })
+  : nodemailer.createTransport({
+    service: process.env.EMAIL_SERVICE || 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
 
 // Verify transporter configuration (only for real transport)
 if (!useMockTransport) {
-    transporter.verify((error) => {
-        if (error) {
-            console.error('Email transporter error:', error);
-        } else {
-            console.log('Email server is ready to take messages');
-        }
-    });
+  transporter.verify((error) => {
+    if (error) {
+      console.error('Email transporter error:', error);
+    } else {
+      console.log('Email server is ready to take messages');
+    }
+  });
 } else {
-    console.log('Email mock transport active (dev mode, no real emails will be sent)');
+  console.log('Email mock transport active (dev mode, no real emails will be sent)');
 }
 
 // Email templates
 export const emailTemplates = {
-    appointmentConfirmation: (appointment, service, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  appointmentConfirmation: (appointment, service, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `אישור תור - ${service.name_he}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `אישור תור - ${service.name_he}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${appointment.clientName},</h2>
             <p>תודה רבה על קביעת התור!</p>
@@ -59,11 +59,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Appointment Confirmation - ${service.name_en}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Appointment Confirmation - ${service.name_en}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${appointment.clientName},</h2>
             <p>Thank you for booking your appointment!</p>
@@ -79,18 +79,18 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    appointmentReminder: (appointment, service, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  appointmentReminder: (appointment, service, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `תזכורת תור - מחר`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `תזכורת תור - מחר`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${appointment.clientName},</h2>
             <p>זוהי תזכורת לתור שלך מחר:</p>
@@ -104,11 +104,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Appointment Reminder - Tomorrow`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Appointment Reminder - Tomorrow`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${appointment.clientName},</h2>
             <p>This is a reminder for your appointment tomorrow:</p>
@@ -122,17 +122,17 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    appointmentCancellation: (appointment, language = 'he') => {
-        const isHebrew = language === 'he';
+  appointmentCancellation: (appointment, language = 'he') => {
+    const isHebrew = language === 'he';
 
-        if (isHebrew) {
-            return {
-                subject: `ביטול תור`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `ביטול תור`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${appointment.clientName},</h2>
             <p>התור שלך בוטל בהצלחה.</p>
@@ -140,11 +140,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Appointment Cancelled`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Appointment Cancelled`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">권ello ${appointment.clientName},</h2>
             <p>Your appointment has been successfully cancelled.</p>
@@ -152,17 +152,17 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    healthDeclarationConfirmation: (declaration, language = 'he') => {
-        const isHebrew = language === 'he';
+  healthDeclarationConfirmation: (declaration, language = 'he') => {
+    const isHebrew = language === 'he';
 
-        if (isHebrew) {
-            return {
-                subject: `אישור קבלת הצהרת בריאות`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `אישור קבלת הצהרת בריאות`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${declaration.clientName},</h2>
             <p>קיבלנו את הצהרת הבריאות שלך בהצלחה.</p>
@@ -171,11 +171,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Health Declaration Received`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Health Declaration Received`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${declaration.clientName},</h2>
             <p>We have successfully received your health declaration.</p>
@@ -184,17 +184,17 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    contactMessage: (contactData, language = 'he') => {
-        const isHebrew = language === 'he';
+  contactMessage: (contactData, language = 'he') => {
+    const isHebrew = language === 'he';
 
-        if (isHebrew) {
-            return {
-                subject: `הודעה חדשה מאתר - ${contactData.subject}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `הודעה חדשה מאתר - ${contactData.subject}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">הודעה חדשה מהאתר</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -206,11 +206,11 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `New Website Message - ${contactData.subject}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `New Website Message - ${contactData.subject}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">New Website Message</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -222,17 +222,17 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    contactAutoReply: (contactData, language = 'he') => {
-        const isHebrew = language === 'he';
+  contactAutoReply: (contactData, language = 'he') => {
+    const isHebrew = language === 'he';
 
-        if (isHebrew) {
-            return {
-                subject: `תודה על פנייתך - ${contactData.subject}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `תודה על פנייתך - ${contactData.subject}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${contactData.name},</h2>
             <p>תודה רבה על פנייתך בנושא "${contactData.subject}".</p>
@@ -240,11 +240,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Thank you for your message - ${contactData.subject}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Thank you for your message - ${contactData.subject}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${contactData.name},</h2>
             <p>Thank you for your message regarding "${contactData.subject}".</p>
@@ -252,18 +252,18 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    appointmentNotification: (appointment, service, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  appointmentNotification: (appointment, service, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `תור חדש - ${appointment.clientName}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `תור חדש - ${appointment.clientName}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">תור חדש נקבע</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -280,11 +280,11 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `New Appointment - ${appointment.clientName}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `New Appointment - ${appointment.clientName}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">New Appointment Booked</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -301,18 +301,18 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    appointmentUpdate: (appointment, service, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  appointmentUpdate: (appointment, service, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `עדכון תור - ${service.name_he}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `עדכון תור - ${service.name_he}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${appointment.clientName},</h2>
             <p>התור שלך עודכן בהצלחה.</p>
@@ -326,11 +326,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Appointment Updated - ${service.name_en}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Appointment Updated - ${service.name_en}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${appointment.clientName},</h2>
             <p>Your appointment has been updated successfully.</p>
@@ -344,18 +344,18 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    appointmentConfirmed: (appointment, service, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  appointmentConfirmed: (appointment, service, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `אישור סופי לתור - ${service.name_he}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `אישור סופי לתור - ${service.name_he}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${appointment.clientName},</h2>
             <p>התור שלך אושר סופית!</p>
@@ -370,11 +370,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Final Appointment Confirmation - ${service.name_en}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Final Appointment Confirmation - ${service.name_en}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${appointment.clientName},</h2>
             <p>Your appointment has been confirmed!</p>
@@ -389,17 +389,17 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    healthDeclarationNotification: (declaration, language = 'he') => {
-        const isHebrew = language === 'he';
+  healthDeclarationNotification: (declaration, language = 'he') => {
+    const isHebrew = language === 'he';
 
-        if (isHebrew) {
-            return {
-                subject: `הצהרת בריאות חדשה - ${declaration.clientName}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `הצהרת בריאות חדשה - ${declaration.clientName}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">הצהרת בריאות חדשה התקבלה</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -412,11 +412,11 @@ export const emailTemplates = {
             <p>נא לבדוק את ההצהרה במערכת הניהול.</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `New Health Declaration - ${declaration.clientName}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `New Health Declaration - ${declaration.clientName}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">New Health Declaration Received</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -429,17 +429,17 @@ export const emailTemplates = {
             <p>Please review the declaration in the admin panel.</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    passwordChanged: (user, language = 'he') => {
-        const isHebrew = language === 'he';
+  passwordChanged: (user, language = 'he') => {
+    const isHebrew = language === 'he';
 
-        if (isHebrew) {
-            return {
-                subject: 'הסיסמה שונתה בהצלחה',
-                html: `
+    if (isHebrew) {
+      return {
+        subject: 'הסיסמה שונתה בהצלחה',
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">שלום ${user.name},</h2>
             <p>הסיסמה שלך שונתה בהצלחה.</p>
@@ -447,11 +447,11 @@ export const emailTemplates = {
             <p>בברכה,<br>לאה גניש</p>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: 'Password Changed Successfully',
-                html: `
+      };
+    } else {
+      return {
+        subject: 'Password Changed Successfully',
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Hello ${user.name},</h2>
             <p>Your password has been changed successfully.</p>
@@ -459,18 +459,18 @@ export const emailTemplates = {
             <p>Best regards,<br>Leah Genish</p>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    calendlyAppointmentNotification: (appointment, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  calendlyAppointmentNotification: (appointment, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `תור חדש מ-Calendly - ${appointment.clientName}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `תור חדש מ-Calendly - ${appointment.clientName}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">תור חדש נקבע דרך Calendly</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -487,11 +487,11 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `New Calendly Appointment - ${appointment.clientName}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `New Calendly Appointment - ${appointment.clientName}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">New Appointment Booked via Calendly</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -508,18 +508,18 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        }
-    },
+      };
+    }
+  },
 
-    calendlyCancellationNotification: (appointment, language = 'he') => {
-        const isHebrew = language === 'he';
-        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+  calendlyCancellationNotification: (appointment, language = 'he') => {
+    const isHebrew = language === 'he';
+    const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
 
-        if (isHebrew) {
-            return {
-                subject: `ביטול תור מ-Calendly - ${appointment.clientName}`,
-                html: `
+    if (isHebrew) {
+      return {
+        subject: `ביטול תור מ-Calendly - ${appointment.clientName}`,
+        html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">תור בוטל דרך Calendly</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -534,11 +534,11 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        } else {
-            return {
-                subject: `Calendly Appointment Cancelled - ${appointment.clientName}`,
-                html: `
+      };
+    } else {
+      return {
+        subject: `Calendly Appointment Cancelled - ${appointment.clientName}`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #D4B5B0;">Appointment Cancelled via Calendly</h2>
             <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -553,31 +553,31 @@ export const emailTemplates = {
             </div>
           </div>
         `
-            };
-        }
+      };
     }
+  }
 };
 
 // Send email function
 export const sendEmail = async (to, template, language = 'he') => {
-    try {
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: to,
-            subject: template.subject,
-            html: template.html
-        };
+  try {
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: to,
+      subject: template.subject,
+      html: template.html
+    };
 
-        const result = await transporter.sendMail(mailOptions);
-        console.log('Email sent successfully:', result.messageId);
-        return { success: true, messageId: result.messageId };
-    } catch (error) {
-        console.error('Email sending failed:', error);
-        return { success: false, error: error.message };
-    }
+    const result = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully:', result.messageId);
+    return { success: true, messageId: result.messageId };
+  } catch (error) {
+    console.error('Email sending failed:', error);
+    return { success: false, error: error.message };
+  }
 };
 
 // Send email to admin
 export const sendAdminNotification = async (template, language = 'he') => {
-    return await sendEmail(process.env.EMAIL_USER, template, language);
+  return await sendEmail(process.env.EMAIL_USER, template, language);
 };
