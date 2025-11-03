@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -21,6 +21,8 @@ import {
 import { motion } from 'framer-motion';
 import { InlineWidget } from 'react-calendly';
 import SEO from '../components/common/SEO.jsx';
+import { servicesService } from '../services/servicesService.js';
+import { appointmentsService } from '../services/appointmentsService.js';
 
 const Appointments = () => {
     const { t } = useTranslation();
@@ -38,15 +40,27 @@ const Appointments = () => {
     });
     const [availableSlots, setAvailableSlots] = useState([]);
     const [error, setError] = useState('');
+    const [services, setServices] = useState([]);
+    const [loadingServices, setLoadingServices] = useState(true);
 
     const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || '';
 
-    // Mock services - replace with actual API call
-    const services = [
-        { _id: '1', name_he: 'רפלקסולוגיה', name_en: 'Reflexology', duration: 60, price: 250 },
-        { _id: '2', name_he: 'טיפול הוליסטי', name_en: 'Holistic Treatment', duration: 90, price: 350 },
-        { _id: '3', name_he: 'ייעוץ תזונתי', name_en: 'Nutrition Consultation', duration: 45, price: 300 }
-    ];
+    useEffect(() => {
+        fetchServices();
+    }, []);
+
+    const fetchServices = async () => {
+        try {
+            setLoadingServices(true);
+            const data = await servicesService.getActiveServices();
+            setServices(data);
+        } catch (error) {
+            console.error('Error fetching services:', error);
+            setError('שגיאה בטעינת השירותים');
+        } finally {
+            setLoadingServices(false);
+        }
+    };
 
     const handleMethodChange = (event, newMethod) => {
         if (newMethod !== null) {
@@ -65,13 +79,12 @@ const Appointments = () => {
         if (formData.serviceType && date) {
             try {
                 setLoading(true);
-                // TODO: Fetch actual available slots from API
-                const mockSlots = [
-                    '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'
-                ];
-                setAvailableSlots(mockSlots);
+                const data = await appointmentsService.getAvailableSlots(date, formData.serviceType);
+                setAvailableSlots(data.availableSlots.map(slot => slot.time));
             } catch (error) {
+                console.error('Error fetching available slots:', error);
                 setError('שגיאה בטעינת זמנים פנויים');
+                setAvailableSlots([]);
             } finally {
                 setLoading(false);
             }
@@ -84,13 +97,11 @@ const Appointments = () => {
         setError('');
 
         try {
-            // TODO: Submit to API
-            console.log('Submitting appointment:', formData);
-            
-            // Show success message
+            await appointmentsService.createAppointment(formData);
             alert('תודה! התור נקלט בהצלחה. נחזור אליך בהקדם.');
             navigate('/');
         } catch (error) {
+            console.error('Error creating appointment:', error);
             setError('שגיאה בשליחת הבקשה. נא לנסות שוב.');
         } finally {
             setLoading(false);
@@ -200,13 +211,23 @@ const Appointments = () => {
                                             <Select
                                                 value={formData.serviceType}
                                                 onChange={(e) => handleServiceChange(e.target.value)}
+                                                disabled={loadingServices}
                                                 label="סוג הטיפול"
                                             >
-                                                {services.map((service) => (
-                                                    <MenuItem key={service._id} value={service._id}>
-                                                        {service.name_he} - {service.duration} דקות ({service.price}₪)
+                                                {loadingServices ? (
+                                                    <MenuItem disabled>
+                                                        <CircularProgress size={20} sx={{ mr: 1 }} />
+                                                        טוען שירותים...
                                                     </MenuItem>
-                                                ))}
+                                                ) : services.length > 0 ? (
+                                                    services.map((service) => (
+                                                        <MenuItem key={service._id} value={service._id}>
+                                                            {service.name_he} - {service.duration} דקות {service.price && `(${service.price}₪)`}
+                                                        </MenuItem>
+                                                    ))
+                                                ) : (
+                                                    <MenuItem disabled>אין שירותים זמינים כרגע</MenuItem>
+                                                )}
                                             </Select>
                                         </FormControl>
                                     </Grid>
