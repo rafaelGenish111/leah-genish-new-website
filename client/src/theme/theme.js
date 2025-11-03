@@ -130,9 +130,10 @@ const theme = createTheme({
                 'Varela Round',
                 'sans-serif'
             ].join(','),
-            fontWeight: 700,
-            fontSize: 'clamp(2rem, 5vw, 2.5rem)',
-            lineHeight: 1.2
+            fontWeight: 300,
+            fontSize: 'clamp(3rem, 8vw, 8rem)',
+            lineHeight: 1.1,
+            letterSpacing: 1
         },
         h2: {
             fontFamily: [
@@ -140,9 +141,10 @@ const theme = createTheme({
                 'Varela Round',
                 'sans-serif'
             ].join(','),
-            fontWeight: 600,
-            fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-            lineHeight: 1.3
+            fontWeight: 300,
+            fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+            lineHeight: 1.2,
+            letterSpacing: 1
         },
         h3: {
             fontFamily: [
@@ -150,9 +152,10 @@ const theme = createTheme({
                 'Varela Round',
                 'sans-serif'
             ].join(','),
-            fontWeight: 600,
-            fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
-            lineHeight: 1.4
+            fontWeight: 400,
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            lineHeight: 1.3,
+            letterSpacing: 0.5
         },
         h4: {
             fontFamily: [
@@ -160,7 +163,7 @@ const theme = createTheme({
                 'Varela Round',
                 'sans-serif'
             ].join(','),
-            fontWeight: 500,
+            fontWeight: 400,
             fontSize: '1.5rem',
             lineHeight: 1.4
         },
@@ -170,7 +173,7 @@ const theme = createTheme({
                 'Varela Round',
                 'sans-serif'
             ].join(','),
-            fontWeight: 500,
+            fontWeight: 400,
             fontSize: '1.25rem',
             lineHeight: 1.5
         },
@@ -180,21 +183,23 @@ const theme = createTheme({
                 'Varela Round',
                 'sans-serif'
             ].join(','),
-            fontWeight: 500,
+            fontWeight: 400,
             fontSize: '1rem',
             lineHeight: 1.5
         },
         body1: {
-            fontSize: '1rem',
-            lineHeight: 1.6
+            fontSize: '1.125rem',
+            lineHeight: 2,
+            fontWeight: 300
         },
         body2: {
             fontSize: '0.875rem',
-            lineHeight: 1.6
+            lineHeight: 1.8
         },
         button: {
-            fontWeight: 500,
-            textTransform: 'none'
+            fontWeight: 400,
+            textTransform: 'uppercase',
+            letterSpacing: 2
         }
     },
     breakpoints: {
@@ -207,19 +212,21 @@ const theme = createTheme({
         }
     },
     shape: {
-        borderRadius: 12
+        borderRadius: 0
     },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderRadius: 25,
-                    padding: '10px 24px',
-                    boxShadow: '0 2px 8px rgba(212, 181, 176, 0.3)',
-                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: 0,
+                    padding: '12px 32px',
+                    boxShadow: 'none',
+                    border: '1px solid #E8E8E8',
+                    transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
                     '&:hover': {
-                        boxShadow: '0 6px 16px rgba(212, 181, 176, 0.4)',
-                        transform: 'translateY(-4px)'
+                        boxShadow: 'none',
+                        transform: 'translateY(-2px)',
+                        borderColor: colors.primary.main
                     },
                     '&:focus-visible': {
                         outline: '3px solid #D4B5B0',
@@ -227,18 +234,19 @@ const theme = createTheme({
                     }
                 },
                 contained: {
-                    backgroundColor: colors.primary.dark,
+                    backgroundColor: colors.primary.main,
                     color: '#FFFFFF',
+                    borderColor: colors.primary.main,
                     '&:hover': {
-                        backgroundColor: '#B89B97'
+                        backgroundColor: colors.primary.dark
                     }
                 },
                 outlined: {
-                    borderColor: colors.primary.dark,
-                    color: colors.primary.dark,
+                    borderColor: '#1A1A1A',
+                    color: '#1A1A1A',
                     '&:hover': {
-                        borderColor: colors.primary.dark,
-                        backgroundColor: 'rgba(212, 181, 176, 0.1)'
+                        borderColor: '#1A1A1A',
+                        backgroundColor: '#FAFAFA'
                     }
                 }
             }
@@ -246,12 +254,13 @@ const theme = createTheme({
         MuiCard: {
             styleOverrides: {
                 root: {
-                    borderRadius: 16,
-                    boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
-                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: 0,
+                    boxShadow: 'none',
+                    border: '1px solid #E8E8E8',
+                    transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
                     '&:hover': {
-                        boxShadow: '0 6px 20px rgba(0, 0, 0, 0.12)',
-                        transform: 'translateY(-4px)'
+                        boxShadow: 'none',
+                        transform: 'translateY(-8px)'
                     }
                 }
             }
@@ -260,7 +269,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     '& .MuiOutlinedInput-root': {
-                        borderRadius: 12,
+                        borderRadius: 0,
                         '& fieldset': {
                             borderColor: '#E0E0E0'
                         },
@@ -271,14 +280,6 @@ const theme = createTheme({
                             borderColor: colors.primary.main
                         }
                     }
-                }
-            }
-        },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    textTransform: 'none',
-                    fontFamily: 'Rubik, sans-serif'
                 }
             }
         },
@@ -300,17 +301,17 @@ const theme = createTheme({
         MuiChip: {
             styleOverrides: {
                 root: {
-                    borderRadius: 20,
-                    backgroundColor: `${colors.primary.main}20`,
+                    borderRadius: 0,
+                    backgroundColor: `${colors.primary.main}10`,
                     color: colors.primary.main,
-                    border: `1px solid ${colors.primary.main}40`
+                    border: `1px solid ${colors.primary.main}30`
                 }
             }
         },
         MuiAlert: {
             styleOverrides: {
                 root: {
-                    borderRadius: 12
+                    borderRadius: 0
                 }
             }
         }

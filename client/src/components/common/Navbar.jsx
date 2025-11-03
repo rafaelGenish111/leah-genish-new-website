@@ -178,17 +178,11 @@ const Navbar = () => {
                 position="fixed"
                 elevation={0}
                 sx={{
-                    bgcolor: trigger
-                        ? 'rgba(255, 255, 255, 0.95)'
-                        : 'transparent',
-                    backdropFilter: trigger ? 'blur(20px)' : 'none',
-                    boxShadow: trigger
-                        ? '0 2px 20px rgba(0, 0, 0, 0.05)'
-                        : 'none',
-                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    borderBottom: trigger
-                        ? '1px solid rgba(212, 181, 176, 0.1)'
-                        : 'none'
+                    bgcolor: trigger ? '#FFFFFF' : 'transparent',
+                    backdropFilter: 'none',
+                    boxShadow: 'none',
+                    transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                    borderBottom: trigger ? '1px solid #E8E8E8' : 'none'
                 }}
             >
                 <Container maxWidth="xl">
@@ -244,13 +238,14 @@ const Navbar = () => {
                                     >
                                         <Box
                                             sx={{
-                                                fontSize: trigger ? 20 : 22,
-                                                fontWeight: 400,
-                                                color: trigger ? 'text.primary' : 'white',
-                                                letterSpacing: 1,
-                                                fontFamily: '"Cormorant Garamond", serif',
-                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                display: { xs: 'none', sm: 'block' }
+                                                fontSize: trigger ? 18 : 20,
+                                                fontWeight: 300,
+                                                color: trigger ? '#1A1A1A' : 'white',
+                                                letterSpacing: 3,
+                                                fontFamily: '"Varela Round", sans-serif',
+                                                transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                                display: { xs: 'none', sm: 'block' },
+                                                textTransform: 'uppercase'
                                             }}
                                         >
                                             Leah Genish
@@ -276,38 +271,40 @@ const Navbar = () => {
                                                 sx={{
                                                     position: 'relative',
                                                     textDecoration: 'none',
-                                                    fontSize: 16,
-                                                    fontWeight: 500,
-                                                    letterSpacing: 0.5,
+                                                    fontSize: 14,
+                                                    fontWeight: 400,
+                                                    letterSpacing: 2,
+                                                    textTransform: 'uppercase',
                                                     color: location.pathname === item.path
-                                                        ? 'primary.main'
+                                                        ? '#1A1A1A'
                                                         : trigger
-                                                            ? '#2C2C2C'
-                                                            : 'rgba(255, 255, 255, 0.95)',
-                                                    transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                            ? '#505050'
+                                                            : 'rgba(255, 255, 255, 0.9)',
+                                                    transition: 'color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
                                                     cursor: 'pointer',
-                                                    textShadow: trigger ? 'none' : '0 1px 2px rgba(0,0,0,0.3)',
+                                                    textShadow: 'none',
                                                     '&:hover': {
-                                                        color: 'primary.main'
+                                                        color: '#1A1A1A'
                                                     },
                                                     '&::after': {
                                                         content: '""',
                                                         position: 'absolute',
-                                                        bottom: -5,
-                                                        left: '50%',
-                                                        transform: 'translateX(-50%) scaleX(0)',
-                                                        width: '80%',
-                                                        height: 2,
-                                                        bgcolor: 'primary.main',
-                                                        transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                        transformOrigin: 'center'
+                                                        bottom: -8,
+                                                        left: 0,
+                                                        transform: 'scaleX(0)',
+                                                        width: '100%',
+                                                        height: 1,
+                                                        bgcolor: '#1A1A1A',
+                                                        transition: 'transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                                        transformOrigin: 'left'
                                                     },
                                                     '&:hover::after': {
-                                                        transform: 'translateX(-50%) scaleX(1)'
+                                                        transform: 'scaleX(1)'
                                                     },
                                                     ...(location.pathname === item.path && {
+                                                        color: '#1A1A1A',
                                                         '&::after': {
-                                                            transform: 'translateX(-50%) scaleX(1)'
+                                                            transform: 'scaleX(1)'
                                                         }
                                                     })
                                                 }}
@@ -329,38 +326,26 @@ const Navbar = () => {
                                         transition={{ delay: 0.5 }}
                                     >
                                         <Button
+                                            variant="outlined"
                                             onClick={() => navigate('/appointments')}
                                             sx={{
-                                                background: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
-                                                color: 'white',
-                                                borderRadius: '20px',
-                                                px: 3,
+                                                borderColor: trigger ? '#1A1A1A' : 'rgba(255, 255, 255, 0.8)',
+                                                color: trigger ? '#1A1A1A' : 'white',
+                                                borderRadius: 0,
+                                                px: 4,
                                                 py: 1,
-                                                fontSize: 14,
-                                                fontWeight: 500,
-                                                textTransform: 'none',
-                                                boxShadow: '0 3px 12px rgba(212, 181, 176, 0.3)',
-                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                position: 'relative',
-                                                overflow: 'hidden',
+                                                fontSize: 12,
+                                                fontWeight: 400,
+                                                textTransform: 'uppercase',
+                                                letterSpacing: 2,
+                                                boxShadow: 'none',
+                                                transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
                                                 minHeight: '40px',
                                                 maxHeight: '40px',
-                                                '&::before': {
-                                                    content: '""',
-                                                    position: 'absolute',
-                                                    top: 0,
-                                                    left: '-100%',
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                                                    transition: 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                                                },
                                                 '&:hover': {
-                                                    background: 'linear-gradient(135deg, #C9A9A4 0%, #D4B5B0 100%)',
-                                                    boxShadow: '0 4px 16px rgba(212, 181, 176, 0.4)',
-                                                    '&::before': {
-                                                        left: '100%'
-                                                    }
+                                                    borderColor: trigger ? '#1A1A1A' : 'white',
+                                                    bgcolor: trigger ? '#FAFAFA' : 'rgba(255, 255, 255, 0.1)',
+                                                    transform: 'translateY(-2px)'
                                                 }
                                             }}
                                         >
