@@ -178,11 +178,11 @@ const Navbar = () => {
                 position="fixed"
                 elevation={0}
                 sx={{
-                    bgcolor: trigger ? '#FFFFFF' : 'transparent',
-                    backdropFilter: 'none',
+                    bgcolor: trigger ? '#FFFFFF' : 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(10px)',
                     boxShadow: 'none',
                     transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                    borderBottom: trigger ? '1px solid #E8E8E8' : 'none'
+                    borderBottom: '1px solid rgba(232, 232, 232, 0.5)'
                 }}
             >
                 <Container maxWidth="xl">
@@ -225,8 +225,8 @@ const Navbar = () => {
                                     >
                                         <Spa
                                             sx={{
-                                                fontSize: trigger ? 35 : 40,
-                                                color: trigger ? 'primary.main' : 'white',
+                                                fontSize: 35,
+                                                color: 'primary.main',
                                                 transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                                             }}
                                         />
@@ -238,9 +238,9 @@ const Navbar = () => {
                                     >
                                         <Box
                                             sx={{
-                                                fontSize: trigger ? 18 : 20,
+                                                fontSize: 18,
                                                 fontWeight: 300,
-                                                color: trigger ? '#1A1A1A' : 'white',
+                                                color: '#1A1A1A',
                                                 letterSpacing: 3,
                                                 fontFamily: '"Varela Round", sans-serif',
                                                 transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
@@ -277,9 +277,7 @@ const Navbar = () => {
                                                     textTransform: 'uppercase',
                                                     color: location.pathname === item.path
                                                         ? '#1A1A1A'
-                                                        : trigger
-                                                            ? '#505050'
-                                                            : 'rgba(255, 255, 255, 0.9)',
+                                                        : '#505050',
                                                     transition: 'color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
                                                     cursor: 'pointer',
                                                     textShadow: 'none',
@@ -329,8 +327,8 @@ const Navbar = () => {
                                             variant="outlined"
                                             onClick={() => navigate('/appointments')}
                                             sx={{
-                                                borderColor: trigger ? '#1A1A1A' : 'rgba(255, 255, 255, 0.8)',
-                                                color: trigger ? '#1A1A1A' : 'white',
+                                                borderColor: '#1A1A1A',
+                                                color: '#1A1A1A',
                                                 borderRadius: 0,
                                                 px: 4,
                                                 py: 1,
