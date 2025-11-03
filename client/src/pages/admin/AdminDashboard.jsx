@@ -155,19 +155,21 @@ const AdminDashboard = () => {
                     >
                         {icon}
                     </Avatar>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 0.5,
-                            color: change >= 0 ? 'success.main' : 'error.main'
-                        }}
-                    >
-                        {change >= 0 ? <TrendingUpIcon /> : <TrendingDownIcon />}
-                        <Typography variant="body2" fontWeight={600}>
-                            {Math.abs(change)}%
-                        </Typography>
-                    </Box>
+                    {change !== undefined && (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 0.5,
+                                color: change >= 0 ? 'success.main' : 'error.main'
+                            }}
+                        >
+                            {change >= 0 ? <TrendingUpIcon /> : <TrendingDownIcon />}
+                            <Typography variant="body2" fontWeight={600}>
+                                {Math.abs(change)}%
+                            </Typography>
+                        </Box>
+                    )}
                 </Box>
 
                 <Typography variant="h4" sx={{ fontWeight: 600, mb: 0.5 }}>

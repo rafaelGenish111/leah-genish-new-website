@@ -93,16 +93,16 @@ function AppContent() {
                                         <AdminLayout />
                                     </ProtectedRoute>
                                 }>
-                                <Route index element={<AdminDashboard />} />
+                                    <Route index element={<AdminDashboard />} />
                                     <Route path="articles" element={<AdminArticles />} />
                                     <Route path="articles/new" element={<AdminArticleEditor />} />
                                     <Route path="articles/:id/edit" element={<AdminArticleEditor />} />
-                                <Route path="gallery" element={<AdminGallery />} />
-                                <Route path="appointments" element={<AdminAppointments />} />
-                                <Route path="health" element={<AdminHealth />} />
-                                <Route path="services" element={<AdminServices />} />
-                                <Route path="availability" element={<AdminAvailability />} />
-                                <Route path="exceptions" element={<AdminExceptions />} />
+                                    <Route path="gallery" element={<AdminGallery />} />
+                                    <Route path="appointments" element={<AdminAppointments />} />
+                                    <Route path="health" element={<AdminHealth />} />
+                                    <Route path="services" element={<AdminServices />} />
+                                    <Route path="availability" element={<AdminAvailability />} />
+                                    <Route path="exceptions" element={<AdminExceptions />} />
                                 </Route>
 
                                 {/* 404 route */}

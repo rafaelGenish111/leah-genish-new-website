@@ -12,7 +12,9 @@ html {
 }
 
 /* מניעת גלילה אופקית כללית */
-html, body, #root {
+html,
+body,
+#root {
     overflow-x: hidden;
 }
 

@@ -13,7 +13,8 @@ import {
     Typography,
     Divider,
     Collapse,
-    Badge
+    Badge,
+    IconButton
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -29,7 +30,9 @@ import {
     ExpandMore,
     Spa,
     Schedule as ScheduleIcon,
-    Warning as WarningIcon
+    Warning as WarningIcon,
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -160,31 +163,31 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                             {user?.name?.[0] || 'L'}
                         </Avatar>
                         {!isCollapsed && (
-                        <Box sx={{ flex: 1, minWidth: 0 }}>
-                            <Typography
-                                variant="subtitle2"
-                                sx={{
-                                    fontWeight: 500,
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap'
-                                }}
-                            >
-                                {user?.name || 'Leah Genish'}
-                            </Typography>
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    color: 'text.secondary',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
-                                    display: 'block'
-                                }}
-                            >
-                                {user?.email || 'admin@leahgenish.com'}
-                            </Typography>
-                        </Box>
+                            <Box sx={{ flex: 1, minWidth: 0 }}>
+                                <Typography
+                                    variant="subtitle2"
+                                    sx={{
+                                        fontWeight: 500,
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                >
+                                    {user?.name || 'Leah Genish'}
+                                </Typography>
+                                <Typography
+                                    variant="caption"
+                                    sx={{
+                                        color: 'text.secondary',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap',
+                                        display: 'block'
+                                    }}
+                                >
+                                    {user?.email || 'admin@leahgenish.com'}
+                                </Typography>
+                            </Box>
                         )}
                     </Box>
                 </motion.div>
@@ -211,7 +214,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                         borderRadius: 2,
                                         color: location.pathname === item.path
                                             ? '#D4B5B0'
-                                            : 'rgba(255,255,255,0.8)',
+                                            : '#505050',
                                         bgcolor: location.pathname === item.path
                                             ? 'rgba(212, 181, 176, 0.15)'
                                             : 'transparent',
@@ -219,7 +222,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                         '&:hover': {
                                             bgcolor: location.pathname === item.path
                                                 ? 'rgba(212, 181, 176, 0.2)'
-                                                : 'rgba(255,255,255,0.05)',
+                                                : 'rgba(0,0,0,0.04)',
                                             transform: 'translateX(4px)'
                                         },
                                         '&.Mui-selected': {
@@ -291,10 +294,10 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                                                 py: 1,
                                                                 color: location.pathname === subItem.path
                                                                     ? '#D4B5B0'
-                                                                    : 'rgba(255,255,255,0.7)',
+                                                                    : '#505050',
                                                                 transition: 'all 0.2s ease',
                                                                 '&:hover': {
-                                                                    bgcolor: 'rgba(255,255,255,0.05)',
+                                                                    bgcolor: 'rgba(0,0,0,0.04)',
                                                                     transform: 'translateX(4px)'
                                                                 }
                                                             }}
@@ -364,6 +367,25 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                     </ListItemButton>
                 </motion.div>
             </Box>
+
+            {/* Toggle Button (Desktop only) */}
+            {!isMobile && (
+                <Box sx={{ p: 2, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+                    <IconButton
+                        onClick={onClose}
+                        sx={{
+                            width: '100%',
+                            borderRadius: 0,
+                            color: 'text.secondary',
+                            '&:hover': {
+                                bgcolor: 'rgba(0,0,0,0.04)'
+                            }
+                        }}
+                    >
+                        {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    </IconButton>
+                </Box>
+            )}
         </Box>
     );
 
