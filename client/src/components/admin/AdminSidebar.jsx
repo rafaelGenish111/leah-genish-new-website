@@ -386,14 +386,15 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                 </Drawer>
             ) : (
                 <Drawer
-                    variant="persistent"
+                    anchor="left"
+                    variant="temporary"
                     open={open}
+                    onClose={onClose}
                     PaperProps={{
                         sx: {
                             width: drawerWidth,
                             boxShadow: '2px 0 8px rgba(0,0,0,0.05)',
-                            bgcolor: '#F7F7F7',
-                            transition: 'width 0.3s ease'
+                            bgcolor: '#F7F7F7'
                         }
                     }}
                 >
