@@ -137,7 +137,10 @@ VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
 VITE_CLOUDINARY_API_KEY=your_api_key
 VITE_APP_NAME=Leah Genish - Holistic Health
 VITE_APP_VERSION=1.0.0
+VITE_CALENDLY_URL=https://calendly.com/your-username/event-type (optional)
 ```
+
+> **Note**: For Calendly setup, see [CALENDLY_SETUP.md](./CALENDLY_SETUP.md) for comprehensive instructions.
 
 5. Start the development server:
 ```bash
