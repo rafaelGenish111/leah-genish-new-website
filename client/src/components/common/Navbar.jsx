@@ -272,38 +272,27 @@ const Navbar = () => {
                                                     position: 'relative',
                                                     textDecoration: 'none',
                                                     fontSize: 14,
-                                                    fontWeight: 400,
-                                                    letterSpacing: 2,
+                                                    fontWeight: location.pathname === item.path ? 500 : 400,
+                                                    letterSpacing: location.pathname === item.path ? 2.5 : 2,
                                                     textTransform: 'uppercase',
                                                     color: location.pathname === item.path
                                                         ? '#1A1A1A'
-                                                        : '#505050',
-                                                    transition: 'color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                                        : '#808080',
+                                                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                                                     cursor: 'pointer',
-                                                    textShadow: 'none',
+                                                    padding: '8px 16px',
+                                                    borderRadius: 0,
+                                                    border: '1px solid transparent',
                                                     '&:hover': {
-                                                        color: '#1A1A1A'
-                                                    },
-                                                    '&::after': {
-                                                        content: '""',
-                                                        position: 'absolute',
-                                                        bottom: -8,
-                                                        left: 0,
-                                                        transform: 'scaleX(0)',
-                                                        width: '100%',
-                                                        height: 1,
-                                                        bgcolor: '#1A1A1A',
-                                                        transition: 'transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                                                        transformOrigin: 'left'
-                                                    },
-                                                    '&:hover::after': {
-                                                        transform: 'scaleX(1)'
+                                                        color: '#1A1A1A',
+                                                        letterSpacing: 2.5,
+                                                        fontWeight: 500,
+                                                        borderColor: 'rgba(212, 181, 176, 0.3)',
+                                                        backgroundColor: 'rgba(212, 181, 176, 0.05)'
                                                     },
                                                     ...(location.pathname === item.path && {
-                                                        color: '#1A1A1A',
-                                                        '&::after': {
-                                                            transform: 'scaleX(1)'
-                                                        }
+                                                        borderColor: 'rgba(212, 181, 176, 0.4)',
+                                                        backgroundColor: 'rgba(212, 181, 176, 0.08)'
                                                     })
                                                 }}
                                             >
@@ -327,8 +316,8 @@ const Navbar = () => {
                                             variant="outlined"
                                             onClick={() => navigate('/appointments')}
                                             sx={{
-                                                borderColor: '#1A1A1A',
-                                                color: '#1A1A1A',
+                                                borderColor: 'primary.main',
+                                                color: 'primary.main',
                                                 borderRadius: 0,
                                                 px: 4,
                                                 py: 1,
@@ -337,13 +326,15 @@ const Navbar = () => {
                                                 textTransform: 'uppercase',
                                                 letterSpacing: 2,
                                                 boxShadow: 'none',
-                                                transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 minHeight: '40px',
                                                 maxHeight: '40px',
                                                 '&:hover': {
-                                                    borderColor: trigger ? '#1A1A1A' : 'white',
-                                                    bgcolor: trigger ? '#FAFAFA' : 'rgba(255, 255, 255, 0.1)',
-                                                    transform: 'translateY(-2px)'
+                                                    borderColor: 'primary.dark',
+                                                    bgcolor: 'rgba(212, 181, 176, 0.1)',
+                                                    color: 'primary.dark',
+                                                    letterSpacing: 2.5,
+                                                    fontWeight: 500
                                                 }
                                             }}
                                         >
@@ -361,40 +352,20 @@ const Navbar = () => {
                                             onClick={handleLanguageClick}
                                             component={motion.button}
                                             whileHover={{
-                                                scale: 1.1,
-                                                rotate: 5
+                                                scale: 1.05
                                             }}
                                             whileTap={{ scale: 0.95 }}
                                             sx={{
-                                                color: trigger
-                                                    ? '#2C2C2C'
-                                                    : 'rgba(255, 255, 255, 0.95)',
-                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                borderRadius: '50%',
-                                                width: 36,
-                                                height: 36,
-                                                position: 'relative',
-                                                overflow: 'hidden',
-                                                bgcolor: trigger ? 'rgba(212, 181, 176, 0.05)' : 'rgba(255, 255, 255, 0.1)',
-                                                border: trigger ? '1px solid rgba(212, 181, 176, 0.2)' : '1px solid rgba(255, 255, 255, 0.2)',
-                                                '&::before': {
-                                                    content: '""',
-                                                    position: 'absolute',
-                                                    top: 0,
-                                                    left: 0,
-                                                    right: 0,
-                                                    bottom: 0,
-                                                    borderRadius: '50%',
-                                                    background: 'linear-gradient(45deg, rgba(212, 181, 176, 0.1), rgba(212, 181, 176, 0.05))',
-                                                    opacity: 0,
-                                                    transition: 'opacity 0.3s ease'
-                                                },
+                                                color: 'primary.main',
+                                                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                                                borderRadius: 0,
+                                                width: 40,
+                                                height: 40,
+                                                border: '1px solid transparent',
                                                 '&:hover': {
-                                                    bgcolor: 'rgba(212, 181, 176, 0.15)',
-                                                    color: 'primary.main',
-                                                    '&::before': {
-                                                        opacity: 1
-                                                    }
+                                                    color: 'primary.dark',
+                                                    borderColor: 'rgba(212, 181, 176, 0.3)',
+                                                    bgcolor: 'rgba(212, 181, 176, 0.05)'
                                                 }
                                             }}
                                         >
