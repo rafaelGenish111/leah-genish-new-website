@@ -161,7 +161,8 @@ const AdminHeader = ({ onMenuClick, sidebarOpen }) => {
                 bgcolor: 'white',
                 borderBottom: '1px solid',
                 borderColor: 'divider',
-                color: 'text.primary'
+                color: 'text.primary',
+                zIndex: (theme) => theme.zIndex.drawer + 1
             }}
         >
             <Toolbar sx={{ gap: 2 }}>

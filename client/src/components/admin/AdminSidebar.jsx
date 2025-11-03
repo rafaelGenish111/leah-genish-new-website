@@ -93,8 +93,8 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
         navigate('/login');
     };
 
-    const isCollapsed = !open && !isMobile;
-    const drawerWidth = isCollapsed ? 80 : 280;
+    // רוחב קבוע; בעת סגירה (open=false) ה-Drawer נסתר לגמרי
+    const drawerWidth = 280;
 
     const drawerContent = (
         <Box
@@ -126,7 +126,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                         }}
                     >
                         <Spa sx={{ fontSize: 32, color: 'primary.main' }} />
-                        {!isCollapsed && (
+                        {open && (
                             <Typography variant="h6" sx={{ fontWeight: 300 }}>
                                 Leah Genish
                             </Typography>
@@ -159,7 +159,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                         >
                             {user?.name?.[0] || 'L'}
                         </Avatar>
-                        {!isCollapsed && (
+                        {open && (
                             <Box sx={{ flex: 1, minWidth: 0 }}>
                                 <Typography
                                     variant="subtitle2"
@@ -239,7 +239,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                     >
                                         {item.icon}
                                     </ListItemIcon>
-                                    {!isCollapsed && (
+                        {open && (
                                         <ListItemText
                                             primary={item.title}
                                             primaryTypographyProps={{
@@ -261,7 +261,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                             }}
                                         />
                                     )}
-                                    {!isCollapsed && item.submenu && (
+                                    {open && item.submenu && (
                                         articlesOpen ? <ExpandLess /> : <ExpandMore />
                                     )}
                                 </ListItemButton>
@@ -269,7 +269,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
 
                             {/* Submenu */}
                             <AnimatePresence>
-                                {!isCollapsed && item.submenu && (
+                                {open && item.submenu && (
                                     <Collapse in={articlesOpen} timeout="auto" unmountOnExit>
                                         <List component="div" disablePadding>
                                             {item.submenu.map((subItem, subIndex) => (
