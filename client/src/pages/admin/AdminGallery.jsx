@@ -26,10 +26,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { motion, AnimatePresence } from 'framer-motion';
+import { galleryService } from '../../services/galleryService.js';
 
 const AdminGallery = () => {
     const { t } = useTranslation();
     const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedImages, setSelectedImages] = useState([]);
     const [categoryFilter, setCategoryFilter] = useState('all');
     const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
@@ -37,42 +39,22 @@ const AdminGallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [filesToUpload, setFilesToUpload] = useState([]);
 
-    // Mock data for now
+    // Fetch images from API
     useEffect(() => {
-        const mockImages = [
-            {
-                _id: '1',
-                title_he: 'הקליניקה שלנו',
-                title_en: 'Our Clinic',
-                description_he: 'מרחב טיפולי רגוע ומרגיע',
-                description_en: 'Calm and relaxing treatment space',
-                url: '/placeholder-image.jpg',
-                category: 'clinic',
-                createdAt: '2024-10-20T10:00:00Z'
-            },
-            {
-                _id: '2',
-                title_he: 'טיפול רפלקסולוגיה',
-                title_en: 'Reflexology Treatment',
-                description_he: 'טיפול מקצועי ברפלקסולוגיה',
-                description_en: 'Professional reflexology treatment',
-                url: '/placeholder-image.jpg',
-                category: 'treatments',
-                createdAt: '2024-10-22T14:30:00Z'
-            },
-            {
-                _id: '3',
-                title_he: 'תעודת הסמכה',
-                title_en: 'Certification',
-                description_he: 'תעודות הסמכה מקצועיות',
-                description_en: 'Professional certifications',
-                url: '/placeholder-image.jpg',
-                category: 'certificates',
-                createdAt: '2024-10-18T09:15:00Z'
+        const fetchImages = async () => {
+            try {
+                setLoading(true);
+                const data = await galleryService.getImages();
+                setImages(data);
+            } catch (error) {
+                console.error('Failed to fetch images:', error);
+                alert('שגיאה בטעינת התמונות');
+            } finally {
+                setLoading(false);
             }
-        ];
-        setImages(mockImages);
-    }, [categoryFilter]);
+        };
+        fetchImages();
+    }, []);
 
     const onDrop = useCallback((acceptedFiles) => {
         const newFiles = acceptedFiles.map(file => ({
@@ -94,35 +76,55 @@ const AdminGallery = () => {
     });
 
     const handleUpload = async () => {
-        // Mock upload - replace with actual API call
-        const newImages = filesToUpload.map((fileObj, index) => ({
-            _id: `new_${Date.now()}_${index}`,
-            title_he: fileObj.title_he,
-            title_en: fileObj.title_en,
-            description_he: fileObj.description_he,
-            description_en: fileObj.description_en,
-            url: fileObj.preview,
-            category: fileObj.category,
-            createdAt: new Date().toISOString()
-        }));
+        try {
+            // Prepare files for upload
+            const files = filesToUpload.map(f => f.file);
+            const uploadData = {};
+            
+            // If all files have the same metadata, use it; otherwise upload individually
+            if (filesToUpload.length === 1) {
+                uploadData.title_he = filesToUpload[0].title_he;
+                uploadData.title_en = filesToUpload[0].title_en;
+                uploadData.description_he = filesToUpload[0].description_he;
+                uploadData.description_en = filesToUpload[0].description_en;
+                uploadData.category = filesToUpload[0].category;
+            }
 
-        setImages(prev => [...prev, ...newImages]);
-        setUploadDialogOpen(false);
-        setFilesToUpload([]);
+            const uploadedImages = await galleryService.uploadImages(files, uploadData);
+            setImages(prev => [...prev, ...uploadedImages]);
+            alert(`הועלו ${uploadedImages.length} תמונות בהצלחה`);
+            setUploadDialogOpen(false);
+            setFilesToUpload([]);
+        } catch (error) {
+            console.error('Upload failed:', error);
+            alert('שגיאה בהעלאת התמונות');
+        }
     };
 
     const handleDelete = async (imageId) => {
         if (window.confirm('האם את בטוחה שברצונך למחוק תמונה זו?')) {
-            // Mock delete - replace with actual API call
-            setImages(prev => prev.filter(img => img._id !== imageId));
+            try {
+                await galleryService.deleteImage(imageId);
+                setImages(prev => prev.filter(img => img._id !== imageId));
+                alert('תמונה נמחקה בהצלחה');
+            } catch (error) {
+                console.error('Delete failed:', error);
+                alert('שגיאה במחיקת התמונה');
+            }
         }
     };
 
     const handleBulkDelete = async () => {
         if (window.confirm(`האם את בטוחה שברצונך למחוק ${selectedImages.length} תמונות?`)) {
-            // Mock bulk delete - replace with actual API call
-            setImages(prev => prev.filter(img => !selectedImages.includes(img._id)));
-            setSelectedImages([]);
+            try {
+                await Promise.all(selectedImages.map(id => galleryService.deleteImage(id)));
+                setImages(prev => prev.filter(img => !selectedImages.includes(img._id)));
+                setSelectedImages([]);
+                alert('התמונות נמחקו בהצלחה');
+            } catch (error) {
+                console.error('Bulk delete failed:', error);
+                alert('שגיאה במחיקת התמונות');
+            }
         }
     };
 
@@ -200,9 +202,22 @@ const AdminGallery = () => {
             </Card>
 
             {/* Image Grid */}
-            <ImageList cols={4} gap={16}>
-                <AnimatePresence>
-                    {filteredImages.map((image) => (
+            {loading ? (
+                <Box sx={{ textAlign: 'center', py: 8 }}>
+                    <Typography variant="body1" color="text.secondary">
+                        טוען תמונות...
+                    </Typography>
+                </Box>
+            ) : filteredImages.length === 0 ? (
+                <Box sx={{ textAlign: 'center', py: 8 }}>
+                    <Typography variant="body1" color="text.secondary">
+                        אין תמונות בגלריה
+                    </Typography>
+                </Box>
+            ) : (
+                <ImageList cols={4} gap={16}>
+                    <AnimatePresence>
+                        {filteredImages.map((image) => (
                         <ImageListItem
                             key={image._id}
                             component={motion.div}
@@ -296,6 +311,7 @@ const AdminGallery = () => {
                     ))}
                 </AnimatePresence>
             </ImageList>
+            )}
 
             {/* Upload Dialog */}
             <Dialog
@@ -572,13 +588,25 @@ const AdminGallery = () => {
                     <Button
                         variant="contained"
                         onClick={async () => {
-                            // Mock update - replace with actual API call
-                            setImages(prev =>
-                                prev.map(img =>
-                                    img._id === selectedImage._id ? selectedImage : img
-                                )
-                            );
-                            setEditDialogOpen(false);
+                            try {
+                                const updated = await galleryService.updateImage(selectedImage._id, {
+                                    title_he: selectedImage.title_he,
+                                    title_en: selectedImage.title_en,
+                                    description_he: selectedImage.description_he,
+                                    description_en: selectedImage.description_en,
+                                    category: selectedImage.category
+                                });
+                                setImages(prev =>
+                                    prev.map(img =>
+                                        img._id === selectedImage._id ? updated : img
+                                    )
+                                );
+                                setEditDialogOpen(false);
+                                alert('תמונה עודכנה בהצלחה');
+                            } catch (error) {
+                                console.error('Update failed:', error);
+                                alert('שגיאה בעדכון התמונה');
+                            }
                         }}
                     >
                         שמירה
