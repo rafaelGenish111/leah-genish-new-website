@@ -256,7 +256,7 @@ const Navbar = () => {
 
                             {/* Desktop Navigation */}
                             {!isMobile && (
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'nowrap' }}>
                                     {/* Nav Links */}
                                     {navItems.map((item, index) => (
                                         <motion.div
@@ -271,21 +271,21 @@ const Navbar = () => {
                                                 sx={{
                                                     position: 'relative',
                                                     textDecoration: 'none',
-                                                    fontSize: 14,
+                                                    fontSize: 13,
                                                     fontWeight: location.pathname === item.path ? 500 : 400,
-                                                    letterSpacing: location.pathname === item.path ? 2.5 : 2,
+                                                    letterSpacing: location.pathname === item.path ? 2 : 1.5,
                                                     textTransform: 'uppercase',
                                                     color: location.pathname === item.path
                                                         ? '#1A1A1A'
                                                         : '#808080',
                                                     transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                                                     cursor: 'pointer',
-                                                    padding: '8px 16px',
+                                                    padding: '8px 12px',
                                                     borderRadius: 0,
                                                     border: '1px solid transparent',
                                                     '&:hover': {
                                                         color: '#1A1A1A',
-                                                        letterSpacing: 2.5,
+                                                        letterSpacing: 2,
                                                         fontWeight: 500,
                                                         borderColor: 'rgba(212, 181, 176, 0.3)',
                                                         backgroundColor: 'rgba(212, 181, 176, 0.05)'
@@ -319,12 +319,12 @@ const Navbar = () => {
                                                 borderColor: 'primary.main',
                                                 color: 'primary.main',
                                                 borderRadius: 0,
-                                                px: 4,
+                                                px: 3,
                                                 py: 1,
-                                                fontSize: 12,
+                                                fontSize: 11,
                                                 fontWeight: 400,
                                                 textTransform: 'uppercase',
-                                                letterSpacing: 2,
+                                                letterSpacing: 1.5,
                                                 boxShadow: 'none',
                                                 transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                                                 minHeight: '40px',
@@ -333,7 +333,7 @@ const Navbar = () => {
                                                     borderColor: 'primary.dark',
                                                     bgcolor: 'rgba(212, 181, 176, 0.1)',
                                                     color: 'primary.dark',
-                                                    letterSpacing: 2.5,
+                                                    letterSpacing: 2,
                                                     fontWeight: 500
                                                 }
                                             }}
