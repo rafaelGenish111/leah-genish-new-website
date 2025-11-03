@@ -455,7 +455,7 @@ const AdminServices = () => {
                                 value={formData.calendlyUrl}
                                 onChange={(e) => setFormData({ ...formData, calendlyUrl: e.target.value })}
                                 fullWidth
-                                helperText="אם תוסיפי קישור, יוצג כפתור \"קביעת תור\" לטיפול הזה"
+                                helperText={'אם תוסיפי קישור, יוצג כפתור "קביעת תור" לטיפול הזה'}
                             />
                         </Grid>
 
