@@ -68,7 +68,11 @@ const Appointments = () => {
         const pattern = /^https:\/\/calendly\.com\/[a-z0-9_-]+(\/[a-z0-9_-]+)?(\?.*)?$/i;
         const badSegments = ['new-meeting', 'scheduled_events', 'app/'];
         if (!pattern.test(trimmed)) return '';
-        if (badSegments.some(seg => trimmed.includes(seg))) return '';
+        if (badSegments.some(seg => trimmed.includes(seg))) {
+            // המרה לקישור פרופיל
+            const m = trimmed.match(/^https:\/\/calendly\.com\/([a-z0-9_-]+)/i);
+            return m ? `https://calendly.com/${m[1]}` : '';
+        }
         return trimmed;
     };
     const overrideUrl = computeUrl(eventParam);

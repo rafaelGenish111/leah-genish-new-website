@@ -77,6 +77,21 @@ const AdminCalendly = () => {
         return !badSegments.some(seg => trimmed.includes(seg));
     };
 
+    const sanitizeCalendlyUrl = (url) => {
+        if (!url) return '';
+        const trimmed = url.trim();
+        const userMatch = trimmed.match(/^https:\/\/calendly\.com\/([a-z0-9_-]+)(?:\/([a-z0-9_-]+))?/i);
+        if (!userMatch) return trimmed;
+        const username = userMatch[1];
+        const event = userMatch[2];
+        const badSegments = ['new-meeting', 'scheduled_events'];
+        if (!event || badSegments.includes(event) || trimmed.includes('/app/')) {
+            // החזרה ללינק פרופיל תקין
+            return `https://calendly.com/${username}`;
+        }
+        return `https://calendly.com/${username}/${event}`;
+    };
+
     const handleSave = async () => {
         const trimmedUrl = (config.calendlyUrl || '').trim();
         if (config.enabled && !isValidCalendlyUrl(trimmedUrl)) {
@@ -147,13 +162,17 @@ const AdminCalendly = () => {
         const timer = setTimeout(() => {
             try {
                 const trimmedUrl = (config.calendlyUrl || '').trim();
-                localStorage.setItem('calendly_url', trimmedUrl);
+                const sanitized = sanitizeCalendlyUrl(trimmedUrl);
+                localStorage.setItem('calendly_url', sanitized);
                 localStorage.setItem('calendly_enabled', String(config.enabled));
                 localStorage.setItem('calendly_primary_color', config.primaryColor);
                 localStorage.setItem('calendly_text_color', config.textColor);
                 localStorage.setItem('calendly_background_color', config.backgroundColor);
                 localStorage.setItem('calendly_events', JSON.stringify(events || []));
                 window.dispatchEvent(new CustomEvent('calendly-config-updated'));
+                if (sanitized !== trimmedUrl) {
+                    setConfig((prev) => ({ ...prev, calendlyUrl: sanitized }));
+                }
             } catch (_) {
                 // ignore
             }
@@ -246,7 +265,7 @@ const AdminCalendly = () => {
                                 error={config.enabled && config.calendlyUrl && !isValidCalendlyUrl(config.calendlyUrl)}
                                 helperText={
                                     config.enabled && config.calendlyUrl && !isValidCalendlyUrl(config.calendlyUrl)
-                                        ? 'כתובת לא תקינה. הכתובת חייבת להתחיל ב-https://calendly.com/'
+                                        ? 'כתובת לא תקינה. נא להשתמש בקישור פרופיל/אירוע (לא new-meeting / app / scheduled_events).'
                                         : 'העתיקי את הקישור לאירוע מ-Calendly שלך'
                                 }
                                 InputProps={{
