@@ -30,6 +30,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PublishIcon from '@mui/icons-material/Publish';
 import { motion } from 'framer-motion';
+import { articlesService } from '../../services/articlesService.js';
 
 const AdminArticles = () => {
     const { t } = useTranslation();
@@ -43,43 +44,22 @@ const AdminArticles = () => {
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-    // Mock data for now
+    // Fetch articles from API
     useEffect(() => {
-        const mockArticles = [
-            {
-                _id: '1',
-                title_he: 'תזונה נכונה לבריאות טובה',
-                title_en: 'Proper Nutrition for Good Health',
-                category: 'nutrition',
-                published: true,
-                views: 245,
-                createdAt: '2024-10-20T10:00:00Z',
-                featuredImage: '/placeholder-image.jpg'
-            },
-            {
-                _id: '2',
-                title_he: 'רפלקסולוגיה - טיפול טבעי',
-                title_en: 'Reflexology - Natural Treatment',
-                category: 'reflexology',
-                published: false,
-                views: 0,
-                createdAt: '2024-10-22T14:30:00Z',
-                featuredImage: '/placeholder-image.jpg'
-            },
-            {
-                _id: '3',
-                title_he: 'אורח חיים בריא',
-                title_en: 'Healthy Lifestyle',
-                category: 'lifestyle',
-                published: true,
-                views: 189,
-                createdAt: '2024-10-18T09:15:00Z',
-                featuredImage: '/placeholder-image.jpg'
+        const fetchArticles = async () => {
+            try {
+                setLoading(true);
+                const data = await articlesService.getAdminArticles();
+                setArticles(data.articles || data);
+            } catch (error) {
+                console.error('Failed to fetch articles:', error);
+                alert('שגיאה בטעינת המאמרים');
+            } finally {
+                setLoading(false);
             }
-        ];
-        setArticles(mockArticles);
-        setLoading(false);
-    }, [statusFilter, categoryFilter]);
+        };
+        fetchArticles();
+    }, []);
 
     const handleMenuClick = (event, article) => {
         setAnchorEl(event.currentTarget);
@@ -97,22 +77,33 @@ const AdminArticles = () => {
     };
 
     const handleDelete = async () => {
-        // Mock delete - replace with actual API call
-        setArticles(prev => prev.filter(article => article._id !== selectedArticle._id));
-        setDeleteDialogOpen(false);
-        handleMenuClose();
+        try {
+            await articlesService.deleteArticle(selectedArticle._id);
+            setArticles(prev => prev.filter(article => article._id !== selectedArticle._id));
+            setDeleteDialogOpen(false);
+            handleMenuClose();
+            alert('מאמר נמחק בהצלחה');
+        } catch (error) {
+            console.error('Delete failed:', error);
+            alert('שגיאה במחיקת המאמר');
+        }
     };
 
     const handlePublishToggle = async () => {
-        // Mock publish toggle - replace with actual API call
-        setArticles(prev =>
-            prev.map(article =>
-                article._id === selectedArticle._id
-                    ? { ...article, published: !article.published }
-                    : article
-            )
-        );
-        handleMenuClose();
+        try {
+            await articlesService.publishArticle(selectedArticle._id);
+            const updated = await articlesService.getArticle(selectedArticle._id);
+            setArticles(prev =>
+                prev.map(article =>
+                    article._id === selectedArticle._id ? updated : article
+                )
+            );
+            handleMenuClose();
+            alert(`מאמר ${updated.published ? 'פורסם' : 'הוסתר'} בהצלחה`);
+        } catch (error) {
+            console.error('Publish toggle failed:', error);
+            alert('שגיאה בשינוי סטטוס המאמר');
+        }
     };
 
     const columns = [
