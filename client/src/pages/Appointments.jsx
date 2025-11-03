@@ -28,6 +28,17 @@ const Appointments = () => {
         backgroundColor: localStorage.getItem('calendly_background_color') || 'FFFFFF'
     });
 
+    // Load calendly events list
+    const [events, setEvents] = useState(() => {
+        try {
+            const raw = localStorage.getItem('calendly_events');
+            return raw ? JSON.parse(raw) : [];
+        } catch (_) {
+            return [];
+        }
+    });
+    const [selectedEventIndex, setSelectedEventIndex] = useState(0);
+
     // Listen for config updates from admin panel
     useEffect(() => {
         const handleConfigUpdate = () => {
@@ -38,6 +49,10 @@ const Appointments = () => {
                 textColor: localStorage.getItem('calendly_text_color') || '1A1A1A',
                 backgroundColor: localStorage.getItem('calendly_background_color') || 'FFFFFF'
             });
+            try {
+                const raw = localStorage.getItem('calendly_events');
+                setEvents(raw ? JSON.parse(raw) : []);
+            } catch (_) {}
         };
 
         window.addEventListener('calendly-config-updated', handleConfigUpdate);
@@ -51,7 +66,11 @@ const Appointments = () => {
     const overrideUrl = computeUrl(eventParam);
     const rawUrl = (calendlyConfig.url || '').trim();
     const fallbackUrl = computeUrl(rawUrl);
-    const calendlyUrl = overrideUrl || (calendlyConfig.enabled ? fallbackUrl : '');
+    let calendlyUrl = overrideUrl || (calendlyConfig.enabled ? fallbackUrl : '');
+    if (!overrideUrl && calendlyConfig.enabled && !calendlyUrl && events && events.length > 0) {
+        const chosen = events[selectedEventIndex] || events[0];
+        calendlyUrl = (chosen?.url || '').trim();
+    }
 
     return (
         <>
@@ -81,6 +100,22 @@ const Appointments = () => {
                         </Typography>
                     </Box>
                 </motion.div>
+
+                {/* Event selector (optional) */}
+                {(!overrideUrl && calendlyConfig.enabled && events && events.length > 0) && (
+                    <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
+                        {events.map((ev, idx) => (
+                            <Button
+                                key={idx}
+                                variant={idx === selectedEventIndex ? 'contained' : 'outlined'}
+                                onClick={() => setSelectedEventIndex(idx)}
+                                sx={{ borderRadius: 0 }}
+                            >
+                                {ev.label || `אירוע ${idx + 1}`}
+                            </Button>
+                        ))}
+                    </Box>
+                )}
 
                 {/* Calendly Widget */}
                 {calendlyUrl ? (

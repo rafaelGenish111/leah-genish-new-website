@@ -50,6 +50,14 @@ const AdminCalendly = () => {
     const [testDialogOpen, setTestDialogOpen] = useState(false);
     const [saveMessage, setSaveMessage] = useState({ type: '', text: '' });
     const [isSaving, setIsSaving] = useState(false);
+    const [events, setEvents] = useState(() => {
+        try {
+            const raw = localStorage.getItem('calendly_events');
+            return raw ? JSON.parse(raw) : [];
+        } catch (_) {
+            return [];
+        }
+    });
 
     // Example Calendly URLs for guidance
     const exampleUrls = [
@@ -142,13 +150,29 @@ const AdminCalendly = () => {
                 localStorage.setItem('calendly_primary_color', config.primaryColor);
                 localStorage.setItem('calendly_text_color', config.textColor);
                 localStorage.setItem('calendly_background_color', config.backgroundColor);
+                localStorage.setItem('calendly_events', JSON.stringify(events || []));
                 window.dispatchEvent(new CustomEvent('calendly-config-updated'));
             } catch (_) {
                 // ignore
             }
         }, 300);
         return () => clearTimeout(timer);
-    }, [config.enabled, config.calendlyUrl, config.primaryColor, config.textColor, config.backgroundColor]);
+    }, [config.enabled, config.calendlyUrl, config.primaryColor, config.textColor, config.backgroundColor, events]);
+
+    const addEvent = () => {
+        setEvents([...events, { label: '', url: '' }]);
+    };
+
+    const updateEvent = (index, field, value) => {
+        const next = events.slice();
+        next[index] = { ...next[index], [field]: value };
+        setEvents(next);
+    };
+
+    const removeEvent = (index) => {
+        const next = events.filter((_, i) => i !== index);
+        setEvents(next);
+    };
 
     return (
         <Box>
@@ -378,6 +402,60 @@ const AdminCalendly = () => {
                         </CardContent>
                     </Card>
 
+                    {/* Multiple Events */}
+                    <Card sx={{ mt: 3 }}>
+                        <CardContent>
+                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'space-between' }}>
+                                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                                    אירועי Calendly (אופציונלי)
+                                </Typography>
+                                <Button variant="outlined" onClick={addEvent} disabled={!config.enabled}>
+                                    הוספת אירוע
+                                </Button>
+                            </Box>
+                            {events.length === 0 ? (
+                                <Typography variant="body2" color="text.secondary">
+                                    ניתן להוסיף כמה אירועים (למשל טיפולים שונים). כל אירוע מזוהה לפי שם ותציגי אותו לבחירה בדף קביעת התור.
+                                </Typography>
+                            ) : (
+                                <Grid container spacing={2}>
+                                    {events.map((ev, index) => (
+                                        <Grid item xs={12} key={index}>
+                                            <Grid container spacing={2} alignItems="center">
+                                                <Grid item xs={12} md={3}>
+                                                    <TextField
+                                                        label="שם האירוע"
+                                                        value={ev.label}
+                                                        onChange={(e) => updateEvent(index, 'label', e.target.value)}
+                                                        fullWidth
+                                                        size="small"
+                                                        disabled={!config.enabled}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={7}>
+                                                    <TextField
+                                                        label="קישור האירוע"
+                                                        placeholder="https://calendly.com/your-username/event-type"
+                                                        value={ev.url}
+                                                        onChange={(e) => updateEvent(index, 'url', e.target.value)}
+                                                        fullWidth
+                                                        size="small"
+                                                        disabled={!config.enabled}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12} md={2}>
+                                                    <Button color="error" variant="text" onClick={() => removeEvent(index)}>
+                                                        מחיקה
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            )}
+                        </CardContent>
+                    </Card>
+
                     {/* Instructions Card */}
                     <Card sx={{ mt: 3 }}>
                         <CardContent>
@@ -413,8 +491,8 @@ const AdminCalendly = () => {
                                     סטטוס
                                 </Typography>
                                 <Chip
-                                    label={config.enabled && isValidCalendlyUrl(config.calendlyUrl) ? 'פעיל' : 'לא פעיל'}
-                                    color={config.enabled && isValidCalendlyUrl(config.calendlyUrl) ? 'success' : 'default'}
+                                    label={config.enabled && (isValidCalendlyUrl(config.calendlyUrl) || (events && events.length > 0)) ? 'פעיל' : 'לא פעיל'}
+                                    color={config.enabled && (isValidCalendlyUrl(config.calendlyUrl) || (events && events.length > 0)) ? 'success' : 'default'}
                                     size="small"
                                 />
                             </Box>
@@ -443,6 +521,19 @@ const AdminCalendly = () => {
                                     <ListItemText
                                         primary="כתובת מוגדרת"
                                         secondary={config.calendlyUrl ? 'כן' : 'לא'}
+                                    />
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemIcon>
+                                        {(events && events.length > 0) ? (
+                                            <CheckIcon sx={{ color: 'success.main' }} />
+                                        ) : (
+                                            <CloseIcon sx={{ color: 'error.main' }} />
+                                        )}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary="אירועים מרובים"
+                                        secondary={(events && events.length > 0) ? `${events.length} אירועים מוגדרים` : 'לא הוגדרו אירועים'}
                                     />
                                 </ListItem>
                             </List>
