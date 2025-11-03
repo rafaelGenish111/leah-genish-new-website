@@ -37,7 +37,7 @@ import { motion } from 'framer-motion';
 
 const AdminCalendly = () => {
     const { t } = useTranslation();
-    
+
     // State for Calendly configuration
     const [config, setConfig] = useState({
         calendlyUrl: localStorage.getItem('calendly_url') || '',
@@ -61,23 +61,27 @@ const AdminCalendly = () => {
     // Validation for Calendly URL
     const isValidCalendlyUrl = (url) => {
         if (!url) return false;
-        return url.startsWith('https://calendly.com/') && url.length > 25;
+        const trimmed = url.trim();
+        // מקבל גם קישור פרופיל וגם קישור סוג אירוע
+        const minLen = 'https://calendly.com/'.length + 3; // לפחות שם משתמש בן 3 תווים
+        return trimmed.startsWith('https://calendly.com/') && trimmed.length >= minLen;
     };
 
     const handleSave = async () => {
-        if (config.enabled && !isValidCalendlyUrl(config.calendlyUrl)) {
-            setSaveMessage({ 
-                type: 'error', 
-                text: 'כתובת Calendly לא תקינה. יש להזין כתובת המתחילה ב-https://calendly.com/' 
+        const trimmedUrl = (config.calendlyUrl || '').trim();
+        if (config.enabled && !isValidCalendlyUrl(trimmedUrl)) {
+            setSaveMessage({
+                type: 'error',
+                text: 'כתובת Calendly לא תקינה. יש להזין כתובת המתחילה ב-https://calendly.com/'
             });
             return;
         }
 
         setIsSaving(true);
-        
+
         try {
             // Save to localStorage
-            localStorage.setItem('calendly_url', config.calendlyUrl);
+            localStorage.setItem('calendly_url', trimmedUrl);
             localStorage.setItem('calendly_enabled', String(config.enabled));
             localStorage.setItem('calendly_primary_color', config.primaryColor);
             localStorage.setItem('calendly_text_color', config.textColor);
@@ -86,18 +90,20 @@ const AdminCalendly = () => {
             // Also save to backend via environment/settings API if needed
             // await settingsService.updateCalendlyConfig(config);
 
-            setSaveMessage({ 
-                type: 'success', 
-                text: 'הגדרות Calendly נשמרו בהצלחה!' 
+            setSaveMessage({
+                type: 'success',
+                text: 'הגדרות Calendly נשמרו בהצלחה!'
             });
 
             // Trigger event for other components to refresh
             window.dispatchEvent(new CustomEvent('calendly-config-updated'));
+            // Update local state with trimmed url so הסטטוס יתעדכן
+            setConfig((prev) => ({ ...prev, calendlyUrl: trimmedUrl }));
         } catch (error) {
             console.error('Failed to save Calendly config:', error);
-            setSaveMessage({ 
-                type: 'error', 
-                text: 'שגיאה בשמירת ההגדרות' 
+            setSaveMessage({
+                type: 'error',
+                text: 'שגיאה בשמירת ההגדרות'
             });
         } finally {
             setIsSaving(false);
@@ -106,9 +112,9 @@ const AdminCalendly = () => {
 
     const handleTest = () => {
         if (!isValidCalendlyUrl(config.calendlyUrl)) {
-            setSaveMessage({ 
-                type: 'error', 
-                text: 'אנא הזיני כתובת Calendly תקינה לפני הבדיקה' 
+            setSaveMessage({
+                type: 'error',
+                text: 'אנא הזיני כתובת Calendly תקינה לפני הבדיקה'
             });
             return;
         }
@@ -140,8 +146,8 @@ const AdminCalendly = () => {
 
             {/* Save Message */}
             {saveMessage.text && (
-                <Alert 
-                    severity={saveMessage.type} 
+                <Alert
+                    severity={saveMessage.type}
                     onClose={() => setSaveMessage({ type: '', text: '' })}
                     sx={{ mb: 3 }}
                 >
@@ -242,10 +248,10 @@ const AdminCalendly = () => {
                                                 value={config.primaryColor}
                                                 onChange={(e) => setConfig({ ...config, primaryColor: e.target.value })}
                                                 disabled={!config.enabled}
-                                                style={{ 
-                                                    width: '50px', 
-                                                    height: '40px', 
-                                                    border: '1px solid #E0E0E0', 
+                                                style={{
+                                                    width: '50px',
+                                                    height: '40px',
+                                                    border: '1px solid #E0E0E0',
                                                     borderRadius: '4px',
                                                     cursor: config.enabled ? 'pointer' : 'not-allowed'
                                                 }}
@@ -272,10 +278,10 @@ const AdminCalendly = () => {
                                                 value={config.textColor}
                                                 onChange={(e) => setConfig({ ...config, textColor: e.target.value })}
                                                 disabled={!config.enabled}
-                                                style={{ 
-                                                    width: '50px', 
-                                                    height: '40px', 
-                                                    border: '1px solid #E0E0E0', 
+                                                style={{
+                                                    width: '50px',
+                                                    height: '40px',
+                                                    border: '1px solid #E0E0E0',
                                                     borderRadius: '4px',
                                                     cursor: config.enabled ? 'pointer' : 'not-allowed'
                                                 }}
@@ -302,10 +308,10 @@ const AdminCalendly = () => {
                                                 value={config.backgroundColor}
                                                 onChange={(e) => setConfig({ ...config, backgroundColor: e.target.value })}
                                                 disabled={!config.enabled}
-                                                style={{ 
-                                                    width: '50px', 
-                                                    height: '40px', 
-                                                    border: '1px solid #E0E0E0', 
+                                                style={{
+                                                    width: '50px',
+                                                    height: '40px',
+                                                    border: '1px solid #E0E0E0',
                                                     borderRadius: '4px',
                                                     cursor: config.enabled ? 'pointer' : 'not-allowed'
                                                 }}

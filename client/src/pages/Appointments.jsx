@@ -15,7 +15,7 @@ import SEO from '../components/common/SEO.jsx';
 
 const Appointments = () => {
     const { t } = useTranslation();
-    
+
     // Read Calendly config from localStorage (set by admin)
     const [calendlyConfig, setCalendlyConfig] = useState({
         url: localStorage.getItem('calendly_url') || import.meta.env.VITE_CALENDLY_URL || '',
@@ -41,7 +41,9 @@ const Appointments = () => {
         return () => window.removeEventListener('calendly-config-updated', handleConfigUpdate);
     }, []);
 
-    const calendlyUrl = calendlyConfig.enabled ? calendlyConfig.url : '';
+    const rawUrl = (calendlyConfig.url || '').trim();
+    const isValid = rawUrl.startsWith('https://calendly.com/') && rawUrl.length >= 'https://calendly.com/'.length + 3;
+    const calendlyUrl = calendlyConfig.enabled && isValid ? rawUrl : '';
 
     return (
         <>
@@ -108,7 +110,7 @@ const Appointments = () => {
                             <Alert severity="info" sx={{ borderRadius: 0, mb: 3 }}>
                                 מערכת קביעת התורים הדיגיטלית אינה פעילה כרגע
                             </Alert>
-                            
+
                             <Typography variant="h6" sx={{ mb: 3, textAlign: 'center' }}>
                                 ניתן לקבוע תור בדרכים הבאות:
                             </Typography>
@@ -126,7 +128,7 @@ const Appointments = () => {
                                 >
                                     התקשרי: 050-123-4567
                                 </Button>
-                                
+
                                 <Button
                                     variant="outlined"
                                     size="large"
