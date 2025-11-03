@@ -62,7 +62,15 @@ const Appointments = () => {
     // If event param is present, it overrides the default URL
     const params = new URLSearchParams(location.search);
     const eventParam = (params.get('event') || '').trim();
-    const computeUrl = (u) => u && u.startsWith('https://calendly.com/') && u.length >= 'https://calendly.com/'.length + 3 ? u : '';
+    const computeUrl = (u) => {
+        if (!u) return '';
+        const trimmed = u.trim();
+        const pattern = /^https:\/\/calendly\.com\/[a-z0-9_-]+(\/[a-z0-9_-]+)?(\?.*)?$/i;
+        const badSegments = ['new-meeting', 'scheduled_events', 'app/'];
+        if (!pattern.test(trimmed)) return '';
+        if (badSegments.some(seg => trimmed.includes(seg))) return '';
+        return trimmed;
+    };
     const overrideUrl = computeUrl(eventParam);
     const rawUrl = (calendlyConfig.url || '').trim();
     const fallbackUrl = computeUrl(rawUrl);

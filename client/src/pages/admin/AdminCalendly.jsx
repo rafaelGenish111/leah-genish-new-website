@@ -70,9 +70,11 @@ const AdminCalendly = () => {
     const isValidCalendlyUrl = (url) => {
         if (!url) return false;
         const trimmed = url.trim();
-        // מקבל גם קישור פרופיל וגם קישור סוג אירוע
-        const minLen = 'https://calendly.com/'.length + 3; // לפחות שם משתמש בן 3 תווים
-        return trimmed.startsWith('https://calendly.com/') && trimmed.length >= minLen;
+        // פרופיל או סוג אירוע בלבד (לא new-meeting / scheduled_events / app/...)
+        const pattern = /^https:\/\/calendly\.com\/[a-z0-9_-]+(\/[a-z0-9_-]+)?(\?.*)?$/i;
+        if (!pattern.test(trimmed)) return false;
+        const badSegments = ['new-meeting', 'scheduled_events', 'app/'];
+        return !badSegments.some(seg => trimmed.includes(seg));
     };
 
     const handleSave = async () => {
