@@ -1,5 +1,7 @@
 import Appointment from '../models/Appointment.js';
 import Service from '../models/Service.js';
+import TherapistAvailability from '../models/TherapistAvailability.js';
+import TherapistException from '../models/TherapistException.js';
 import { sendEmail, sendAdminNotification, emailTemplates } from '../utils/sendEmail.js';
 
 // Get all appointments (admin)
@@ -93,14 +95,64 @@ export const getAvailableSlots = async (req, res, next) => {
             });
         }
 
-        // Define working hours (9:00-18:00)
-        const workingHours = {
-            start: 9,
-            end: 18
-        };
+        // Get day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+        const appointmentDate = new Date(date);
+        const dayOfWeek = appointmentDate.getDay();
+
+        // Get therapist availability for this day
+        const dayAvailability = await TherapistAvailability.findOne({ dayOfWeek, isActive: true });
+        
+        // If no availability configured for this day, return empty slots
+        if (!dayAvailability) {
+            return res.json({
+                success: true,
+                data: {
+                    availableSlots: [],
+                    service: {
+                        id: service._id,
+                        name_he: service.name_he,
+                        name_en: service.name_en,
+                        duration: service.duration
+                    },
+                    message: 'No availability configured for this day'
+                }
+            });
+        }
+
+        // Check for exceptions on this date
+        const exceptions = await TherapistException.find({ date });
+
+        // Check if there's a full day exception
+        const fullDayException = exceptions.find(exc => exc.type === 'unavailable');
+        if (fullDayException) {
+            return res.json({
+                success: true,
+                data: {
+                    availableSlots: [],
+                    service: {
+                        id: service._id,
+                        name_he: service.name_he,
+                        name_en: service.name_en,
+                        duration: service.duration
+                    },
+                    message: fullDayException.reason
+                }
+            });
+        }
+
+        // Check for custom hours exception
+        const customHoursException = exceptions.find(exc => exc.type === 'custom_hours');
+        const workingHours = customHoursException 
+            ? { start: customHoursException.startTime, end: customHoursException.endTime }
+            : { start: dayAvailability.startTime, end: dayAvailability.endTime };
+
+        // Parse working hours to numbers
+        const [startHour, startMin] = workingHours.start.split(':').map(Number);
+        const [endHour, endMin] = workingHours.end.split(':').map(Number);
+        const startTimeHours = startHour + startMin / 60;
+        const endTimeHours = endHour + endMin / 60;
 
         // Get existing appointments for the date
-        const appointmentDate = new Date(date);
         const existingAppointments = await Appointment.find({
             date: {
                 $gte: new Date(appointmentDate.setHours(0, 0, 0, 0)),
@@ -113,7 +165,7 @@ export const getAvailableSlots = async (req, res, next) => {
         const availableSlots = [];
         const serviceDuration = service.duration;
 
-        for (let hour = workingHours.start; hour < workingHours.end; hour += 0.5) {
+        for (let hour = startTimeHours; hour < endTimeHours; hour += 0.5) {
             const timeString = `${hour.toString().padStart(2, '0')}:${hour % 1 === 0 ? '00' : '30'}`;
             const slotStart = hour;
             const slotEnd = slotStart + (serviceDuration / 60);
@@ -126,8 +178,16 @@ export const getAvailableSlots = async (req, res, next) => {
                 return (slotStart < aptEnd && slotEnd > aptStart);
             });
 
+            // Check if slot conflicts with break times
+            const hasBreakConflict = dayAvailability.breakTimes && dayAvailability.breakTimes.some(breakTime => {
+                const breakStart = parseInt(breakTime.startTime.split(':')[0]) + (parseInt(breakTime.startTime.split(':')[1]) / 60);
+                const breakEnd = parseInt(breakTime.endTime.split(':')[0]) + (parseInt(breakTime.endTime.split(':')[1]) / 60);
+
+                return (slotStart < breakEnd && slotEnd > breakStart);
+            });
+
             // Check if slot doesn't exceed working hours
-            if (slotEnd <= workingHours.end && !hasConflict) {
+            if (slotEnd <= endTimeHours && !hasConflict && !hasBreakConflict) {
                 availableSlots.push({
                     time: timeString,
                     displayTime: timeString

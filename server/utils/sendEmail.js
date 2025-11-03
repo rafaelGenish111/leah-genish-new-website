@@ -461,6 +461,100 @@ export const emailTemplates = {
         `
             };
         }
+    },
+
+    calendlyAppointmentNotification: (appointment, language = 'he') => {
+        const isHebrew = language === 'he';
+        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+
+        if (isHebrew) {
+            return {
+                subject: `תור חדש מ-Calendly - ${appointment.clientName}`,
+                html: `
+          <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #D4B5B0;">תור חדש נקבע דרך Calendly</h2>
+            <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
+              <h3>פרטי הלקוח:</h3>
+              <p><strong>שם:</strong> ${appointment.clientName}</p>
+              <p><strong>אימייל:</strong> ${appointment.clientEmail}</p>
+              <p><strong>טלפון:</strong> ${appointment.clientPhone || 'לא צוין'}</p>
+              <h3>פרטי התור:</h3>
+              <p><strong>תאריך:</strong> ${date}</p>
+              <p><strong>שעה:</strong> ${appointment.time}</p>
+              <p><strong>משך הטיפול:</strong> ${appointment.duration} דקות</p>
+              ${appointment.notes ? `<p><strong>הערות:</strong> ${appointment.notes}</p>` : ''}
+              <p style="color: #8B7B7A; font-style: italic;">תור זה נקבע דרך Calendly</p>
+            </div>
+          </div>
+        `
+            };
+        } else {
+            return {
+                subject: `New Calendly Appointment - ${appointment.clientName}`,
+                html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #D4B5B0;">New Appointment Booked via Calendly</h2>
+            <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
+              <h3>Client Details:</h3>
+              <p><strong>Name:</strong> ${appointment.clientName}</p>
+              <p><strong>Email:</strong> ${appointment.clientEmail}</p>
+              <p><strong>Phone:</strong> ${appointment.clientPhone || 'Not provided'}</p>
+              <h3>Appointment Details:</h3>
+              <p><strong>Date:</strong> ${date}</p>
+              <p><strong>Time:</strong> ${appointment.time}</p>
+              <p><strong>Duration:</strong> ${appointment.duration} minutes</p>
+              ${appointment.notes ? `<p><strong>Notes:</strong> ${appointment.notes}</p>` : ''}
+              <p style="color: #8B7B7A; font-style: italic;">This appointment was booked via Calendly</p>
+            </div>
+          </div>
+        `
+            };
+        }
+    },
+
+    calendlyCancellationNotification: (appointment, language = 'he') => {
+        const isHebrew = language === 'he';
+        const date = new Date(appointment.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US');
+
+        if (isHebrew) {
+            return {
+                subject: `ביטול תור מ-Calendly - ${appointment.clientName}`,
+                html: `
+          <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #D4B5B0;">תור בוטל דרך Calendly</h2>
+            <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
+              <h3>פרטי הלקוח:</h3>
+              <p><strong>שם:</strong> ${appointment.clientName}</p>
+              <p><strong>אימייל:</strong> ${appointment.clientEmail}</p>
+              <p><strong>טלפון:</strong> ${appointment.clientPhone || 'לא צוין'}</p>
+              <h3>פרטי התור:</h3>
+              <p><strong>תאריך:</strong> ${date}</p>
+              <p><strong>שעה:</strong> ${appointment.time}</p>
+              <p style="color: #D68B8B; font-weight: bold;">⚠️ התור בוטל</p>
+            </div>
+          </div>
+        `
+            };
+        } else {
+            return {
+                subject: `Calendly Appointment Cancelled - ${appointment.clientName}`,
+                html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #D4B5B0;">Appointment Cancelled via Calendly</h2>
+            <div style="background-color: #FAF5F3; padding: 20px; border-radius: 10px; margin: 20px 0;">
+              <h3>Client Details:</h3>
+              <p><strong>Name:</strong> ${appointment.clientName}</p>
+              <p><strong>Email:</strong> ${appointment.clientEmail}</p>
+              <p><strong>Phone:</strong> ${appointment.clientPhone || 'Not provided'}</p>
+              <h3>Appointment Details:</h3>
+              <p><strong>Date:</strong> ${date}</p>
+              <p><strong>Time:</strong> ${appointment.time}</p>
+              <p style="color: #D68B8B; font-weight: bold;">⚠️ Appointment Cancelled</p>
+            </div>
+          </div>
+        `
+            };
+        }
     }
 };
 

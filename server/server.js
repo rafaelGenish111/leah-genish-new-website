@@ -15,6 +15,7 @@ import galleryRoutes from './routes/gallery.js';
 import servicesRoutes from './routes/services.js';
 import contactRoutes from './routes/contact.js';
 import availabilityRoutes from './routes/availability.js';
+import calendlyRoutes from './routes/calendly.js';
 
 // Load environment variables
 dotenv.config();
@@ -70,6 +71,7 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/availability', availabilityRoutes);
+app.use('/api/calendly', calendlyRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -93,7 +95,8 @@ app.get('/', (req, res) => {
             gallery: '/api/gallery',
             services: '/api/services',
             contact: '/api/contact',
-            availability: '/api/availability'
+            availability: '/api/availability',
+            calendly: '/api/calendly'
         }
     });
 });
