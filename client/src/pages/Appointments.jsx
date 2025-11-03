@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
     Container,
@@ -15,6 +16,8 @@ import SEO from '../components/common/SEO.jsx';
 
 const Appointments = () => {
     const { t } = useTranslation();
+
+    const location = useLocation();
 
     // Read Calendly config from localStorage (set by admin)
     const [calendlyConfig, setCalendlyConfig] = useState({
@@ -41,9 +44,14 @@ const Appointments = () => {
         return () => window.removeEventListener('calendly-config-updated', handleConfigUpdate);
     }, []);
 
+    // If event param is present, it overrides the default URL
+    const params = new URLSearchParams(location.search);
+    const eventParam = (params.get('event') || '').trim();
+    const computeUrl = (u) => u && u.startsWith('https://calendly.com/') && u.length >= 'https://calendly.com/'.length + 3 ? u : '';
+    const overrideUrl = computeUrl(eventParam);
     const rawUrl = (calendlyConfig.url || '').trim();
-    const isValid = rawUrl.startsWith('https://calendly.com/') && rawUrl.length >= 'https://calendly.com/'.length + 3;
-    const calendlyUrl = calendlyConfig.enabled && isValid ? rawUrl : '';
+    const fallbackUrl = computeUrl(rawUrl);
+    const calendlyUrl = overrideUrl || (calendlyConfig.enabled ? fallbackUrl : '');
 
     return (
         <>

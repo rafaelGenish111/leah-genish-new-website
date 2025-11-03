@@ -39,6 +39,11 @@ const serviceSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    calendlyUrl: {
+        type: String,
+        trim: true,
+        default: null
+    },
     order: {
         type: Number,
         default: 0

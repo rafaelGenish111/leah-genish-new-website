@@ -57,6 +57,7 @@ const AdminServices = () => {
         description_en: '',
         duration: '',
         price: '',
+        calendlyUrl: '',
         active: true,
         order: 0
     });
@@ -101,6 +102,7 @@ const AdminServices = () => {
                 description_en: service.description_en || '',
                 duration: service.duration || '',
                 price: service.price || '',
+                calendlyUrl: service.calendlyUrl || '',
                 active: service.active !== false,
                 order: service.order || 0
             });
@@ -114,6 +116,7 @@ const AdminServices = () => {
                 description_en: '',
                 duration: '',
                 price: '',
+                calendlyUrl: '',
                 active: true,
                 order: 0
             });
@@ -132,6 +135,7 @@ const AdminServices = () => {
             description_en: '',
             duration: '',
             price: '',
+            calendlyUrl: '',
             active: true,
             order: 0
         });
@@ -440,6 +444,18 @@ const AdminServices = () => {
                                 onChange={(e) => setFormData({ ...formData, order: e.target.value })}
                                 fullWidth
                                 inputProps={{ min: 0 }}
+                            />
+                        </Grid>
+
+                        {/* Calendly URL */}
+                        <Grid item xs={12}>
+                            <TextField
+                                label="קישור Calendly (אופציונלי)"
+                                placeholder="https://calendly.com/your-username/event-type"
+                                value={formData.calendlyUrl}
+                                onChange={(e) => setFormData({ ...formData, calendlyUrl: e.target.value })}
+                                fullWidth
+                                helperText="אם תוסיפי קישור, יוצג כפתור \"קביעת תור\" לטיפול הזה"
                             />
                         </Grid>
 

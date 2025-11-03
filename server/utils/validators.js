@@ -231,7 +231,15 @@ export const validateService = [
     body('order')
         .optional()
         .isInt({ min: 0 })
-        .withMessage('Order must be a non-negative integer')
+        .withMessage('Order must be a non-negative integer'),
+    body('calendlyUrl')
+        .optional({ nullable: true })
+        .trim()
+        .custom((value) => {
+            if (!value) return true;
+            return value.startsWith('https://calendly.com/');
+        })
+        .withMessage('Calendly URL must start with https://calendly.com/')
 ];
 
 // Contact validation

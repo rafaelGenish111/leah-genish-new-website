@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Grid, Card, CardMedia, CardContent, Typography, Chip, Box, TextField, InputAdornment } from '@mui/material';
+import { Container, Grid, Card, CardMedia, CardContent, Typography, Chip, Box, TextField, InputAdornment, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { servicesService } from '../services/servicesService.js';
 
@@ -87,6 +87,20 @@ const Treatments = () => {
                                         <Chip label={`${service.price}₪`} size="small" color="primary" sx={{ borderRadius: 0 }} />
                                     ) : null}
                                 </Box>
+
+                                {/* Book button */}
+                                {service.calendlyUrl ? (
+                                    <Box sx={{ mt: 2 }}>
+                                        <Button
+                                            variant="contained"
+                                            fullWidth
+                                            href={`/appointments?event=${encodeURIComponent(service.calendlyUrl)}`}
+                                            sx={{ borderRadius: 0 }}
+                                        >
+                                            קביעת תור לטיפול זה
+                                        </Button>
+                                    </Box>
+                                ) : null}
                             </CardContent>
                         </Card>
                     </Grid>
