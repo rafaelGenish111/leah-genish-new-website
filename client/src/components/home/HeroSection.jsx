@@ -10,11 +10,11 @@ import {
     useMediaQuery
 } from '@mui/material';
 import {
-    KeyboardArrowDown,
-    Spa
+    KeyboardArrowDown
 } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import logoWhite from '../../assets/images/logo-white.png';
 
 const HeroSection = () => {
     const { t } = useTranslation();
@@ -204,22 +204,18 @@ const HeroSection = () => {
                     >
                         <Box sx={{ textAlign: 'center', mb: 4 }}>
                             <Box
+                                component="img"
+                                src={logoWhite}
+                                alt="לאה גניש"
                                 sx={{
-                                    width: 120,
-                                    height: 120,
-                                    borderRadius: '50%',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
+                                    width: { xs: 140, md: 180 },
+                                    height: 'auto',
+                                    objectFit: 'contain',
                                     mx: 'auto',
                                     mb: 3,
-                                    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                                    backdropFilter: 'blur(10px)'
+                                    filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))'
                                 }}
-                            >
-                                <Spa sx={{ fontSize: 60, color: '#D4B5B0' }} />
-                            </Box>
+                            />
                         </Box>
                     </motion.div>
 

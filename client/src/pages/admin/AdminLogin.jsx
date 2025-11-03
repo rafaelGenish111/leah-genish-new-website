@@ -21,11 +21,11 @@ import {
     Visibility,
     VisibilityOff,
     Email,
-    Lock,
-    Spa
+    Lock
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useForm } from 'react-hook-form';
+import logo from '../../assets/images/logo.png';
 
 const AdminLogin = () => {
     const { t } = useTranslation();
@@ -145,7 +145,7 @@ const AdminLogin = () => {
                 <motion.div
                     animate={{
                         y: [10, -10, 10],
-                        rotate: [360, 0, 360]
+                        scale: [1, 1.05, 1]
                     }}
                     transition={{
                         duration: 12,
@@ -156,10 +156,19 @@ const AdminLogin = () => {
                         position: 'absolute',
                         bottom: '20%',
                         left: '15%',
-                        opacity: 0.2
+                        opacity: 0.3
                     }}
                 >
-                    <Spa sx={{ fontSize: 80, color: 'white' }} />
+                    <Box
+                        component="img"
+                        src={logo}
+                        alt="לאה גניש"
+                        sx={{
+                            width: 100,
+                            height: 'auto',
+                            filter: 'brightness(10)'
+                        }}
+                    />
                 </motion.div>
 
                 {/* Quote */}
@@ -237,7 +246,17 @@ const AdminLogin = () => {
                                 whileHover={{ scale: 1.05 }}
                                 style={{ display: 'inline-block' }}
                             >
-                                <Spa sx={{ fontSize: 60, color: '#D4B5B0', mb: 2 }} />
+                                <Box
+                                    component="img"
+                                    src={logo}
+                                    alt="לאה גניש"
+                                    sx={{
+                                        height: 70,
+                                        width: 'auto',
+                                        objectFit: 'contain',
+                                        mb: 2
+                                    }}
+                                />
                             </motion.div>
                             <Typography
                                 variant="h4"

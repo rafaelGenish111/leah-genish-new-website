@@ -20,6 +20,7 @@ import {
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import logoWhite from '../../assets/images/logo-white.png';
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -93,14 +94,18 @@ const Footer = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <Typography
-                                variant="h6"
-                                component="h2"
-                                gutterBottom
-                                sx={{ fontWeight: 'bold', color: 'primary.main' }}
-                            >
-                                Leah Genish
-                            </Typography>
+                            <Box
+                                component="img"
+                                src={logoWhite}
+                                alt="לאה גניש"
+                                sx={{
+                                    height: 80,
+                                    width: 'auto',
+                                    objectFit: 'contain',
+                                    mb: 2,
+                                    filter: 'brightness(0.95)'
+                                }}
+                            />
                             <Typography
                                 variant="body2"
                                 color="text.secondary"

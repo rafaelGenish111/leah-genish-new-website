@@ -23,10 +23,10 @@ import {
     Language as LanguageIcon,
     Menu as MenuIcon,
     Close as CloseIcon,
-    Spa,
     Translate as TranslateIcon
 } from '@mui/icons-material';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import logo from '../../assets/images/logo.png';
 
 const Navbar = () => {
     const { t } = useTranslation();
@@ -93,7 +93,18 @@ const Navbar = () => {
             }}
         >
             {/* Close Button */}
-            <Box sx={{ textAlign: 'right', px: 2, mb: 4 }}>
+            {/* Mobile Drawer Header */}
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2, py: 2, mb: 2 }}>
+                <Box
+                    component="img"
+                    src={logo}
+                    alt="לאה גניש"
+                    sx={{
+                        height: 40,
+                        width: 'auto',
+                        objectFit: 'contain'
+                    }}
+                />
                 <IconButton onClick={handleDrawerToggle}>
                     <CloseIcon />
                 </IconButton>
@@ -206,51 +217,22 @@ const Navbar = () => {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 1.5,
                                         textDecoration: 'none',
                                         transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                         cursor: 'pointer'
                                     }}
                                 >
-                                    <motion.div
-                                        animate={{
-                                            rotate: trigger ? 0 : [0, 5, -5, 0],
-                                            scale: trigger ? 1 : [1, 1.05, 1]
+                                    <Box
+                                        component="img"
+                                        src={logo}
+                                        alt="לאה גניש - רפואה משלימה"
+                                        sx={{
+                                            height: { xs: 45, sm: 55 },
+                                            width: 'auto',
+                                            objectFit: 'contain',
+                                            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                                         }}
-                                        transition={{
-                                            duration: trigger ? 0.5 : 2,
-                                            repeat: trigger ? 0 : Infinity,
-                                            repeatDelay: 3
-                                        }}
-                                    >
-                                        <Spa
-                                            sx={{
-                                                fontSize: 35,
-                                                color: 'primary.main',
-                                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-                                            }}
-                                        />
-                                    </motion.div>
-                                    <motion.div
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.2 }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                fontSize: 18,
-                                                fontWeight: 300,
-                                                color: '#1A1A1A',
-                                                letterSpacing: 3,
-                                                fontFamily: '"Varela Round", sans-serif',
-                                                transition: 'all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                                                display: { xs: 'none', sm: 'block' },
-                                                textTransform: 'uppercase'
-                                            }}
-                                        >
-                                            Leah Genish
-                                        </Box>
-                                    </motion.div>
+                                    />
                                 </Box>
                             </motion.div>
 
