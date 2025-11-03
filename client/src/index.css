@@ -17,19 +17,22 @@ html {
 }
 
 body {
-    font-family: 'Rubik', 'Varela Round', sans-serif;
+    font-family: 'Assistant', -apple-system, BlinkMacSystemFont, sans-serif;
     direction: rtl;
     text-align: right;
-    line-height: 1.6;
-    color: #2C2C2C;
-    background-color: #ffffff;
+    line-height: 1.8;
+    color: #1A1A1A;
+    background-color: #FAFAFA;
+    font-weight: 300;
+    letter-spacing: 0.3px;
     font-size: 1rem;
 }
 
 body[dir="ltr"] {
     direction: ltr;
     text-align: left;
-    font-family: 'Lora', 'Crimson Text', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
 }
 
 /* Scrollbar styling */

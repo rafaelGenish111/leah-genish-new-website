@@ -120,86 +120,78 @@ const theme = createTheme({
         htmlFontSize: 16,
         fontSize: 16,
         fontFamily: [
-            'Rubik',
-            'Varela Round',
+            'Assistant',
+            '-apple-system',
+            'BlinkMacSystemFont',
             'sans-serif'
         ].join(','),
         h1: {
-            fontFamily: [
-                'Rubik',
-                'Varela Round',
-                'sans-serif'
-            ].join(','),
+            fontFamily: "'Assistant', sans-serif",
             fontWeight: 300,
             fontSize: 'clamp(3rem, 8vw, 8rem)',
             lineHeight: 1.1,
-            letterSpacing: 1
+            letterSpacing: '0.02em'
         },
         h2: {
-            fontFamily: [
-                'Rubik',
-                'Varela Round',
-                'sans-serif'
-            ].join(','),
+            fontFamily: "'Assistant', sans-serif",
             fontWeight: 300,
             fontSize: 'clamp(2.5rem, 6vw, 4rem)',
             lineHeight: 1.2,
-            letterSpacing: 1
+            letterSpacing: '0.01em'
         },
         h3: {
-            fontFamily: [
-                'Rubik',
-                'Varela Round',
-                'sans-serif'
-            ].join(','),
+            fontFamily: "'Assistant', sans-serif",
             fontWeight: 400,
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             lineHeight: 1.3,
-            letterSpacing: 0.5
+            letterSpacing: '0.01em'
         },
         h4: {
-            fontFamily: [
-                'Rubik',
-                'Varela Round',
-                'sans-serif'
-            ].join(','),
+            fontFamily: "'Assistant', sans-serif",
             fontWeight: 400,
-            fontSize: '1.5rem',
-            lineHeight: 1.4
+            fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+            lineHeight: 1.4,
+            letterSpacing: '0.01em'
         },
         h5: {
-            fontFamily: [
-                'Rubik',
-                'Varela Round',
-                'sans-serif'
-            ].join(','),
-            fontWeight: 400,
-            fontSize: '1.25rem',
+            fontFamily: "'Assistant', sans-serif",
+            fontWeight: 500,
+            fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
             lineHeight: 1.5
         },
         h6: {
-            fontFamily: [
-                'Rubik',
-                'Varela Round',
-                'sans-serif'
-            ].join(','),
-            fontWeight: 400,
-            fontSize: '1rem',
+            fontFamily: "'Assistant', sans-serif",
+            fontWeight: 500,
+            fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
             lineHeight: 1.5
         },
         body1: {
+            fontFamily: "'Assistant', sans-serif",
             fontSize: '1.125rem',
             lineHeight: 2,
-            fontWeight: 300
+            fontWeight: 300,
+            letterSpacing: '0.3px'
         },
         body2: {
-            fontSize: '0.875rem',
-            lineHeight: 1.8
+            fontFamily: "'Assistant', sans-serif",
+            fontSize: '1rem',
+            lineHeight: 1.8,
+            fontWeight: 300,
+            letterSpacing: '0.3px'
         },
         button: {
+            fontFamily: "'Assistant', sans-serif",
             fontWeight: 400,
             textTransform: 'uppercase',
-            letterSpacing: 2
+            letterSpacing: '2px',
+            fontSize: '0.875rem'
+        },
+        caption: {
+            fontFamily: "'Assistant', sans-serif",
+            fontSize: '0.75rem',
+            lineHeight: 1.6,
+            fontWeight: 400,
+            letterSpacing: '1px'
         }
     },
     breakpoints: {
@@ -375,6 +367,64 @@ export const englishTheme = createTheme({
                 'Crimson Text',
                 'serif'
             ].join(',')
+        }
+    }
+});
+
+// English Theme - Cormorant Garamond
+export const englishTheme = createTheme({
+    ...theme,
+    typography: {
+        ...theme.typography,
+        fontFamily: [
+            'Cormorant Garamond',
+            'Georgia',
+            'serif'
+        ].join(','),
+        h1: {
+            ...theme.typography.h1,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 300
+        },
+        h2: {
+            ...theme.typography.h2,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 300
+        },
+        h3: {
+            ...theme.typography.h3,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 400
+        },
+        h4: {
+            ...theme.typography.h4,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 400
+        },
+        h5: {
+            ...theme.typography.h5,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 500
+        },
+        h6: {
+            ...theme.typography.h6,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 500
+        },
+        body1: {
+            ...theme.typography.body1,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 400
+        },
+        body2: {
+            ...theme.typography.body2,
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 400
+        },
+        button: {
+            ...theme.typography.button,
+            fontFamily: "'Assistant', sans-serif",
+            fontWeight: 500
         }
     }
 });
