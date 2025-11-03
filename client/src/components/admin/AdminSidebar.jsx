@@ -239,7 +239,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                                     >
                                         {item.icon}
                                     </ListItemIcon>
-                        {open && (
+                                    {open && (
                                         <ListItemText
                                             primary={item.title}
                                             primaryTypographyProps={{
@@ -342,7 +342,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                         <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
                             <SettingsIcon />
                         </ListItemIcon>
-                        {!isCollapsed && <ListItemText primary={t('admin.sidebar.settings')} />}
+                        {open && <ListItemText primary={t('admin.sidebar.settings')} />}
                     </ListItemButton>
 
                     <ListItemButton
@@ -360,7 +360,7 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                         <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
                             <LogoutIcon />
                         </ListItemIcon>
-                        {!isCollapsed && <ListItemText primary={t('admin.sidebar.logout')} />}
+                        {open && <ListItemText primary={t('admin.sidebar.logout')} />}
                     </ListItemButton>
                 </motion.div>
             </Box>
