@@ -165,12 +165,11 @@ const AdminHeader = ({ onMenuClick, sidebarOpen }) => {
             }}
         >
             <Toolbar sx={{ gap: 2 }}>
-                {/* Menu Button (Mobile) */}
+                {/* Menu Button */}
                 <IconButton
                     edge="start"
                     color="inherit"
                     onClick={onMenuClick}
-                    sx={{ display: { md: 'none' } }}
                 >
                     <MenuIcon />
                 </IconButton>

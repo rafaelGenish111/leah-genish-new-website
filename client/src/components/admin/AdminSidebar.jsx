@@ -13,8 +13,7 @@ import {
     Typography,
     Divider,
     Collapse,
-    Badge,
-    IconButton
+    Badge
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -30,9 +29,7 @@ import {
     ExpandMore,
     Spa,
     Schedule as ScheduleIcon,
-    Warning as WarningIcon,
-    ChevronLeft as ChevronLeftIcon,
-    ChevronRight as ChevronRightIcon
+    Warning as WarningIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -368,24 +365,6 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                 </motion.div>
             </Box>
 
-            {/* Toggle Button (Desktop only) */}
-            {!isMobile && (
-                <Box sx={{ p: 2, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
-                    <IconButton
-                        onClick={onClose}
-                        sx={{
-                            width: '100%',
-                            borderRadius: 0,
-                            color: 'text.secondary',
-                            '&:hover': {
-                                bgcolor: 'rgba(0,0,0,0.04)'
-                            }
-                        }}
-                    >
-                        {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
-                </Box>
-            )}
         </Box>
     );
 
@@ -407,7 +386,8 @@ const AdminSidebar = ({ open, onClose, isMobile }) => {
                 </Drawer>
             ) : (
                 <Drawer
-                    variant="permanent"
+                    variant="persistent"
+                    open={open}
                     PaperProps={{
                         sx: {
                             width: drawerWidth,

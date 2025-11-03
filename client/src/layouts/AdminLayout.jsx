@@ -13,7 +13,7 @@ const AdminLayout = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [sidebarOpen, setSidebarOpen] = useState(() => {
         const saved = localStorage.getItem('adminSidebarOpen');
-        return saved === null ? !isMobile : saved === 'true';
+        return saved === null ? false : saved === 'true';
     });
 
     // Close sidebar on mobile when route changes
@@ -36,7 +36,7 @@ const AdminLayout = () => {
     return (
         <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#FAFAFA' }}>
             {/* Sidebar */}
-            <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} isMobile={isMobile} />
+            <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(!sidebarOpen)} isMobile={isMobile} />
 
             {/* Main Content */}
             <Box
@@ -44,9 +44,7 @@ const AdminLayout = () => {
                 sx={{
                     flexGrow: 1,
                     minHeight: '100vh',
-                    transition: 'margin 0.3s ease, width 0.3s ease',
-                    ml: { md: 0 },
-                    width: { md: `calc(100% - ${sidebarOpen ? 280 : 80}px)` }
+                    transition: 'margin 0.3s ease'
                 }}
             >
                 {/* Header */}
