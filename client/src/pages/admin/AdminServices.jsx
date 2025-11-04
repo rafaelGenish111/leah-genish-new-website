@@ -232,8 +232,8 @@ const AdminServices = () => {
 
             {/* Message */}
             {message.text && (
-                <Alert 
-                    severity={message.type} 
+                <Alert
+                    severity={message.type}
                     onClose={() => setMessage({ type: '', text: '' })}
                     sx={{ mb: 3 }}
                 >
@@ -249,8 +249,8 @@ const AdminServices = () => {
                             whileHover={{ y: -5 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <Card 
-                                sx={{ 
+                            <Card
+                                sx={{
                                     height: '100%',
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -283,23 +283,23 @@ const AdminServices = () => {
                                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flex: 1 }}>
                                         {service.description_he?.substring(0, 100)}...
                                     </Typography>
-                                    
+
                                     <Box sx={{ display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap' }}>
-                                        <Chip 
-                                            label={`${service.duration} דקות`} 
+                                        <Chip
+                                            label={`${service.duration} דקות`}
                                             size="small"
                                             sx={{ borderRadius: 0 }}
                                         />
                                         {service.price && (
-                                            <Chip 
-                                                label={`${service.price}₪`} 
+                                            <Chip
+                                                label={`${service.price}₪`}
                                                 size="small"
                                                 color="primary"
                                                 sx={{ borderRadius: 0 }}
                                             />
                                         )}
-                                        <Chip 
-                                            label={service.active ? 'פעיל' : 'לא פעיל'} 
+                                        <Chip
+                                            label={service.active ? 'פעיל' : 'לא פעיל'}
                                             size="small"
                                             color={service.active ? 'success' : 'default'}
                                             sx={{ borderRadius: 0 }}
@@ -493,8 +493,8 @@ const AdminServices = () => {
                     <Button onClick={handleCloseDialog}>
                         ביטול
                     </Button>
-                    <Button 
-                        onClick={handleSave} 
+                    <Button
+                        onClick={handleSave}
                         variant="contained"
                         sx={{ bgcolor: 'primary.main' }}
                     >

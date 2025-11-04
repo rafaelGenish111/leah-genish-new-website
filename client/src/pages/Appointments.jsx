@@ -98,12 +98,12 @@ const Appointments = () => {
     const overrideUrl = computeUrl(eventParam);
     const rawUrl = (calendlyConfig.url || '').trim();
     const fallbackUrl = computeUrl(rawUrl);
-    let calendlyUrl = overrideUrl || (calendlyConfig.enabled ? fallbackUrl : '');
     const selectedService = services.find(s => s._id === selectedServiceId);
-    if (!overrideUrl && selectedService?.calendlyUrl) {
-        calendlyUrl = computeUrl(selectedService.calendlyUrl) || calendlyUrl;
-    }
-    if (!overrideUrl && calendlyConfig.enabled && !calendlyUrl && events && events.length > 0) {
+    const byService = selectedService?.calendlyUrl ? computeUrl(selectedService.calendlyUrl) : '';
+    let calendlyUrl = '';
+    // Priority: URL param > service > global > events list
+    calendlyUrl = overrideUrl || byService || (calendlyConfig.enabled ? fallbackUrl : '');
+    if (!overrideUrl && !byService && calendlyConfig.enabled && !calendlyUrl && events && events.length > 0) {
         const chosen = events[selectedEventIndex] || events[0];
         calendlyUrl = (chosen?.url || '').trim();
     }
@@ -163,8 +163,8 @@ const Appointments = () => {
                     </Box>
                 )}
 
-                {/* Event selector (optional) */}
-                {(!overrideUrl && calendlyConfig.enabled && events && events.length > 0) && (
+                {/* Event selector (optional) - מציגים רק אם אין מוצרים */}
+                {(!overrideUrl && calendlyConfig.enabled && (!services || services.length === 0) && events && events.length > 0) && (
                     <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
                         {events.map((ev, idx) => (
                             <Button
