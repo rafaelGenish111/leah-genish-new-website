@@ -7,12 +7,14 @@ import {
     Box,
     Card,
     Alert,
-    Button
+    Button,
+    Chip
 } from '@mui/material';
 import { PhoneInTalk as PhoneIcon, WhatsApp as WhatsAppIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { InlineWidget } from 'react-calendly';
 import SEO from '../components/common/SEO.jsx';
+import { servicesService } from '../services/servicesService.js';
 
 const Appointments = () => {
     const { t } = useTranslation();
@@ -38,6 +40,8 @@ const Appointments = () => {
         }
     });
     const [selectedEventIndex, setSelectedEventIndex] = useState(0);
+    const [services, setServices] = useState([]);
+    const [selectedServiceId, setSelectedServiceId] = useState('');
 
     // Listen for config updates from admin panel
     useEffect(() => {
@@ -52,11 +56,27 @@ const Appointments = () => {
             try {
                 const raw = localStorage.getItem('calendly_events');
                 setEvents(raw ? JSON.parse(raw) : []);
-            } catch (_) {}
+            } catch (_) { }
         };
 
         window.addEventListener('calendly-config-updated', handleConfigUpdate);
         return () => window.removeEventListener('calendly-config-updated', handleConfigUpdate);
+    }, []);
+
+    // Load active services for product selection
+    useEffect(() => {
+        const load = async () => {
+            try {
+                const data = await servicesService.getActiveServices();
+                setServices(data);
+                if (data && data.length > 0) {
+                    setSelectedServiceId(data[0]._id);
+                }
+            } catch (e) {
+                setServices([]);
+            }
+        };
+        load();
     }, []);
 
     // If event param is present, it overrides the default URL
@@ -79,6 +99,10 @@ const Appointments = () => {
     const rawUrl = (calendlyConfig.url || '').trim();
     const fallbackUrl = computeUrl(rawUrl);
     let calendlyUrl = overrideUrl || (calendlyConfig.enabled ? fallbackUrl : '');
+    const selectedService = services.find(s => s._id === selectedServiceId);
+    if (!overrideUrl && selectedService?.calendlyUrl) {
+        calendlyUrl = computeUrl(selectedService.calendlyUrl) || calendlyUrl;
+    }
     if (!overrideUrl && calendlyConfig.enabled && !calendlyUrl && events && events.length > 0) {
         const chosen = events[selectedEventIndex] || events[0];
         calendlyUrl = (chosen?.url || '').trim();
@@ -112,6 +136,32 @@ const Appointments = () => {
                         </Typography>
                     </Box>
                 </motion.div>
+
+                {/* Products (Services) selector */}
+                {services && services.length > 0 && (
+                    <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
+                        {services.map((s) => (
+                            <Button
+                                key={s._id}
+                                variant={s._id === selectedServiceId ? 'contained' : 'outlined'}
+                                onClick={() => setSelectedServiceId(s._id)}
+                                sx={{ borderRadius: 0 }}
+                            >
+                                {s.name_he}
+                            </Button>
+                        ))}
+                    </Box>
+                )}
+
+                {/* Selected product details */}
+                {selectedService && (
+                    <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 2, flexWrap: 'wrap' }}>
+                        <Chip label={`${selectedService.duration} דקות`} size="small" />
+                        {selectedService.price ? (
+                            <Chip label={`${selectedService.price}₪`} size="small" color="primary" />
+                        ) : null}
+                    </Box>
+                )}
 
                 {/* Event selector (optional) */}
                 {(!overrideUrl && calendlyConfig.enabled && events && events.length > 0) && (

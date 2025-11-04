@@ -156,3 +156,77 @@ export const deleteService = async (req, res, next) => {
         next(error);
     }
 };
+
+// Seed default services (admin only) - idempotent
+export const seedDefaultServices = async (req, res, next) => {
+    try {
+        const existingCount = await Service.countDocuments();
+        if (existingCount > 0) {
+            return res.json({ success: true, message: 'Services already exist. No seeding performed.' });
+        }
+
+        const defaults = [
+            {
+                name_he: 'עיסוי שעה',
+                name_en: 'Massage 60min',
+                description_he: 'עיסוי מלא ומרגיע למשך שעה.',
+                description_en: 'Full body relaxing massage for 60 minutes.',
+                duration: 60,
+                price: 0,
+                active: true,
+                order: 1,
+                calendlyUrl: ''
+            },
+            {
+                name_he: 'עיסוי שעה וחצי',
+                name_en: 'Massage 90min',
+                description_he: 'עיסוי מעמיק ומקיף למשך שעה וחצי.',
+                description_en: 'Deep and comprehensive massage for 90 minutes.',
+                duration: 90,
+                price: 0,
+                active: true,
+                order: 2,
+                calendlyUrl: ''
+            },
+            {
+                name_he: 'עיסוי שעתיים',
+                name_en: 'Massage 120min',
+                description_he: 'עיסוי ארוך במיוחד לשחרור מלא של הגוף.',
+                description_en: 'Extended massage for full body release (120 minutes).',
+                duration: 120,
+                price: 0,
+                active: true,
+                order: 3,
+                calendlyUrl: ''
+            },
+            {
+                name_he: 'רפלקסולוגיה שעה',
+                name_en: 'Reflexology 60min',
+                description_he: 'טיפול רפלקסולוגיה ממוקד למשך שעה.',
+                description_en: 'Focused reflexology session for 60 minutes.',
+                duration: 60,
+                price: 0,
+                active: true,
+                order: 4,
+                calendlyUrl: ''
+            },
+            {
+                name_he: 'נרות הופי',
+                name_en: 'Hopi Ear Candles',
+                description_he: 'טיפול נרות הופי עדין ומרגיע.',
+                description_en: 'Gentle and calming Hopi ear candle treatment.',
+                duration: 30,
+                price: 0,
+                active: true,
+                order: 5,
+                calendlyUrl: ''
+            }
+        ];
+
+        await Service.insertMany(defaults);
+        const services = await Service.find().sort({ order: 1, createdAt: 1 });
+        res.status(201).json({ success: true, message: 'Default services seeded', data: { services } });
+    } catch (error) {
+        next(error);
+    }
+};

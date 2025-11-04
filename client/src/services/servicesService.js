@@ -61,5 +61,11 @@ export const servicesService = {
     deleteService: async (id) => {
         const response = await api.delete(`/services/${id}`);
         return response.data;
+    },
+
+    // Seed default services (admin)
+    seedDefaults: async () => {
+        const response = await api.post('/services/admin/seed-defaults');
+        return response.data.data?.services || [];
     }
 };

@@ -200,18 +200,34 @@ const AdminServices = () => {
                         {services.length} שירותים במערכת
                     </Typography>
                 </Box>
-                <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={() => handleOpenDialog()}
-                    sx={{
-                        background: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
-                        borderRadius: 0,
-                        px: 4
-                    }}
-                >
-                    הוסף שירות
-                </Button>
+                <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Button
+                        variant="outlined"
+                        onClick={async () => {
+                            try {
+                                const seeded = await servicesService.seedDefaults();
+                                setServices(seeded);
+                                setMessage({ type: 'success', text: 'נוצרו טיפולי ברירת מחדל' });
+                            } catch (e) {
+                                setMessage({ type: 'error', text: 'שגיאה ביצירת טיפולי ברירת מחדל' });
+                            }
+                        }}
+                    >
+                        הוספת טיפולי ברירת מחדל
+                    </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<AddIcon />}
+                        onClick={() => handleOpenDialog()}
+                        sx={{
+                            background: 'linear-gradient(135deg, #D4B5B0 0%, #C9A9A4 100%)',
+                            borderRadius: 0,
+                            px: 4
+                        }}
+                    >
+                        הוסף שירות
+                    </Button>
+                </Box>
             </Box>
 
             {/* Message */}
