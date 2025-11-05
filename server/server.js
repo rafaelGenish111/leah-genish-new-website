@@ -69,9 +69,11 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Global request timeout (only when supported by the runtime)
+// Global request timeout (avoid in serverless/Vercel runtime)
 app.use((req, res, next) => {
-    if (typeof res.setTimeout === 'function') {
+    const isServerless = Boolean(process.env.VERCEL);
+    const canSetTimeout = typeof res.setTimeout === 'function' && res.socket && typeof res.socket.setTimeout === 'function';
+    if (!isServerless && canSetTimeout) {
         // 25s timeout
         res.setTimeout(25_000, () => {
             if (!res.headersSent) {
