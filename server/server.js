@@ -27,6 +27,9 @@ connectDB();
 const app = express();
 
 // Security middleware
+// Trust the first proxy (e.g., Vercel) so req.ip is set correctly
+app.set('trust proxy', 1);
+
 app.use(helmet());
 
 // CORS configuration
@@ -44,6 +47,19 @@ const limiter = rateLimit({
     message: {
         success: false,
         message: 'Too many requests from this IP, please try again later'
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    skipFailedRequests: true,
+    keyGenerator: (req) => {
+        const xff = req.headers['x-forwarded-for'];
+        if (typeof xff === 'string' && xff.length > 0) {
+            return xff.split(',')[0].trim();
+        }
+        if (Array.isArray(xff) && xff.length > 0) {
+            return String(xff[0]).split(',')[0].trim();
+        }
+        return (req.ip || req.connection?.remoteAddress || req.socket?.remoteAddress || 'unknown');
     }
 });
 
@@ -52,6 +68,17 @@ app.use(limiter);
 // Body parser middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Global request timeout (fail fast before Vercel max duration)
+app.use((req, res, next) => {
+    // 25s timeout
+    res.setTimeout(25_000, () => {
+        if (!res.headersSent) {
+            res.status(504).json({ success: false, message: 'Request timed out' });
+        }
+    });
+    next();
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {

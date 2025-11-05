@@ -26,7 +26,18 @@ const loginLimiter = rateLimit({
         message: 'Too many login attempts, please try again later'
     },
     standardHeaders: true,
-    legacyHeaders: false
+    legacyHeaders: false,
+    skipFailedRequests: true,
+    keyGenerator: (req) => {
+        const xff = req.headers['x-forwarded-for'];
+        if (typeof xff === 'string' && xff.length > 0) {
+            return xff.split(',')[0].trim();
+        }
+        if (Array.isArray(xff) && xff.length > 0) {
+            return String(xff[0]).split(',')[0].trim();
+        }
+        return (req.ip || req.connection?.remoteAddress || req.socket?.remoteAddress || 'unknown');
+    }
 });
 
 // Rate limiting for registration
@@ -36,6 +47,19 @@ const registerLimiter = rateLimit({
     message: {
         success: false,
         message: 'Too many registration attempts, please try again later'
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    skipFailedRequests: true,
+    keyGenerator: (req) => {
+        const xff = req.headers['x-forwarded-for'];
+        if (typeof xff === 'string' && xff.length > 0) {
+            return xff.split(',')[0].trim();
+        }
+        if (Array.isArray(xff) && xff.length > 0) {
+            return String(xff[0]).split(',')[0].trim();
+        }
+        return (req.ip || req.connection?.remoteAddress || req.socket?.remoteAddress || 'unknown');
     }
 });
 

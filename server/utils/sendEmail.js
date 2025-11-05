@@ -4,10 +4,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Decide transport according to environment/credentials
-// In development, prefer mock transport unless explicitly forced
+// Allow disabling real email sending even in production via EMAIL_DISABLE
 const useMockTransport = (
-  process.env.NODE_ENV !== 'production' &&
-  process.env.EMAIL_FORCE !== 'true'
+  process.env.EMAIL_DISABLE === 'true' ||
+  (process.env.NODE_ENV !== 'production' && process.env.EMAIL_FORCE !== 'true')
 );
 
 // Create transporter (mock in dev without creds)
@@ -21,8 +21,8 @@ const transporter = useMockTransport
     }
   });
 
-// Verify transporter configuration (only for real transport)
-if (!useMockTransport) {
+// Verify transporter configuration (only for real transport and when explicitly enabled)
+if (!useMockTransport && process.env.EMAIL_VERIFY === 'true') {
   transporter.verify((error) => {
     if (error) {
       console.error('Email transporter error:', error);
@@ -31,7 +31,8 @@ if (!useMockTransport) {
     }
   });
 } else {
-  console.log('Email mock transport active (dev mode, no real emails will be sent)');
+  const reason = process.env.EMAIL_DISABLE === 'true' ? 'EMAIL_DISABLE=true' : 'dev mode';
+  console.log(`Email mock transport active (${reason}, no real emails will be sent)`);
 }
 
 // Email templates
