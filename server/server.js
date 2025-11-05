@@ -32,13 +32,38 @@ app.set('trust proxy', 1);
 
 app.use(helmet());
 
-// CORS configuration
-app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3030',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// CORS configuration (dynamic)
+const allowedOrigins = (
+    process.env.CLIENT_URLS?.split(',').map(s => s.trim()).filter(Boolean)
+    || []
+);
+if (process.env.CLIENT_URL) {
+    allowedOrigins.push(process.env.CLIENT_URL);
+}
+const corsOpen = process.env.CORS_ALLOW_ALL === 'true';
+
+const corsOptions = corsOpen
+    ? {
+        origin: true, // reflect request origin
+        credentials: false, // cannot use '*' with credentials
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        optionsSuccessStatus: 204
+    }
+    : {
+        origin: function(origin, callback) {
+            if (!origin) return callback(null, true); // allow non-browser clients
+            if (allowedOrigins.includes(origin)) return callback(null, true);
+            return callback(new Error('Not allowed by CORS'));
+        },
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        optionsSuccessStatus: 204
+    };
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Rate limiting
 const limiter = rateLimit({
