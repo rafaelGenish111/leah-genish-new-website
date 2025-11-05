@@ -3,15 +3,34 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectDB = async () => {
-    try {
-        const conn = await mongoose.connect(process.env.MONGODB_URI);
+// Cache connection across serverless invocations
+let cached = global.__mongooseConnection;
+if (!cached) {
+    cached = global.__mongooseConnection = { conn: null, promise: null };
+}
 
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
-    } catch (error) {
-        console.error('Database connection error:', error.message);
-        process.exit(1);
+const connectDB = async () => {
+    if (cached.conn) return cached.conn;
+
+    if (!cached.promise) {
+        // Disable buffering to fail fast if not connected
+        mongoose.set('bufferCommands', false);
+
+        cached.promise = mongoose
+            .connect(process.env.MONGODB_URI)
+            .then((conn) => {
+                cached.conn = conn;
+                console.log(`MongoDB Connected: ${conn.connection.host}`);
+                return conn;
+            })
+            .catch((error) => {
+                cached.promise = null;
+                console.error('Database connection error:', error.message);
+                throw error;
+            });
     }
+
+    return cached.promise;
 };
 
 // Handle connection events
@@ -24,10 +43,12 @@ mongoose.connection.on('error', (err) => {
 });
 
 // Graceful shutdown
-process.on('SIGINT', async () => {
-    await mongoose.connection.close();
-    console.log('MongoDB connection closed through app termination');
-    process.exit(0);
-});
+if (process.env.NODE_ENV !== 'production') {
+    process.on('SIGINT', async () => {
+        await mongoose.connection.close();
+        console.log('MongoDB connection closed through app termination');
+        process.exit(0);
+    });
+}
 
 export default connectDB;

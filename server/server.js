@@ -21,8 +21,7 @@ import adminRoutes from './routes/admin.js';
 // Load environment variables
 dotenv.config();
 
-// Connect to database
-connectDB();
+// Do not connect immediately in serverless; connect lazily per API request
 
 const app = express();
 
@@ -120,6 +119,16 @@ app.get('/health', (req, res) => {
 });
 
 // API routes
+// Ensure DB connection for API routes
+app.use('/api', async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/articles', articlesRoutes);
 app.use('/api/appointments', appointmentsRoutes);
