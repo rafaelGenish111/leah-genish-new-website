@@ -31,35 +31,41 @@ app.set('trust proxy', 1);
 
 app.use(helmet());
 
-// CORS configuration (dynamic)
-const allowedOrigins = (
-    process.env.CLIENT_URLS?.split(',').map(s => s.trim()).filter(Boolean)
-    || []
-);
+// CORS configuration (permissive by default in production, strict in dev)
+const allowedOrigins = [];
 if (process.env.CLIENT_URL) {
     allowedOrigins.push(process.env.CLIENT_URL);
 }
-const corsOpen = process.env.CORS_ALLOW_ALL === 'true';
+if (process.env.CLIENT_URLS) {
+    allowedOrigins.push(...process.env.CLIENT_URLS.split(',').map(s => s.trim()).filter(Boolean));
+}
 
-const corsOptions = corsOpen
-    ? {
-        origin: true, // reflect request origin
-        credentials: false, // cannot use '*' with credentials
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        optionsSuccessStatus: 204
-    }
-    : {
-        origin: function(origin, callback) {
-            if (!origin) return callback(null, true); // allow non-browser clients
-            if (allowedOrigins.includes(origin)) return callback(null, true);
+// Default to open CORS if no specific origins configured
+const useOpenCors = allowedOrigins.length === 0;
+
+const corsOptions = {
+    origin: useOpenCors 
+        ? true  // Allow all origins
+        : function(origin, callback) {
+            // Allow requests with no origin (mobile apps, curl, etc)
+            if (!origin) return callback(null, true);
+            
+            if (allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+            
+            // In development, allow localhost
+            if (process.env.NODE_ENV !== 'production' && origin.includes('localhost')) {
+                return callback(null, true);
+            }
+            
             return callback(new Error('Not allowed by CORS'));
         },
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        optionsSuccessStatus: 204
-    };
+    credentials: !useOpenCors, // credentials only when using specific origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 204
+};
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
