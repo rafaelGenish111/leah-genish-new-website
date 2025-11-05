@@ -69,14 +69,16 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Global request timeout (fail fast before Vercel max duration)
+// Global request timeout (only when supported by the runtime)
 app.use((req, res, next) => {
-    // 25s timeout
-    res.setTimeout(25_000, () => {
-        if (!res.headersSent) {
-            res.status(504).json({ success: false, message: 'Request timed out' });
-        }
-    });
+    if (typeof res.setTimeout === 'function') {
+        // 25s timeout
+        res.setTimeout(25_000, () => {
+            if (!res.headersSent) {
+                res.status(504).json({ success: false, message: 'Request timed out' });
+            }
+        });
+    }
     next();
 });
 
